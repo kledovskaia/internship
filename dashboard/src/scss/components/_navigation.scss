@@ -1,0 +1,53 @@
+.navigation {
+  color: $neutral-light;
+  width: $sidebar-mobule-width;
+  padding: 2.4rem 1.6rem;
+  background: $neutral-dark;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  &__list-item + &__list-item {
+    margin-top: 0.5rem;
+  }
+
+  &__icon {
+    @include icon(1.6rem, 2.2rem);
+  }
+
+  &__link {
+    font-size: $fz-m;
+    padding: 1.2rem;
+    display: flex;
+    border-radius: $border-radius;
+    transition: background-color $duration, color $duration;
+
+    & > * + * {
+      margin-left: 0.5rem;
+    }
+
+    &:hover,
+    &:focus,
+    &--active {
+      color: $main-secondary;
+      background-color: rgba(255, 255, 255, 0.08);
+      svg {
+        fill: $main-secondary;
+      }
+    }
+  }
+
+
+  &__label {
+    display: none;
+  }
+
+  @media screen and (min-width: 80em) {
+    width: $sidebar-desktop-width;
+
+    &__label {
+      display: inline-block;
+    }
+  }
+}

@@ -37,4 +37,11 @@
 // |
 // `– main.scss              // Main Sass
 
-@import './base/reset';
+@import './variables';
+@import './reset';
+@import './typography';
+@import './mixins';
+
+@import "./layout/page";
+@import './components/navigation';
+@import './components/header';

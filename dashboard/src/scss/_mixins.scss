@@ -1,0 +1,26 @@
+@mixin icon($height, $width, $fill: $neutral-light) {
+  max-height: $height;
+  max-width: $width;
+  @include flex-center;
+  
+  svg {
+    height: 100%;
+    width: 100%;
+    fill: $fill;
+    transition: fill $duration;
+    @include flex-center;
+  }
+}
+
+@mixin reset-button {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  font-family: inherit;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
