@@ -1,0 +1,15 @@
+.radio-group {
+  ul {
+    padding: 1.5rem 0 0;
+    li {
+      padding: 1rem;
+
+      label {
+        display: flex;
+        & > * + * {
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+}

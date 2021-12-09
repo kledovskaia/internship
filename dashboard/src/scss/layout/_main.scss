@@ -1,0 +1,23 @@
+.main {
+  padding: 6.4rem 2.4rem;
+  overflow-y: auto;
+
+  &__grid {
+    display: grid;
+    gap: 3.2rem;
+  }
+  &__grid-cell {
+    &--small {
+      grid-column: span 3;
+    }
+    &--medium {
+      grid-column: span 4;
+    }
+    &--large {
+      grid-column: span 9;
+    }
+    &--full {
+      grid-column: span 12;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  & > * + * {
+    margin-top: 2.6rem;
+  }
+
+  &__field {
+    position: relative;
+
+    label {
+      line-height: 1;
+      padding: 0.25rem;
+      font-size: $fz-s;
+      background-color: $main-primary;
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      z-index: -1;
+      opacity: 0;
+      transform: translateY(-50%);
+      transition: opacity $duration, top $duration;
+    }
+    input {
+      padding: 1.5rem;
+      border: 0.1rem solid $lightest;
+      border-radius: $border-radius;
+      width: 100%;
+
+      &::placeholder {
+        transition: color $duration;
+      }
+      &:focus {
+        &::placeholder {
+          color: $transparent;
+        }
+      }
+
+      &:focus + label,
+      &:not(:placeholder-shown) + label {
+        top: -1rem;
+        z-index: 1;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  &__button {
+    @include button;
+  }
+}

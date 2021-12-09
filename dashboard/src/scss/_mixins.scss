@@ -2,13 +2,39 @@
   max-height: $height;
   max-width: $width;
   @include flex-center;
-  
+
   svg {
     height: 100%;
     width: 100%;
     fill: $fill;
     transition: fill $duration;
-    @include flex-center;
+  }
+}
+
+@mixin button($bg-color: $reserved-primary, $color: $main-primary) {
+  @include flex-center;
+  font-weight: 600;
+  padding: 1.1rem;
+  border: 0;
+  border-radius: $border-radius;
+
+  font-size: $fz-m;
+  color: $color;
+  background-color: $bg-color;
+
+  transition: background-color $duration;
+
+  svg {
+    fill: $color;
+    max-height: 2rem;
+    max-width: 2rem;
+  }
+
+  @content;
+
+  &:hover,
+  &:focus {
+    background-color: rgba($bg-color, 0.9);
   }
 }
 

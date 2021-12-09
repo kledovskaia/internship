@@ -42,6 +42,17 @@
 @import './typography';
 @import './mixins';
 
-@import "./layout/page";
+@import './pages/error';
+
+@import './layout/page';
+@import './layout/main';
+@import './layout/auth-container';
+
 @import './components/navigation';
 @import './components/header';
+@import './components/auth';
+@import './components/form';
+@import './components/return-button';
+@import './components/return-link';
+@import './components/card';
+@import './components/radio-group';

@@ -1,0 +1,53 @@
+.auth {
+  font-size: $fz-m;
+  color: $text-secondary;
+  background-color: $main-primary;
+  padding: 4rem 2.4rem;
+  box-shadow: 0px 4px 6px -2px rgba(100, 116, 139, 0.05),
+    0px 10px 15px -3px rgba(100, 116, 139, 0.12);
+  border-radius: $border-radius;
+
+  & > * + * {
+    margin-top: 2rem;
+  }
+
+  &__heading {
+    font-weight: 700;
+    font-size: 3.2rem;
+    color: $text-primary;
+  }
+
+  &__socials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.6rem;
+  }
+
+  &__button {
+    padding: 1.1rem;
+    text-align: center;
+    @include flex-center;
+    &--facebook {
+      @include button($info);
+    }
+    &--google {
+      @include button($error);
+    }
+  }
+  &__icon {
+    @include flex-center;
+    margin-right: 0.8rem;
+  }
+
+  &__text {
+    &--centered {
+      text-align: center;
+    }
+  }
+
+  &__link {
+    color: $reserved-primary;
+    font-weight: 500;
+    text-decoration: underline;
+  }
+}

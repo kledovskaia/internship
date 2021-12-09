@@ -1,0 +1,50 @@
+.card {
+  background-color: $main-primary;
+  border-radius: $border-radius;
+  box-shadow: 0px 1px 1px rgba(100, 116, 139, 0.06),
+    0px 1px 2px rgba(100, 116, 139, 0.1);
+
+  &__header {
+    padding: 3.2rem 2.4rem 2.4rem;
+    & > * + * {
+      margin-top: 0.5rem;
+    }
+
+    h3 {
+      font-size: $fz-xl;
+    }
+    p {
+      font-size: $fz-m;
+      color: $text-secondary;
+    }
+    border-bottom: 0.1rem solid $lightest;
+  }
+  &__body {
+    padding: 3.2rem 2.4rem;
+  }
+  &__footer {
+    padding: 1.6rem;
+    border-top: 0.1rem solid $lightest;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    &--space-between {
+      justify-content: space-between;
+    }
+  }
+
+  &__button {
+    padding: 0.8rem 2rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    gap: 3.2rem;
+  }
+  &__grid-cell {
+    &--small {
+      grid-column: span 3;
+    }
+  }
+}

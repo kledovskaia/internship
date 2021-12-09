@@ -1,0 +1,5 @@
+.dashboard {
+  padding: 2.4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 40rem))
+}
