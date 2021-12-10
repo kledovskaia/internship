@@ -6,10 +6,27 @@
     margin-top: 2.6rem;
   }
 
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media screen and (min-width: 50em) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    & > .form__field {
+      margin: 0;
+    }
+  }
+
   &__field {
     position: relative;
-
-    label {
+    label,
+    .form__select-label,
+    .form__search-label {
+      color: rgba($text-secondary, 0.9);
+      font-weight: 400;
       line-height: 1;
       padding: 0.25rem;
       font-size: $fz-s;
@@ -22,13 +39,17 @@
       transform: translateY(-50%);
       transition: opacity $duration, top $duration;
     }
-    input {
+    input,
+    select {
+      font-size: $fz-l;
+      background-color: $main-primary;
       padding: 1.5rem;
       border: 0.1rem solid $lightest;
       border-radius: $border-radius;
       width: 100%;
 
       &::placeholder {
+        color: $text-primary;
         transition: color $duration;
       }
       &:focus {
@@ -36,13 +57,48 @@
           color: $transparent;
         }
       }
+    }
 
+    input {
       &:focus + label,
-      &:not(:placeholder-shown) + label {
+      &:not(:placeholder-shown) + label,
+      &[type='search'] + label {
         top: -1rem;
         z-index: 1;
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+    .form__select-label {
+      pointer-events: none;
+      padding: 0.5rem 0.75rem;
+      font-size: $fz-m;
+      transition: opacity $duration, top $duration, font-size $duration;
+      z-index: 1;
+      opacity: 1;
+    }
+
+    select:valid + .form__select-label {
+      top: -1rem;
+      font-size: $fz-s;
+      transform: translateY(0);
+    }
+
+    &--search {
+      max-width: 50rem;
+      position: relative;
+
+      input {
+        padding-left: 4rem;
+      }
+
+      svg {
+        fill: $text-secondary;
+        max-width: 1.8rem;
+        position: absolute;
+        top: 50%;
+        left: 1.5rem;
+        transform: translateY(-50%);
       }
     }
   }

@@ -21,8 +21,13 @@
   }
   &__body {
     padding: 3.2rem 2.4rem;
+
+    & > * + * {
+      margin-top: 1.5rem;
+    }
   }
   &__footer {
+    margin: 0;
     padding: 1.6rem;
     border-top: 0.1rem solid $lightest;
     display: flex;

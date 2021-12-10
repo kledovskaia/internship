@@ -41,6 +41,7 @@
 @import './reset';
 @import './typography';
 @import './mixins';
+@import './utils';
 
 @import './pages/error';
 
@@ -52,7 +53,9 @@
 @import './components/header';
 @import './components/auth';
 @import './components/form';
-@import './components/return-button';
-@import './components/return-link';
+@import './components/button';
 @import './components/card';
 @import './components/radio-group';
+@import './components/profile';
+@import './components/product';
+@import './components/pagination';

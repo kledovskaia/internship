@@ -1,0 +1,31 @@
+.profile {
+  text-align: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__avatar {
+    height: 6.4rem;
+    border-radius: 50%;
+  }
+  &__name {
+  }
+  &__text {
+    font-size: $fz-m;
+    font-style: normal;
+    color: $text-secondary;
+    &:first-of-type + * {
+      padding-top: 0.25rem;
+    }
+  }
+  &__button {
+    @include reset-button;
+
+    &--upload {
+      font-weight: 600;
+      color: $reserved-primary;
+    }
+  }
+}

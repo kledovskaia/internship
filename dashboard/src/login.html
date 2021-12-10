@@ -12,8 +12,11 @@
   <body>
     <div class="auth-container">
       <section class="auth auth-container__inner">
-        <a class="return-link auth__return-link" href="./index.html">
-          <span class="return-link__icon"
+        <a
+          class="button button--secondary auth__button button-secondary"
+          href="./index.html"
+        >
+          <span class="button button-secondary__icon"
             ><svg
               preserveAspectRatio="xMinYMin meet"
               viewBox="0 0 20 16"
@@ -58,11 +61,11 @@
         </p>
         <form class="auth__form form">
           <div class="form__field">
-            <input type="email" placeholder="Email Address" />
+            <input type="email" placeholder="Email Address" name="email" />
             <label>Email Address</label>
           </div>
           <div class="form__field">
-            <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Password" name="password" />
             <label>Password</label>
           </div>
           <button class="form__button">Sign in</button>

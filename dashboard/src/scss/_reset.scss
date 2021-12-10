@@ -29,3 +29,11 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+input,
+select,
+option,
+button,
+::placeholder {
+  font-family: inherit;
+}

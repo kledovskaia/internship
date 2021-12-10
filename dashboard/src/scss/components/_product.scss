@@ -1,0 +1,45 @@
+.product {
+  text-align: center;
+  &__description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      max-width: 4rem;
+    }
+
+    h3 {
+      font-weight: 600;
+    }
+  }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 30em) {
+      p {
+        flex-basis: 15rem;
+        flex-grow: 1;
+        justify-content: center;
+      }
+      & > * + * {
+        padding-top: 0.5rem;
+      }
+    }
+
+    p {
+      font-size: $fz-m;
+      color: $text-secondary;
+      display: flex;
+      align-items: center;
+
+      svg {
+        fill: $text-secondary;
+        max-width: 2rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
