@@ -5,17 +5,48 @@
 
   font-size: $fz-m;
 
-  &__icon-cell {
-    display: inline-flex;
-    align-items: center;
-
-    & > * + * {
-      margin-left: 1rem;
+  &__status-cell {
+    span {
+      line-height: 1;
+      display: inline-block;
+      color: $main-primary;
+      border-radius: 5rem;
+      padding: 0.8rem;
+      font-size: $fz-s;
+      font-weight: 600;
+      text-transform: uppercase;
     }
 
-    svg {
-      fill: $text-secondary;
-      max-width: 1.2rem;
+    &--pending {
+      span {
+        background-color: $warning;
+      }
+    }
+    &--delivered {
+      span {
+        background-color: $success;
+      }
+    }
+    &--refunded {
+      span {
+        background-color: $error;
+      }
+    }
+  }
+
+  &__icon-cell {
+    div {
+      display: flex;
+      align-items: center;
+
+      & > * + * {
+        margin-left: 1rem;
+      }
+
+      svg {
+        fill: $text-secondary;
+        max-width: 1.2rem;
+      }
     }
   }
 
@@ -40,9 +71,18 @@
   }
 
   th {
-    padding: 1rem 1.6rem;
     font-size: $fz-s;
     text-align: left;
+  }
+  &--info {
+    th {
+      padding: 1rem 1.6rem;
+    }
+  }
+  &--status {
+    th {
+      padding: 1.6rem;
+    }
   }
 
   thead {
@@ -58,9 +98,7 @@
       font-style: inherit;
     }
   }
-
   @media only screen and (max-width: 68em) {
-    /* Force table to not be like tables anymore */
     thead,
     tbody,
     th,
@@ -83,9 +121,9 @@
     }
 
     td:before {
-      /* Now like a table header */
+      font-weight: bold;
+      font-size: $fz-s;
       position: absolute;
-      /* Top/left values mimic padding */
       top: 50%;
       left: 6px;
       width: 45%;
@@ -96,24 +134,36 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    /*
-	Label the data
-	*/
-    td:nth-of-type(1):before {
-      content: 'NAME';
+    &--status {
+      td:nth-of-type(1):before {
+        content: 'ORDER REF';
+      }
+      td:nth-of-type(2):before {
+        content: 'CUSTOMER';
+      }
+      td:nth-of-type(3):before {
+        content: 'DATE';
+      }
+      td:nth-of-type(4):before {
+        content: 'STATUS';
+      }
     }
-    td:nth-of-type(2):before {
-      content: 'EMAIL';
-    }
-    td:nth-of-type(3):before {
-      content: 'LOCATION';
-    }
-    td:nth-of-type(4):before {
-      content: 'PHONE';
-    }
-    td:nth-of-type(5):before {
-      content: 'REGISTRATION DATE';
+    &--info {
+      td:nth-of-type(1):before {
+        content: 'NAME';
+      }
+      td:nth-of-type(2):before {
+        content: 'EMAIL';
+      }
+      td:nth-of-type(3):before {
+        content: 'LOCATION';
+      }
+      td:nth-of-type(4):before {
+        content: 'PHONE';
+      }
+      td:nth-of-type(5):before {
+        content: 'REGISTRATION DATE';
+      }
     }
   }
 

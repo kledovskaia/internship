@@ -1,0 +1,43 @@
+.products-list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  & > * + * {
+    border-top: 0.1rem solid $light;
+  }
+
+  li {
+    flex: 1;
+    margin: 0;
+    padding: 1.6rem;
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    column-gap: 1.6rem;
+
+    img {
+      grid-row: 1 / -1;
+    }
+    h4 {
+      font-weight: normal;
+      grid-column: 2 / 3;
+    }
+    p {
+      font-size: $fz-m;
+      color: $text-secondary;
+      grid-column: 2 / 3;
+    }
+    button {
+      grid-column: 3 / -1;
+      grid-row: 1 / -1;
+
+      @include reset-button;
+
+      svg {
+        max-width: 0.4rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+.statistic {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-template-rows: repeat(auto-fill, min-content);
+
+  svg {
+    max-width: 2rem;
+  }
+  &__heading {
+    font-size: $fz-s;
+    color: $text-secondary;
+    grid-column: 1 / 2;
+  }
+  &__data {
+    margin-top: 0.3rem;
+    font-weight: 700;
+    grid-column: 1 / 2;
+    font-size: $fz-xxl;
+  }
+  &__trend {
+    font-size: $fz-s;
+    grid-column: 1 / 2;
+    color: $text-secondary;
+
+    &--negative {
+      .statistic__indicator {
+        color: $error;
+
+        svg {
+          fill: $error;
+        }
+      }
+    }
+  }
+  &__progress-bar {
+    grid-column: 1 / -1;
+    height: 0.4rem;
+    background-color: rgba($reserved-primary, 0.45);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background-color: $reserved-primary;
+    }
+    @for $i from 1 to 100 {
+      &--#{$i}::after {
+        width: calc(#{$i} * 1%);
+      }
+    }
+  }
+  &__icon-container {
+    margin: 0;
+    justify-self: center;
+    height: 6.4rem;
+    width: 6.4rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    grid-row: 1 / 2;
+    grid-column: 2 / -1;
+
+    img {
+      max-width: 2.4rem;
+    }
+
+    &--budget {
+      background-color: $error;
+    }
+    &--customers {
+      background-color: $success;
+    }
+    &--progress {
+      background-color: $warning;
+    }
+    &--profit {
+      background-color: $blue;
+    }
+  }
+}

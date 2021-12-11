@@ -4,22 +4,30 @@
   box-shadow: 0px 1px 1px rgba(100, 116, 139, 0.06),
     0px 1px 2px rgba(100, 116, 139, 0.1);
 
+  display: flex;
+  flex-direction: column;
+
   &__header {
     padding: 3.2rem 2.4rem 2.4rem;
-    & > * + * {
-      margin-top: 0.5rem;
-    }
-
-    h3 {
-      font-size: $fz-xl;
-    }
-    p {
-      font-size: $fz-m;
-      color: $text-secondary;
-    }
+    display: flex;
+    justify-content: space-between;
     border-bottom: 0.1rem solid $light;
+    div {
+      & > * + * {
+        margin-top: 0.5rem;
+      }
+
+      h3 {
+        font-size: $fz-xl;
+      }
+      p {
+        font-size: $fz-m;
+        color: $text-secondary;
+      }
+    }
   }
   &__body {
+    flex: 1;
     padding: 3.2rem 2.4rem;
 
     & > * + * {
@@ -36,6 +44,9 @@
     justify-content: flex-end;
     &--space-between {
       justify-content: space-between;
+    }
+    &--large {
+      padding: 2.4rem;
     }
   }
 

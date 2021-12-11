@@ -4,6 +4,10 @@
     padding: 6.4rem 2.4rem;
     max-width: 160rem;
     margin: 0 auto;
+
+    &--dashboard {
+      padding: 2.4rem;
+    }
   }
 
   & > * + * {
@@ -26,7 +30,7 @@
   &__controls {
     display: grid;
     grid-template-columns: repeat(3, max-content);
-    gap: 2.4rem;
+    gap: 2rem;
   }
 
   &__grid {

@@ -226,20 +226,24 @@
               <div class="card__header">
                 <h3>Latest Orders</h3>
               </div>
-              <table class="table">
+              <table class="table table--info">
                 <thead>
                   <tr>
                     <th>NAME</th>
                     <th>EMAIL</th>
                     <th class="table__icon-cell">
-                      <svg
-                        preserveAspectRatio="xMinYMin meet"
-                        viewBox="0 0 13 13"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <use href="./assets/icons/icons.svg#arrow-3-down"></use>
-                      </svg>
-                      <span> LOCATION </span>
+                      <div>
+                        <svg
+                          preserveAspectRatio="xMinYMin meet"
+                          viewBox="0 0 13 13"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <use
+                            href="./assets/icons/icons.svg#arrow-3-down"
+                          ></use>
+                        </svg>
+                        <span> LOCATION </span>
+                      </div>
                     </th>
                     <th>PHONE</th>
                     <th>REGISTRATION DATE</th>
@@ -343,7 +347,6 @@
                   <tr>
                     <td class="table__image-cell" data-label="NAME">
                       <img
-                        class="header__avatar"
                         src="./assets/images/Avatar.jpg"
                         alt="profile"
                       /><span> Ekaterina Tankova </span>
