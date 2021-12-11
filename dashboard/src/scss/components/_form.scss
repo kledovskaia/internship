@@ -44,7 +44,7 @@
       font-size: $fz-l;
       background-color: $main-primary;
       padding: 1.5rem;
-      border: 0.1rem solid $lightest;
+      border: 0.1rem solid $light;
       border-radius: $border-radius;
       width: 100%;
 
@@ -70,9 +70,9 @@
       }
     }
     .form__select-label {
+      font-size: $fz-l;
       pointer-events: none;
       padding: 0.5rem 0.75rem;
-      font-size: $fz-m;
       transition: opacity $duration, top $duration, font-size $duration;
       z-index: 1;
       opacity: 1;

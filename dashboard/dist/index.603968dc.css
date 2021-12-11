@@ -54,6 +54,9 @@ body {
   max-width: 120rem;
   margin: 0 auto;
 }
+.ml-s {
+  margin-left: 1rem;
+}
 .error {
   width: 95vw;
   max-width: 120rem;
@@ -596,9 +599,9 @@ body {
           transform: translateY(0);
 }
 .form__field .form__select-label {
+  font-size: 1.6rem;
   pointer-events: none;
   padding: 0.5rem 0.75rem;
-  font-size: 1.4rem;
   -webkit-transition: opacity 0.2s, top 0.2s, font-size 0.2s;
   -o-transition: opacity 0.2s, top 0.2s, font-size 0.2s;
   transition: opacity 0.2s, top 0.2s, font-size 0.2s;
@@ -746,6 +749,7 @@ body {
   margin-top: 1.5rem;
 }
 .card__footer {
+  font-size: 1.2rem;
   margin: 0;
   padding: 1.6rem;
   border-top: 0.1rem solid #e6e8f0;
@@ -894,6 +898,11 @@ body {
   justify-self: center;
   gap: 2rem;
 }
+.pagination__select {
+  font-size: 1.2rem;
+  background-color: #fff;
+  border: 0;
+}
 .pagination__pages-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -923,5 +932,136 @@ body {
 .pagination__button--active {
   background-color: #5048e5;
   color: #fff;
+}
+.table {
+  border: 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.4rem;
+}
+.table__icon-cell {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.table__icon-cell > * + * {
+  margin-left: 1rem;
+}
+.table__icon-cell svg {
+  fill: #6b7280;
+  max-width: 1.2rem;
+}
+.table__image-cell {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.table__image-cell > * + * {
+  margin-left: 1.6rem;
+}
+.table__image-cell img {
+  max-height: 4rem;
+  max-width: 4rem;
+  border: 50%;
+}
+.table td {
+  padding: 1.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+.table th {
+  padding: 1rem 1.6rem;
+  font-size: 1.2rem;
+  text-align: left;
+}
+.table thead {
+  background-color: #f3f4f6;
+}
+.table tbody > * + * {
+  border-top: 0.1rem solid #e6e8f0;
+}
+.table tbody address {
+  font-style: inherit;
+}
+@media only screen and (max-width: 68em) {
+  .table {
+    /* Force table to not be like tables anymore */
+    /*
+    Label the data
+    */
+  }
+  .table thead,
+.table tbody,
+.table th,
+.table td,
+.table tr {
+    display: block;
+  }
+  .table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .table td {
+    border-top: 0.1rem solid #f3f4f6;
+    width: 100%;
+    position: relative;
+    padding-left: 50%;
+  }
+  .table td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 50%;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
+  }
+  .table td:nth-of-type(1):before {
+    content: "NAME";
+  }
+  .table td:nth-of-type(2):before {
+    content: "EMAIL";
+  }
+  .table td:nth-of-type(3):before {
+    content: "LOCATION";
+  }
+  .table td:nth-of-type(4):before {
+    content: "PHONE";
+  }
+  .table td:nth-of-type(5):before {
+    content: "REGISTRATION DATE";
+  }
+}
+.table .table__image-cell {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+@media screen and (max-width: 50em) {
+  .table .table__image-cell > * {
+    margin: 0;
+  }
+  .table .table__image-cell img {
+    display: none;
+  }
 }
 /*# sourceMappingURL=index.603968dc.css.map */

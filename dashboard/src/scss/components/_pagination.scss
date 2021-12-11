@@ -4,6 +4,12 @@
   justify-self: center;
   gap: 2rem;
 
+  &__select {
+    font-size: $fz-s;
+    background-color: $main-primary;
+    border: 0;
+  }
+
   &__pages-container {
     display: flex;
 
