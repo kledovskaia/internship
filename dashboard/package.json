@@ -9,7 +9,7 @@
     "css:lint": "stylelint src/scss/*.scss --syntax scss || true",
     "watch:css": "onchange \"src/scss\" -- npm run build:css",
     "watch:images": "onchange \"src/images\" -- npm run build:images",
-    "build:images": "mv -i src/images dist",
+    "build:images": "cp -i src/images dist",
     "build:css": "npm run css:lint && npm run css:scss && npm run css:autoprefixer",
     "serve": "browser-sync start --server \"dist\" --files \"dist\"",
     "build:html": "posthtml -c posthtml.json",

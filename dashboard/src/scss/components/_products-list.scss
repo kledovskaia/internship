@@ -29,6 +29,15 @@
       color: $text-secondary;
       grid-column: 2 / 3;
     }
+
+    @media screen and (max-width: 90em) {
+      h4 {
+        font-size: $fz-m;
+      }
+      p {
+        font-size: $fz-s;
+      }
+    }
     button {
       grid-column: 3 / -1;
       grid-row: 1 / -1;

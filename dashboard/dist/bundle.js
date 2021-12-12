@@ -15,7 +15,7 @@
   \************************/
 /***/ (() => {
 
-eval("var pageName = location.pathname.slice(1).split('.')[0];\nif (pageName === 'index') pageName = 'dashboard';\ndocument.title = pageName[0].toUpperCase() + pageName.slice(1);\n\n//# sourceURL=webpack://dashboard/./src/js/main.js?");
+eval("var pageName = location.pathname.slice(1).split('.')[0];\nif (pageName === 'index') pageName = 'dashboard';\nvar navLink = document.getElementById(pageName) || document.getElementById('dashboard');\nnavLink.classList.add('navigation__link--active');\npageName = pageName[0].toUpperCase() + pageName.slice(1);\ndocument.title = pageName;\n\n//# sourceURL=webpack://dashboard/./src/js/main.js?");
 
 /***/ })
 

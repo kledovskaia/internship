@@ -1,0 +1,129 @@
+.chart {
+  font-size: $fz-s;
+  color: $text-secondary;
+  position: relative;
+  padding-left: 5rem;
+
+  @media screen and (max-width: 35em) {
+    font-size: 0.8rem;
+    padding-left: 3rem;
+  }
+  @media screen and (max-width: 30em) {
+    padding-left: 2rem;
+    & > *::before,
+    & > *::after,
+    &__date {
+      display: none;
+    }
+  }
+
+  &--week {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(2rem, 1fr));
+
+    .chart__column {
+      @for $i from 1 through 7 {
+        &--#{$i} {
+          grid-column: #{$i} / #{$i + 1};
+        }
+      }
+    }
+  }
+  &--height-7 {
+    grid-template-rows: repeat(7, 5rem);
+
+    @media screen and (max-width: 30em) {
+      grid-template-rows: repeat(7, 2.5rem);
+    }
+
+    .chart__bar {
+      @for $i from 1 to 35 {
+        &--#{$i} {
+          height: #{$i}rem;
+          @media screen and (max-width: 30em) {
+            height: #{$i / 2}rem;
+          }
+        }
+      }
+    }
+
+    .chart__row {
+      text-align: right;
+      position: relative;
+
+      &::before,
+      &::after {
+        width: 2rem;
+      }
+
+      &--1 {
+        border-bottom: 0.1rem dashed #d8d8d8;
+        &::before {
+          content: '0';
+          position: absolute;
+          left: -2.5rem;
+          top: 100%;
+          transform: translateY(-50%);
+        }
+      }
+
+      @for $i from 1 through 7 {
+        &--#{$i} {
+          grid-row: -#{$i} / -#{$i + 1};
+
+          &::after {
+            content: '#{$i * 5}k';
+            position: absolute;
+            left: -2.5rem;
+            top: 0;
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+  }
+
+  &__row {
+    border-top: 0.1rem dashed #d8d8d8;
+    margin: 0;
+    grid-column: 1 / -1;
+  }
+  &__column {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 0;
+    grid-row: 1 / -1;
+  }
+
+  &__bar {
+    margin: 0 0.4rem;
+    width: 1.4rem;
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+
+    @media screen and (max-width: 35em) {
+      width: 1rem;
+      margin: 0;
+    }
+    @media screen and (max-width: 30em) {
+      width: 0.5rem;
+    }
+
+    &--primary {
+      background-color: $blue;
+    }
+    &--secondary {
+      background-color: #edf0f2;
+    }
+  }
+
+  &__date {
+    white-space: nowrap;
+    position: absolute;
+    bottom: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
