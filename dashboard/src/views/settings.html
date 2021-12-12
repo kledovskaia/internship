@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <title></title>
+  </head>
+
+  <body>
+    <module href="/components/page.html">
+      <main class="settings main page__main">
+        <div class="main__wrapper">
+          <div class="main__grid">
+            <section class="card main__grid-cell main__grid-cell--full">
+              <div class="card__header">
+                <div>
+                  <h3>Notifications</h3>
+                  <p>Manage the notifications</p>
+                </div>
+              </div>
+              <form class="form card__form">
+                <div class="card__body">
+                  <div class="card__grid">
+                    <div
+                      class="
+                        card__grid-cell card__grid-cell--small
+                        radio-group
+                        card__radio-group
+                      "
+                    >
+                      <h4>Notifications</h4>
+                      <ul>
+                        <li>
+                          <label>
+                            <input
+                              checked
+                              type="checkbox"
+                              name="notifications-email"
+                            />
+                            <span>Email</span>
+                          </label>
+                        </li>
+    
+                        <li>
+                          <label>
+                            <input
+                              checked
+                              type="checkbox"
+                              name="notifications-push-notifications"
+                            />
+                            <span>Push Notifications</span>
+                          </label>
+                        </li>
+                        <li>
+                          <label>
+                            <input
+                              type="checkbox"
+                              name="notifications-text-messages"
+                            />
+                            <span>Text Messages</span>
+                          </label>
+                        </li>
+                        <li>
+                          <label>
+                            <input
+                              type="checkbox"
+                              name="notifications-phone-calls"
+                            />
+                            <span>Phone calls</span>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      class="
+                        card__grid-cell card__grid-cell--small
+                        radio-group
+                        card__radio-group
+                      "
+                    >
+                      <h4>Messages</h4>
+                      <ul>
+                        <li>
+                          <label>
+                            <input type="checkbox" name="messages-email" />
+                            <span>Email</span>
+                          </label>
+                        </li>
+    
+                        <li>
+                          <label>
+                            <input
+                              type="checkbox"
+                              name="messages-push-notifications"
+                            />
+                            <span>Push Notifications</span>
+                          </label>
+                        </li>
+                        <li>
+                          <label>
+                            <input
+                              type="checkbox"
+                              name="messages-phone-calls"
+                            />
+                            <span>Phone calls</span>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="card__footer">
+                  <button
+                    class="form__button card__button card__button--submit"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
+            </section>
+            <section class="card main__grid-cell main__grid-cell--full">
+              <div class="card__header">
+                <h3>Notifications</h3>
+                <p>Manage the notifications</p>
+              </div>
+              <form class="form card__form">
+                <div class="card__body">
+                  <div class="form__field">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                    />
+                    <label>Password</label>
+                  </div>
+                  <div class="form__field">
+                    <input type="password" placeholder="Confirm Password" />
+                    <label>Confirm Password</label>
+                  </div>
+                </div>
+    
+                <div class="card__footer">
+                  <button
+                    class="form__button card__button card__button--submit"
+                  >
+                    Update
+                  </button>
+                </div>
+              </form>
+            </section>
+          </div>
+        </div>
+      </main>
+    </module>
+    <script src="./bundle.js"></script>
+    
+  </body>
+</html>
+

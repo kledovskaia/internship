@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <title></title>
+  </head>
+
+  <body>
+    <module href="/components/page.html">
+      <main class="main page__main">
+        <div class="main__wrapper">
+          <div class="main__grid main__grid--3 container-m">
+            <section
+              class="
+                profile
+                card
+                main__grid-cell
+                main__grid-cell--small
+                main__grid-cell--align-top
+              "
+            >
+              <div class="card__body profile__container">
+                <img
+                  class="profile__avatar"
+                  src="/images/Avatar.jpg"
+                  alt=""
+                />
+                <h3 class="profile__name">Adrian Stefan</h3>
+                <div>
+                  <address class="profile__text">Los Angeles USA</address>
+                  <p class="profile__text">GTM-7</p>
+                </div>
+              </div>
+              <div class="card__footer profile__container">
+                <button class="profile__button profile__button--upload">
+                  Upload a picture
+                </button>
+              </div>
+            </section>
+            <section class="card main__grid-cell main__grid-cell--medium">
+              <div class="card__header">
+                <h3>Card Header</h3>
+              </div>
+              <form class="form">
+                <div class="card__body form__grid">
+                  <div class="form__field">
+                    <input
+                      required
+                      type="text"
+                      placeholder="First Name *"
+                      name="first-name"
+                    />
+                    <label>First Name *</label>
+                  </div>
+                  <div class="form__field">
+                    <input
+                      required
+                      type="text"
+                      placeholder="Last Name *"
+                      name="last-name"
+                    />
+                    <label>Last Name *</label>
+                  </div>
+                  <div class="form__field">
+                    <input
+                      required
+                      type="text"
+                      placeholder="Email Address *"
+                      name="email"
+                    />
+                    <label>Email Address *</label>
+                  </div>
+                  <div class="form__field">
+                    <input
+                      required
+                      type="text"
+                      placeholder="Last Name *"
+                      name="last-name"
+                    />
+    
+                    <label>Last Name *</label>
+                  </div>
+                  <div class="form__field">
+                    <input
+                      required
+                      type="text"
+                      placeholder="Country Name *"
+                      name="country-name"
+                    />
+                    <label>Country Name *</label>
+                  </div>
+    
+                  <div class="form__field">
+                    <select required>
+                      <option value="" hidden></option>
+                      <option value="california">California</option>
+                      <option value="nevada">Nevada</option>
+                      <option value="arizona">Arizona</option>
+                    </select>
+                    <div class="form__select-label">Select State *</div>
+                  </div>
+                </div>
+                <div class="card__footer">
+                  <button class="card__button form__button">
+                    Save details
+                  </button>
+                </div>
+              </form>
+            </section>
+          </div>
+        </div>
+      </main>
+    </module>
+    <script src="./bundle.js"></script>
+    
+  </body>
+</html>
