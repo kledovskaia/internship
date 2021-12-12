@@ -1,19 +1,13 @@
 .main {
   overflow-y: auto;
-
   &__wrapper {
     padding: 6.4rem 2.4rem 2.4rem;
-    margin: 0 auto;
     max-width: 160rem;
+    margin: 0 auto;
 
     &--dashboard {
       padding: 2.4rem;
     }
-  }
-
-  &__footer {
-    max-width: 150rem;
-    width: 93%;
   }
 
   & > * + * {
@@ -50,36 +44,76 @@
     }
   }
 
-  @media screen and (min-width: 85em) {
+  @media screen and (min-width: 50em) {
     &__grid {
       &--3 {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(12, 1fr);
         & .main__grid-cell {
           &--small {
-            grid-column: span 1;
+            grid-column: span 6;
           }
           &--medium {
-            grid-column: span 2;
+            grid-column: span 8;
+          }
+          &--account {
+            grid-column: span 12;
           }
           &--full {
-            grid-column: span 3;
+            grid-column: span 12;
           }
         }
       }
       &--4 {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(12, 1fr);
         & > .main__grid-cell {
           &--small {
-            grid-column: span 1;
+            grid-column: span 6;
           }
           &--medium {
-            grid-column: span 2;
+            grid-column: span 12;
           }
           &--large {
-            grid-column: span 3;
+            grid-column: span 12;
           }
           &--full {
+            grid-column: span 12;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 85em) {
+    &__grid {
+      &--3 {
+        grid-template-columns: repeat(12, 1fr);
+        & .main__grid-cell {
+          &--small {
             grid-column: span 4;
+          }
+
+          &--medium {
+            grid-column: span 8;
+          }
+          &--full {
+            grid-column: span 12;
+          }
+        }
+      }
+      &--4 {
+        grid-template-columns: repeat(12, 1fr);
+        & > .main__grid-cell {
+          &--small {
+            grid-column: span 3;
+          }
+          &--medium {
+            grid-column: span 6;
+          }
+          &--large {
+            grid-column: span 9;
+          }
+          &--full {
+            grid-column: span 12;
           }
         }
       }
