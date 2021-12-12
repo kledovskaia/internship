@@ -34,6 +34,11 @@
       margin-left: 0.5rem;
     }
 
+    svg {
+      max-width: 1.8rem;
+      max-height: 1.8rem;
+    }
+
     &:hover,
     &:focus,
     &--active {
@@ -54,7 +59,7 @@
     width: $sidebar-desktop-width;
 
     &__label {
-      display: inline-block;
+      display: block;
     }
   }
 
