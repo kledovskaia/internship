@@ -1,0 +1,60 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  padding: 3rem 0;
+  font-size: 1.6rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
+}
+
+.app {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 0.8rem;
+  padding: 2rem;
+  width: 95vw;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+}
+.app > * + * {
+  margin-top: 1rem;
+}
+.app__message {
+  color: #5c0067;
+  font-weight: bold;
+}
+.app__balance {
+  font-size: 3rem;
+}
+.app__form {
+  display: flex;
+}
+.app__form > * {
+  padding: 1rem;
+}
+.app__form input {
+  flex: 1;
+}
+.app__table th {
+  text-align: left;
+}
+.app__table th,
+.app__table td {
+  padding: 0.5rem;
+}
+/*# sourceMappingURL=index.3b677ea5.css.map */
