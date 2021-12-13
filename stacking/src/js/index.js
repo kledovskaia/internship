@@ -23,8 +23,9 @@ const state = {
 formElement.addEventListener('submit', stacking);
 document.addEventListener('keydown', async function triggerMine(e) {
   if (e.key !== 'd') return;
-  const count = +window.prompt('How much coins do you want to mine?', '');
-  if (!count || count <= 1) {
+  const count = window.prompt('How much coins do you want to mine?');
+  if (count === null) return;
+  if (+count <= 1) {
     window.alert('Wrong value. Please, try again');
     return;
   }
@@ -101,7 +102,6 @@ async function stacking(event) {
 
 async function renderTable() {
   while (true) {
-    console.log('table render');
     if (!Object.keys(state.stacking).length) return;
     await delay();
     tableElement.innerHTML = `
