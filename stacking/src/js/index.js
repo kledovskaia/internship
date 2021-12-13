@@ -28,7 +28,7 @@ document.addEventListener('keydown', async function triggerMine(e) {
     window.alert('Wrong value. Please, try again');
     return;
   }
-  renderMessage('Minning...');
+  renderMessage('Mining...');
   document.removeEventListener('keydown', triggerMine);
   await mine(count);
   renderMessage(null);
