@@ -15,24 +15,29 @@ const config = {
   },
 };
 
-const state = {
-  balance: 0,
-  stacking: {},
-};
+let state;
+
+inputElement.oninput = handleInputChange.bind(inputElement);
+function handleInputChange() {
+  if (this.value === '.') this.value = '';
+  this.value = this.value.replace(/[^0-9.]/g, '').replace(/\.+/g, '.');
+  if (this.value.split('.').length > 2) {
+    this.value = this.value.split('.').slice(0, 2).join('.');
+  }
+}
 
 formElement.addEventListener('submit', stacking);
-document.addEventListener('keydown', async function triggerMine(e) {
+document.addEventListener('keydown', function triggerMine(e) {
   if (e.key !== 'd') return;
-  const count = window.prompt('How much coins do you want to mine?');
-  if (count === null) return;
-  if (+count <= 1) {
-    window.alert('Wrong value. Please, try again');
-    return;
+  if (inputElement === document.activeElement) return;
+  if (!state) {
+    state = {
+      balance: 0,
+      stacking: {},
+    };
+    taxOffice();
   }
-  renderMessage('Mining...');
-  document.removeEventListener('keydown', triggerMine);
-  await mine(count);
-  renderMessage(null);
+  mine();
 });
 
 function delay(milliseconds = config.day) {
@@ -41,37 +46,34 @@ function delay(milliseconds = config.day) {
   });
 }
 
-async function mine(count) {
-  taxOffice();
+function mine(count = 1) {
   for (let i = 0; i < count; i++) {
-    await delay();
     state.balance++;
     renderBalance();
   }
 }
 
 async function taxOffice() {
-  while (true) {
-    const { taxesEvery, day } = config;
+  const { taxesEvery, day } = config;
+  setInterval(() => {
     const { balance } = state;
-    await delay(taxesEvery * day);
     if (balance) {
       state.balance -= (balance / 100) * Math.LN10;
       renderBalance();
     }
-  }
+  }, taxesEvery * day);
 }
 
 async function stacking(event) {
   event.preventDefault();
   const deposit = +inputElement.value;
   const period = +selectElement.value;
-  if (deposit <= 1) {
-    window.alert('Please enter a deposit greater than 1');
+  if (!state || deposit > state.balance) {
+    window.alert("You don't have enough coins");
     return;
   }
-  if (deposit > state.balance) {
-    window.alert("You don't have enough coins");
+  if (deposit <= 1) {
+    window.alert('Please enter a deposit greater than 1');
     return;
   }
   inputElement.value = '';
