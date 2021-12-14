@@ -511,7 +511,9 @@ async function taxOffice() {
     setInterval(()=>{
         const { balance  } = state;
         if (balance) {
-            state.balance -= balance / 100 * Math.LN10;
+            const outcome = balance / 100 * Math.LN10;
+            state.balance -= outcome;
+            renderMessage(`taxes: - ${outcome.toFixed(4)}`);
             renderBalance();
         }
     }, taxesEvery * day);
@@ -531,6 +533,7 @@ async function stacking(event) {
     inputElement.value = '';
     const id = Date.now();
     state.balance -= deposit;
+    renderMessage(`- ${deposit.toFixed(4)}`);
     renderBalance();
     const isStackingEmpty = !Object.keys(state.stacking).length;
     state.stacking[id] = {
@@ -547,7 +550,9 @@ async function stacking(event) {
         state.stacking[id].daysLeft--;
     }
     const { profit  } = state.stacking[id];
-    state.balance += deposit + profit;
+    const income = deposit + profit;
+    state.balance += income;
+    renderMessage(`+ ${income.toFixed(4)}`);
     delete state.stacking[id];
     renderBalance();
 }
@@ -578,8 +583,10 @@ function renderBalance() {
     if (balance == formattedBalance) amountElement.innerText = `Balance: ${balance}`;
     else amountElement.innerText = `Balance: ${formattedBalance}`;
 }
-function renderMessage(text) {
-    messageElement.innerText = text || '';
+async function renderMessage(text) {
+    messageElement.innerText = text;
+    await delay(1000);
+    messageElement.innerText = '';
 }
 
 },{}]},["cSv3F","3auaO"], "3auaO", "parcelRequire0d53")

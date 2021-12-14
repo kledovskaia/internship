@@ -58,7 +58,9 @@ async function taxOffice() {
   setInterval(() => {
     const { balance } = state;
     if (balance) {
-      state.balance -= (balance / 100) * Math.LN10;
+      const outcome = (balance / 100) * Math.LN10;
+      state.balance -= outcome;
+      renderMessage(`taxes: - ${outcome.toFixed(4)}`);
       renderBalance();
     }
   }, taxesEvery * day);
@@ -80,6 +82,7 @@ async function stacking(event) {
 
   const id = Date.now();
   state.balance -= deposit;
+  renderMessage(`- ${deposit.toFixed(4)}`);
   renderBalance();
   const isStackingEmpty = !Object.keys(state.stacking).length;
   state.stacking[id] = {
@@ -97,7 +100,9 @@ async function stacking(event) {
     state.stacking[id].daysLeft--;
   }
   const { profit } = state.stacking[id];
-  state.balance += deposit + profit;
+  const income = deposit + profit;
+  state.balance += income;
+  renderMessage(`+ ${income.toFixed(4)}`);
   delete state.stacking[id];
   renderBalance();
 }
@@ -138,6 +143,8 @@ function renderBalance() {
   }
 }
 
-function renderMessage(text) {
-  messageElement.innerText = text || '';
+async function renderMessage(text) {
+  messageElement.innerText = text;
+  await delay(1000);
+  messageElement.innerText = '';
 }

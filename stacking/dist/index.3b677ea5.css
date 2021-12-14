@@ -34,6 +34,11 @@ body {
 .app > * + * {
   margin-top: 1rem;
 }
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .app__message {
   color: #5c0067;
   font-weight: bold;
