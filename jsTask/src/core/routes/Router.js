@@ -19,7 +19,8 @@ export class Router {
   }
 
   init() {
-    window.addEventListener('hashchange', this.changePageHandler);
+    // DONE: 1. Закрепила контекст changePageHandler за текущим классом. Т.к. при передаче this.changePageHandler, контекст теряется
+    window.addEventListener('hashchange', this.changePageHandler.bind(this));
     this.changePageHandler();
   }
 

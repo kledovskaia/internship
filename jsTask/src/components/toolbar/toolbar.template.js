@@ -45,6 +45,11 @@ export function createToolbar(s) {
       icon: 'format_italic',
       active: s['fontStyle'] === 'italic',
     },
+    {
+      value: { fontWeight: s['fontWeight'] === 'bold' ? 'normal' : 'bold' },
+      icon: 'format_bold',
+      active: s['fontWeight'] === 'bold',
+    },
   ];
   return buttons.map(toButton).join('');
 }

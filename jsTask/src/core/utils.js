@@ -13,12 +13,19 @@ export function range(start, end) {
   return new Array(end - start + 1).fill('').map((_, index) => start + index);
 }
 
-export function storage(key, data = null) {
-  if (!data) {
-    return JSON.parse(localStorage.getItem(key));
-  }
-  localStorage.setItem(key, JSON.stringify(data));
-}
+export const storage = (() => {
+  let debounceTimer;
+
+  return (key, data = null, ms = 300) => {
+    if (!data) {
+      return JSON.parse(localStorage.getItem(key));
+    }
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      localStorage.setItem(key, JSON.stringify(data));
+    }, ms);
+  };
+})();
 
 export function isEqual(a, b) {
   if (typeof a === 'object' && typeof b === 'object') {
