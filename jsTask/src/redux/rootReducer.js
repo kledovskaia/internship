@@ -13,11 +13,11 @@ export function rootReducer(state, action) {
       // А также сохранить новое значение текста в currentText
 
       // DONE: 4. Не мутируем, а возвращаем новый объект состояния
-
+      field = 'dataState';
       return {
         ...state,
         currentText: action.data.value,
-        dataState: { ...state.dataState, [action.data.id]: action.data.value },
+        [field]: value(state, field, action),
       };
     case CHANGE_STYLES:
       return { ...state, currentStyles: action.data };

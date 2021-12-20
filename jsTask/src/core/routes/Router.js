@@ -15,12 +15,14 @@ export class Router {
 
     this.page = null;
 
+    // DONE: 1. Закрепила контекст changePageHandler за текущим классом. Т.к. при передаче this.changePageHandler, контекст теряется
+    this.changePageHandler = this.changePageHandler.bind(this);
+
     this.init();
   }
 
   init() {
-    // DONE: 1. Закрепила контекст changePageHandler за текущим классом. Т.к. при передаче this.changePageHandler, контекст теряется
-    window.addEventListener('hashchange', this.changePageHandler.bind(this));
+    window.addEventListener('hashchange', this.changePageHandler);
     this.changePageHandler();
   }
 

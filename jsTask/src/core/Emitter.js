@@ -4,7 +4,7 @@
 // Мы хотим оптимизировать приложение и сохранять в localStorage через 300мс после последнего изменения стейта
 // Изменения в коде могут быть не в этом файле
 
-// DONE: 5. Использовала debounce в функции storage из utils.js
+// DONE: 5. Обернула метод listen из класса StateProcessor в debounce
 
 export class Emitter {
   constructor() {
