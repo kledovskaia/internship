@@ -1,13 +1,15 @@
-import { Board } from '../pages/Board'
-import { Main } from '../pages/Boards'
-import { NewBoard } from '../pages/NewBoard'
+import { Navigate } from 'react-router-dom'
+import { IssueBoards } from '../pages/IssueBoards'
+import { NewProject } from '../pages/NewProject'
 import { NewIssue } from '../pages/NewIssue'
-import { NotFound } from '../pages/NotFound'
+import { Project } from '../pages/Project'
+import { Projects } from '../pages/Projects'
 
 export const routes = [
-  { path: '/new-board', title: 'New Board', element: <NewBoard /> },
-  { path: '/boards/:id', element: <Board /> },
-  { path: '/boards/:id/new-issue', title: 'New Issue', element: <NewIssue /> },
-  { path: '/', title: 'International', element: <Main /> },
-  { path: '*', title: 'Not Found', element: <NotFound /> },
+  { path: '/new-project', element: <NewProject /> },
+  { path: '/projects', element: <Projects /> },
+  { path: '/projects/:projectId', element: <Project /> },
+  { path: '/projects/:projectId/issue-boards', element: <IssueBoards /> },
+  { path: '/projects/:projectId/new-issue', element: <NewIssue /> },
+  { path: '*', element: <Navigate to='/projects' /> },
 ]

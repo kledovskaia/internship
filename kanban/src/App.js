@@ -5,21 +5,16 @@ import { Projects } from './pages/Projects'
 import { NewProject } from './pages/NewProject'
 import { NewIssue } from './pages/NewIssue'
 import { Project } from './pages/Project'
+import { routes } from './data/routes'
 
 export const App = () => {
   return (
     <>
       <BreadCrumbs />
       <Routes>
-        <Route path='/new-project' element={<NewProject />} />
-        <Route path='/projects' element={<Projects />} />
-        <Route path='/projects/:projectId' element={<Project />} />
-        <Route
-          path='/projects/:projectId/issue-boards'
-          element={<IssueBoards />}
-        />
-        <Route path='/projects/:projectId/new-issue' element={<NewIssue />} />
-        <Route path='*' element={<Navigate to='/projects' />} />
+        {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
       </Routes>
     </>
   )
