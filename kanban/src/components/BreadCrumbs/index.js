@@ -15,6 +15,7 @@ export const BreadCrumbs = () => {
     const route = routes.find(
       (route) => route.path === pathname.replace(projectId, ':projectId')
     )
+    if (!route) return
     setBreadCrumbs(
       route.pathway ??
         pathname
