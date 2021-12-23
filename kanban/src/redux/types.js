@@ -1,1 +1,2 @@
 export const CREATE_PROJECT = 'CREATE_PROJECT'
+export const MOVE_ISSUE = 'MOVE_ISSUE'

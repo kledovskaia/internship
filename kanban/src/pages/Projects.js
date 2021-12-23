@@ -8,7 +8,7 @@ export const Projects = () => {
     <>
       <Link to={`/new-project`}>Create a new project</Link>
       <ul>
-        {projects.map((project) => (
+        {Object.values(projects).map((project) => (
           <li key={project.id}>
             <Link to={`/projects/${project.id}`}>{project.title}</Link>
           </li>

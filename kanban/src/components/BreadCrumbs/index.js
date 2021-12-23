@@ -7,9 +7,7 @@ export const BreadCrumbs = () => {
   const { pathname } = useLocation()
   const { projectId } = useParams()
   const [breadCrumbs, setBreadCrumbs] = useState([])
-  const projectTitle = useSelector(
-    (state) => state.projects.find((project) => project.id === projectId)?.title
-  )
+  const projectTitle = useSelector((state) => state.projects[projectId]?.title)
 
   useEffect(() => {
     const route = routes.find(
@@ -30,6 +28,11 @@ export const BreadCrumbs = () => {
       {breadCrumbs.map((route) => {
         let label = route.split('/').pop()
         if (label === projectId) label = projectTitle || "Project Doesn't Exist"
+        else
+          label = label
+            .split('-')
+            .map((word) => word[0].toUpperCase() + word.slice(1))
+            .join(' ')
 
         return (
           <li key={route}>

@@ -8,3 +8,8 @@ export const createProject = (info) => ({
     id: uuidv4(),
   },
 })
+
+export const moveIssue = (data) => ({
+  type: TYPES.MOVE_ISSUE,
+  payload: data,
+})

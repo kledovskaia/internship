@@ -1,21 +1,46 @@
-import { useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useCallback } from 'react'
+import { DragDropContext } from 'react-beautiful-dnd'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { Board } from '../components/Board'
+import * as actions from '../redux/AC'
 
-export const IssueBoards = () => {
+export function IssueBoards() {
   const { projectId } = useParams()
-  const project = useSelector((state) =>
-    state.projects.find((project) => project.id === projectId)
+  const state = useSelector((state) => state.projects[projectId]?.issueBoards)
+  const dispatch = useDispatch()
+
+  const onDragEnd = useCallback(
+    (result) => {
+      const { source, destination } = result
+
+      if (!destination) {
+        return
+      }
+      const sInd = +source.droppableId
+      const dInd = +destination.droppableId
+
+      dispatch(
+        actions.moveIssue({
+          id: projectId,
+          source,
+          destination,
+          ...(sInd !== dInd ? { sInd, dInd } : {}),
+        })
+      )
+    },
+    [state]
   )
 
-  return !project ? (
-    <h1>Project Doesn't Exist</h1>
-  ) : (
-    <>
-      <Link to={`/projects/${projectId}/new-issue`}>New Issue</Link>
-      {Object.entries(project.issueBoards).map(([title, issues]) => (
-        <Board key={title} title={title} issues={issues} />
-      ))}
-    </>
+  return (
+    <div>
+      <div style={{ display: 'flex' }}>
+        <DragDropContext onDragEnd={onDragEnd}>
+          {state?.map((board, index) => (
+            <Board key={index} board={board} boardIndex={index} />
+          ))}
+        </DragDropContext>
+      </div>
+    </div>
   )
 }
