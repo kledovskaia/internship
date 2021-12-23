@@ -6,10 +6,26 @@ import { Project } from '../pages/Project'
 import { Projects } from '../pages/Projects'
 
 export const routes = [
-  { path: '/new-project', element: <NewProject /> },
-  { path: '/projects', element: <Projects /> },
-  { path: '/projects/:projectId', element: <Project /> },
-  { path: '/projects/:projectId/issue-boards', element: <IssueBoards /> },
-  { path: '/projects/:projectId/new-issue', element: <NewIssue /> },
+  {
+    path: '/new-project',
+    pathway: ['/projects', '/new-project'],
+    element: <NewProject />,
+  },
+  {
+    path: '/projects',
+    element: <Projects />,
+  },
+  {
+    path: '/projects/:projectId',
+    element: <Project />,
+  },
+  {
+    path: '/projects/:projectId/issue-boards',
+    element: <IssueBoards />,
+  },
+  {
+    path: '/projects/:projectId/new-issue',
+    element: <NewIssue />,
+  },
   { path: '*', element: <Navigate to='/projects' /> },
 ]

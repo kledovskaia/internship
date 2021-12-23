@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { Board } from './Board'
+import { Board } from '../components/Board'
 
 export const IssueBoards = () => {
   const { projectId } = useParams()
