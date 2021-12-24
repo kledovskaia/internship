@@ -11,6 +11,7 @@ const getItems = (count, offset = 0) =>
     index,
     id: new Date().getTime() + Math.floor(Math.random() * 10000).toString(),
     content: `item ${k + offset}`,
+    title: `item ${k + offset}`,
   }))
 
 const defaultProject = {

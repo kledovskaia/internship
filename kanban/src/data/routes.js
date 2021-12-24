@@ -4,6 +4,7 @@ import { NewProject } from '../pages/NewProject'
 import { NewIssue } from '../pages/NewIssue'
 import { Project } from '../pages/Project'
 import { Projects } from '../pages/Projects'
+import { Issue } from '../pages/Issue'
 
 export const routes = [
   {
@@ -22,6 +23,10 @@ export const routes = [
   {
     path: '/projects/:projectId/issue-boards',
     element: <IssueBoards />,
+  },
+  {
+    path: '/projects/:projectId/issue-boards/:issueId',
+    element: <Issue />,
   },
   {
     path: '/projects/:projectId/new-issue',

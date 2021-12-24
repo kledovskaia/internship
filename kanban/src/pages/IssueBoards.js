@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -46,7 +46,12 @@ export function IssueBoards() {
       <ColumnContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           {(filteredState || state)?.map((board, index) => (
-            <Board key={index} board={board} boardIndex={index} />
+            <Board
+              key={index}
+              projectId={projectId}
+              board={board}
+              boardIndex={index}
+            />
           ))}
         </DragDropContext>
       </ColumnContainer>
