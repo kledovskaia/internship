@@ -9,7 +9,7 @@ export const moveInsideAnArray = ({ state, source, destination }) => {
   changedList.splice(endIndex, 0, removed)
 
   const result = [...state]
-  result[sInd] = changedList
+  result[sInd] = changedList.map((item, index) => ({ ...item, index }))
 
   return result
 }
@@ -28,8 +28,18 @@ export const moveInsideAnArrayOfArrays = ({
   destClone.splice(destination.index, 0, removed)
 
   const result = [...state]
-  result[sInd] = sourceClone
-  result[dInd] = destClone
+  result[sInd] = sourceClone.map((item, index) => ({ ...item, index }))
+  result[dInd] = destClone.map((item, index) => ({ ...item, index }))
 
   return result
+}
+
+export const debounce = (fn, ms = 1000) => {
+  let timer
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, ms)
+  }
 }

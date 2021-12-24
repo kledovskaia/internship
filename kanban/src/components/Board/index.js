@@ -7,12 +7,12 @@ const titles = ['TO DO', 'IN PROGRESS', 'TEST', 'DONE']
 export const Board = ({ boardIndex, board }) => {
   return (
     <BoardContainer>
-      <BoardTitle>{titles[boardIndex]}</BoardTitle>
+      <BoardTitle>{boardIndex}</BoardTitle>
       <Droppable droppableId={`${boardIndex}`}>
         {(provided) => (
           <BoardList ref={provided.innerRef} {...provided.droppableProps}>
-            {board.map((item, issueIndex) => (
-              <Draggable key={item.id} draggableId={item.id} index={issueIndex}>
+            {board.map((item) => (
+              <Draggable key={item.id} draggableId={item.id} index={item.index}>
                 {(provided) => (
                   <BoardIssue
                     ref={provided.innerRef}

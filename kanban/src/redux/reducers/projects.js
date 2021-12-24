@@ -7,8 +7,9 @@ import * as TYPES from '../types'
 const initialState = {}
 
 const getItems = (count, offset = 0) =>
-  Array.from({ length: count }, (v, k) => k).map((k) => ({
-    id: `item-${k + offset}-${new Date().getTime()}`,
+  Array.from({ length: count }, (v, k) => k).map((k, index) => ({
+    index,
+    id: new Date().getTime() + Math.floor(Math.random() * 10000).toString(),
     content: `item ${k + offset}`,
   }))
 

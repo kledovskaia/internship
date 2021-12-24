@@ -1,13 +1,16 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Board } from '../components/Board'
+import { Filter } from '../components/Filter'
 import * as actions from '../redux/AC'
+import { ColumnContainer } from '../styles/common'
 
 export function IssueBoards() {
   const { projectId } = useParams()
   const state = useSelector((state) => state.projects[projectId]?.issueBoards)
+  const [filteredState, setFilteredState] = useState(null)
   const dispatch = useDispatch()
 
   const onDragEnd = useCallback(
@@ -17,6 +20,7 @@ export function IssueBoards() {
       if (!destination) {
         return
       }
+
       const sInd = +source.droppableId
       const dInd = +destination.droppableId
 
@@ -32,15 +36,20 @@ export function IssueBoards() {
     [state]
   )
 
+  const updateFilteredState = (newState) => {
+    setFilteredState(newState)
+  }
+
   return (
-    <div>
-      <div style={{ display: 'flex' }}>
+    <>
+      <Filter data={state} setFilteredData={updateFilteredState} />
+      <ColumnContainer>
         <DragDropContext onDragEnd={onDragEnd}>
-          {state?.map((board, index) => (
+          {(filteredState || state)?.map((board, index) => (
             <Board key={index} board={board} boardIndex={index} />
           ))}
         </DragDropContext>
-      </div>
-    </div>
+      </ColumnContainer>
+    </>
   )
 }
