@@ -16,12 +16,6 @@ const getItems = (count, offset = 0) =>
 
 const defaultProject = {
   issueBoards: [getItems(5), getItems(5, 5), getItems(5, 10), getItems(5, 15)],
-  // {
-  //   'TO DO': [],
-  //   'IN PROGRESS': [],
-  //   TEST: [],
-  //   DONE: [],
-  // },
 }
 
 export const projects = (state = initialState, action) => {
@@ -31,7 +25,33 @@ export const projects = (state = initialState, action) => {
         ...state,
         [action.payload.id]: { ...defaultProject, ...action.payload },
       }
-    case TYPES.MOVE_ISSUE:
+    case TYPES.NEW_ISSUE: {
+      const { id, issue } = action.payload
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          issueBoards: [
+            [
+              {
+                ...issue,
+                index: 0,
+                id:
+                  new Date().getTime() +
+                  Math.floor(Math.random() * 10000).toString(),
+              },
+              ...state[id].issueBoards[0].map((issue) => ({
+                ...issue,
+                index: issue.index + 1,
+              })),
+            ],
+            ...state[id].issueBoards.slice(1),
+          ],
+        },
+      }
+    }
+
+    case TYPES.MOVE_ISSUE: {
       const { id, sInd } = action.payload
       return updateIssues({
         id,
@@ -39,7 +59,7 @@ export const projects = (state = initialState, action) => {
         fn: sInd !== undefined ? moveInsideAnArrayOfArrays : moveInsideAnArray,
         args: action.payload,
       })
-
+    }
     default:
       return state
   }

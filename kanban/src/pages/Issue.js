@@ -12,7 +12,7 @@ export const Issue = () => {
   return (
     <>
       <h1>{issue?.title}</h1>
-      <p>{issue?.content}</p>
+      <p>{issue?.description}</p>
     </>
   )
 }

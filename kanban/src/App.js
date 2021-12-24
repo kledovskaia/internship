@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { routes } from './data/routes'
-import { Page } from './pages/Page'
+import { PageContainer } from './containers/PageContainer'
 
 export const App = () => {
   return (
@@ -9,7 +9,7 @@ export const App = () => {
         <Route
           key={route.path}
           path={route.path}
-          element={<Page>{route.element}</Page>}
+          element={<PageContainer>{route.element}</PageContainer>}
         />
       ))}
     </Routes>

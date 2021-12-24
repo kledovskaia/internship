@@ -1,6 +1,6 @@
 import { BreadCrumbs } from '../components/BreadCrumbs'
 
-export const Page = ({ children }) => {
+export const PageContainer = ({ children }) => {
   return (
     <>
       <BreadCrumbs />

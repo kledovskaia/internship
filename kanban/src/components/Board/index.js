@@ -8,7 +8,7 @@ const titles = ['TO DO', 'IN PROGRESS', 'TEST', 'DONE']
 export const Board = ({ boardIndex, board, projectId }) => {
   return (
     <BoardContainer>
-      <BoardTitle>{boardIndex}</BoardTitle>
+      <BoardTitle>{titles[boardIndex]}</BoardTitle>
       <Droppable droppableId={`${boardIndex}`}>
         {(provided) => (
           <BoardList ref={provided.innerRef} {...provided.droppableProps}>
@@ -21,7 +21,7 @@ export const Board = ({ boardIndex, board, projectId }) => {
                     {...provided.dragHandleProps}
                   >
                     <Link to={`/projects/${projectId}/issue-boards/${item.id}`}>
-                      {item.content}
+                      {item.title}
                     </Link>
                   </BoardIssue>
                 )}

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Board } from '../components/Board'
 import { Filter } from '../components/Filter'
 import * as actions from '../redux/AC'
@@ -43,6 +43,7 @@ export function IssueBoards() {
   return (
     <>
       <Filter data={state} setFilteredData={updateFilteredState} />
+      <Link to={`/projects/${projectId}/new-issue`}>New Issue</Link>
       <ColumnContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           {(filteredState || state)?.map((board, index) => (

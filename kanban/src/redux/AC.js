@@ -13,3 +13,7 @@ export const moveIssue = (data) => ({
   type: TYPES.MOVE_ISSUE,
   payload: data,
 })
+export const newIssue = (data) => ({
+  type: TYPES.NEW_ISSUE,
+  payload: data,
+})
