@@ -46,7 +46,12 @@ export function IssueBoards() {
       <ColumnContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           {filteredState?.map((board, index) => (
-            <Board key={index} board={board} boardIndex={index} />
+            <Board
+              key={index}
+              projectId={projectId}
+              board={board}
+              boardIndex={index}
+            />
           ))}
         </DragDropContext>
       </ColumnContainer>

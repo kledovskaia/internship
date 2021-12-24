@@ -5,13 +5,21 @@ import { routes } from '../../data/routes'
 
 export const BreadCrumbs = () => {
   const { pathname } = useLocation()
-  const { projectId } = useParams()
+  const { projectId, issueId } = useParams()
   const [breadCrumbs, setBreadCrumbs] = useState([])
   const projectTitle = useSelector((state) => state.projects[projectId]?.title)
+  const issueTitle = useSelector(
+    (state) =>
+      state.projects[projectId]?.issueBoards
+        ?.flatMap((board) => board)
+        ?.find((issue) => issue.id === issueId)?.title
+  )
 
   useEffect(() => {
     const route = routes.find(
-      (route) => route.path === pathname.replace(projectId, ':projectId')
+      (route) =>
+        route.path ===
+        pathname.replace(projectId, ':projectId').replace(issueId, ':issueId')
     )
     if (!route) return
     setBreadCrumbs(
@@ -28,6 +36,7 @@ export const BreadCrumbs = () => {
       {breadCrumbs.map((route) => {
         let label = route.split('/').pop()
         if (label === projectId) label = projectTitle || "Project Doesn't Exist"
+        else if (label === issueId) label = issueTitle || "Issue Doesn't Exist"
         else
           label = label
             .split('-')
