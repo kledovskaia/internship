@@ -17,3 +17,8 @@ export const newIssue = (data) => ({
   type: TYPES.NEW_ISSUE,
   payload: data,
 })
+
+export const updateIssue = (data) => ({
+  type: TYPES.UPDATE_ISSUE,
+  payload: data,
+})
