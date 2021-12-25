@@ -38,14 +38,17 @@ const fields = {
 export const Form = ({ type, onSubmit, initialState }) => {
   return (
     <Formik
-      initialValues={
-        initialState || {
-          ...Object.fromEntries(fields[type].map(({ name }) => [name, ''])),
-        }
-      }
+      initialValues={{
+        ...Object.fromEntries(
+          fields[type].map(({ name }) => [name, initialState?.[name] || ''])
+        ),
+      }}
       validationSchema={schemas[type]}
       onSubmit={(values) => {
-        onSubmit(values)
+        onSubmit({
+          ...initialState,
+          ...values,
+        })
       }}
     >
       {({ errors, touched }) => (
