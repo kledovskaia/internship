@@ -12,7 +12,9 @@ export function IssueBoards() {
   const state = useSelector(
     (state) => state.projects.value[projectId]?.issueBoards
   )
-  const projectExist = useSelector((state) => !!state.projects.value[projectId])
+  const projectExists = useSelector(
+    (state) => !!state.projects.value[projectId]
+  )
   const [filteredState, setFilteredState] = useState(null)
   const dispatch = useDispatch()
 
@@ -43,7 +45,7 @@ export function IssueBoards() {
     setFilteredState(newState)
   }
 
-  return projectExist ? (
+  return projectExists ? (
     <>
       <Filter data={state} setFilteredData={updateFilteredState} />
       <Link to={`/projects/${projectId}/new-issue`}>New Issue</Link>
