@@ -7,10 +7,12 @@ export const BreadCrumbs = () => {
   const { pathname } = useLocation()
   const { projectId, issueId } = useParams()
   const [breadCrumbs, setBreadCrumbs] = useState([])
-  const projectTitle = useSelector((state) => state.projects[projectId]?.title)
+  const projectTitle = useSelector(
+    (state) => state.projects.value[projectId]?.title
+  )
   const issueTitle = useSelector(
     (state) =>
-      state.projects[projectId]?.issueBoards
+      state.projects.value[projectId]?.issueBoards
         ?.flatMap((board) => board)
         ?.find((issue) => issue.id === issueId)?.title
   )

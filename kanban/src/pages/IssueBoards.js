@@ -1,15 +1,18 @@
 import { useCallback, useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { Board } from '../components/Board'
 import { Filter } from '../components/Filter'
-import * as actions from '../redux/AC'
+import { moveIssue } from '../redux/projectsSlice'
 import { ColumnContainer } from '../styles/common'
 
 export function IssueBoards() {
   const { projectId } = useParams()
-  const state = useSelector((state) => state.projects[projectId]?.issueBoards)
+  const state = useSelector(
+    (state) => state.projects.value[projectId]?.issueBoards
+  )
+  const projectExist = useSelector((state) => !!state.projects.value[projectId])
   const [filteredState, setFilteredState] = useState(null)
   const dispatch = useDispatch()
 
@@ -25,7 +28,7 @@ export function IssueBoards() {
       const dInd = +destination.droppableId
 
       dispatch(
-        actions.moveIssue({
+        moveIssue({
           id: projectId,
           source,
           destination,
@@ -40,7 +43,7 @@ export function IssueBoards() {
     setFilteredState(newState)
   }
 
-  return (
+  return projectExist ? (
     <>
       <Filter data={state} setFilteredData={updateFilteredState} />
       <Link to={`/projects/${projectId}/new-issue`}>New Issue</Link>
@@ -57,5 +60,7 @@ export function IssueBoards() {
         </DragDropContext>
       </ColumnContainer>
     </>
+  ) : (
+    <Navigate to={`/projects/${projectId}`} />
   )
 }

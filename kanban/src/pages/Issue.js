@@ -2,20 +2,20 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Form } from '../components/Form'
-import * as actions from '../redux/AC'
+import { updateIssue } from '../redux/projectsSlice'
 
 export const Issue = () => {
   const [isOnEdit, setIsOnEdit] = useState(false)
   const { projectId, issueId } = useParams()
   const dispatch = useDispatch()
   const issue = useSelector((state) =>
-    state.projects[projectId]?.issueBoards
+    state.projects.value[projectId]?.issueBoards
       ?.flatMap((board) => board)
       ?.find((issue) => issue.id === issueId)
   )
 
   const onSubmit = (value) => {
-    dispatch(actions.updateIssue(value))
+    dispatch(updateIssue(value))
     setIsOnEdit(false)
   }
   const handleClick = () => {

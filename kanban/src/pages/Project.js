@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 
 export const Project = () => {
   const { projectId } = useParams()
-  const project = useSelector((state) => state.projects[projectId])
+  const project = useSelector((state) => state.projects.value[projectId])
 
   return !project ? (
     <h1>Project Doesn't Exist</h1>

@@ -1,6 +1,6 @@
-import { combineReducers, createStore } from 'redux'
-import { projects } from './reducers/projects'
+import { configureStore } from '@reduxjs/toolkit'
+import projects from './projectsSlice'
 
-const rootReducer = combineReducers({ projects })
-
-export const store = createStore(rootReducer)
+export const store = configureStore({
+  reducer: { projects },
+})

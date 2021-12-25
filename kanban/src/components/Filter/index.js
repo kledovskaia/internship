@@ -21,7 +21,7 @@ export const Filter = ({ data, setFilteredData }) => {
         data.map((board) =>
           board.filter((issue) =>
             formatted(filter).every((searchWord) =>
-              formatted(issue.content).some((word) => word.includes(searchWord))
+              formatted(issue.title).some((word) => word.includes(searchWord))
             )
           )
         )
@@ -38,7 +38,7 @@ export const Filter = ({ data, setFilteredData }) => {
       data.map((board) =>
         board.filter((issue) =>
           formatted(filter).every((searchWord) =>
-            formatted(issue.content).some((word) => word.includes(searchWord))
+            formatted(issue.title).some((word) => word.includes(searchWord))
           )
         )
       )

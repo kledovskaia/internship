@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 export const Projects = () => {
-  const projects = useSelector((state) => state.projects)
+  const projects = useSelector((state) => state.projects.value)
 
   return (
     <>
