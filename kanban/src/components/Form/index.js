@@ -55,7 +55,7 @@ export const Form = ({ type, onSubmit, initialState }) => {
         <FormFormik>
           <ErrorsContainer>
             {Object.entries(errors).map(([name, error]) =>
-              touched[name] ? <div>{error}</div> : null
+              touched[name] ? <div key={name}>{error}</div> : null
             )}
           </ErrorsContainer>
           {fields[type].map((field) => (

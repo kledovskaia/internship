@@ -13,7 +13,7 @@ export function IssueBoards() {
     (state) => state.projects.value[projectId]?.issueBoards
   )
   const projectExists = useSelector(
-    (state) => !!state.projects.value[projectId]
+    (state) => projectId in state.projects.value
   )
   const [filteredState, setFilteredState] = useState(null)
   const dispatch = useDispatch()

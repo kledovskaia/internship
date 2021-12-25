@@ -9,7 +9,7 @@ export const NewIssue = () => {
   const navigate = useNavigate()
   const { projectId } = useParams()
   const projectExists = useSelector(
-    (state) => !!state.projects.value[projectId]
+    (state) => projectId in state.projects.value
   )
 
   const onSubmit = (issue) => {

@@ -9,7 +9,7 @@ export const Issue = () => {
   const [isOnEdit, setIsOnEdit] = useState(false)
   const { projectId, issueId } = useParams()
   const projectExists = useSelector(
-    (state) => !!state.projects.value[projectId]
+    (state) => projectId in state.projects.value
   )
   const dispatch = useDispatch()
   const issue = useSelector((state) =>
