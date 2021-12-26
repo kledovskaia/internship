@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Form } from '../components/Form'
 import { updateIssue } from '../redux/projectsSlice'
 import { Navigate } from 'react-router-dom'
+import { Button, Container } from '../styles/common'
 
 export const Issue = () => {
   const [isOnEdit, setIsOnEdit] = useState(false)
@@ -36,17 +37,19 @@ export const Issue = () => {
   if (!issue) return <h1>Issue Doesn't Exist</h1>
 
   return (
-    <>
+    <Container>
       {isOnEdit && (
         <Form type='issue' initialState={issue} onSubmit={onSubmit} />
       )}
       {!isOnEdit && (
         <>
-          <button onClick={handleClick}>Edit</button>
+          <Button primary onClick={handleClick}>
+            Edit
+          </Button>
           <h1>{issue.title}</h1>
           <p>{issue.description}</p>
         </>
       )}
-    </>
+    </Container>
   )
 }

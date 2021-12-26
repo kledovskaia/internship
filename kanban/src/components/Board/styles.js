@@ -1,8 +1,7 @@
-import styled from 'styled-components'
-import macro from 'styled-components/macro'
+import styled from 'styled-components/macro'
 
 export const BoardContainer = styled.section`
-  min-width: 20rem;
+  min-width: 15rem;
 `
 export const BoardTitle = styled.h2``
 export const BoardList = styled.ul``

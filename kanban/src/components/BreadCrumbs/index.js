@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { routes } from '../../data/routes'
+import {
+  BreadCrumbsContainer,
+  BreadCrumbsItem,
+  BreadCrumbsLink,
+} from './styles'
 
 export const BreadCrumbs = () => {
   const { pathname } = useLocation()
@@ -34,8 +39,8 @@ export const BreadCrumbs = () => {
   }, [pathname])
 
   return (
-    <ul>
-      {breadCrumbs.map((route) => {
+    <BreadCrumbsContainer>
+      {breadCrumbs.map((route, index) => {
         let label = route.split('/').pop()
         if (label === projectId) label = projectTitle || "Project Doesn't Exist"
         else if (label === issueId) label = issueTitle || "Issue Doesn't Exist"
@@ -46,11 +51,18 @@ export const BreadCrumbs = () => {
             .join(' ')
 
         return (
-          <li key={route}>
-            <Link to={route}>{label}</Link>
-          </li>
+          <BreadCrumbsItem key={route}>
+            <BreadCrumbsLink
+              to={route}
+              {...(index === breadCrumbs.length - 1
+                ? { active: 'active' }
+                : {})}
+            >
+              {label}
+            </BreadCrumbsLink>
+          </BreadCrumbsItem>
         )
       })}
-    </ul>
+    </BreadCrumbsContainer>
   )
 }

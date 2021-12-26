@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { ButtonLink, Container } from '../styles/common'
 
 export const Project = () => {
   const { projectId } = useParams()
@@ -8,9 +9,11 @@ export const Project = () => {
   return !project ? (
     <h1>Project Doesn't Exist</h1>
   ) : (
-    <>
+    <Container>
       <h1>{project.title}</h1>
-      <Link to={`/projects/${projectId}/issue-boards`}>Issue Boards</Link>
-    </>
+      <ButtonLink to={`/projects/${projectId}/issue-boards`}>
+        Issue Boards
+      </ButtonLink>
+    </Container>
   )
 }

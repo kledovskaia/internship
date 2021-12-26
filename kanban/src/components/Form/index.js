@@ -1,84 +1,70 @@
+import { useFormik } from 'formik'
+import { Button } from '../../styles/common'
+import { InputField, FormContainer } from './styles'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 import { Fragment } from 'react'
-import { Button, ErrorsContainer } from './styles'
-import { Formik, Form as FormFormik, Field } from 'formik'
-import * as Yup from 'yup'
-
-const schemas = {
-  project: Yup.object().shape({
-    title: Yup.string().max(100, 'Too Long!').required('Title is Required'),
-  }),
-  issue: Yup.object().shape({
-    title: Yup.string().max(100, 'Too Long!').required('Title is Required'),
-    description: Yup.string().max(300, 'Too Long!'),
-    points: Yup.number().positive().integer().max(10),
-  }),
-}
-
-const fields = {
-  project: [{ name: 'title', placeholder: 'Title *', as: 'input' }],
-  issue: [
-    { name: 'title', placeholder: 'Title *', as: 'input' },
-    {
-      name: 'priority',
-      placeholder: 'Priority',
-      as: 'select',
-      options: ['Critical', 'Major', 'Normal', 'Minor'],
-    },
-    { name: 'points', placeholder: 'Story Points', as: 'input' },
-    {
-      name: 'status',
-      placeholder: 'Status',
-      as: 'select',
-      options: ['TODO', 'IN PROGRESS', 'TEST', 'DONE'],
-    },
-    { name: 'description', placeholder: 'Description', as: 'textarea' },
-  ],
-}
+import * as form from '../../data/form'
 
 export const Form = ({ type, onSubmit, initialState }) => {
+  const formik = useFormik({
+    initialValues: {
+      ...Object.fromEntries(
+        form.fields[type].map(({ name }) => [name, initialState?.[name] || ''])
+      ),
+    },
+    validationSchema: form.schemas[type],
+    onSubmit: (values) => {
+      onSubmit({
+        ...initialState,
+        ...values,
+      })
+    },
+  })
+
   return (
-    <Formik
-      initialValues={{
-        ...Object.fromEntries(
-          fields[type].map(({ name }) => [name, initialState?.[name] || ''])
-        ),
-      }}
-      validationSchema={schemas[type]}
-      onSubmit={(values) => {
-        onSubmit({
-          ...initialState,
-          ...values,
-        })
-      }}
-    >
-      {({ errors, touched }) => (
-        <FormFormik>
-          <ErrorsContainer>
-            {Object.entries(errors).map(([name, error]) =>
-              touched[name] ? <div key={name}>{error}</div> : null
-            )}
-          </ErrorsContainer>
-          {fields[type].map((field) => (
-            <Fragment key={field.name}>
-              <Field {...field}>
-                {field.as === 'select' ? (
-                  <>
-                    <option disabled value=''>
-                      {field.placeholder}
-                    </option>
-                    {field.options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </>
-                ) : null}
-              </Field>
-            </Fragment>
-          ))}
-          <Button type='submit'>Save</Button>
-        </FormFormik>
-      )}
-    </Formik>
+    <FormContainer onSubmit={formik.handleSubmit}>
+      {form.fields[type].map((field) => (
+        <Fragment key={field.name}>
+          {field.options ? (
+            <FormControl fullWidth>
+              <InputLabel id={field.name}>{field.placeholder}</InputLabel>
+              <Select
+                labelId={field.name}
+                id={field.name}
+                name={field.name}
+                value={formik.values[field.name]}
+                onChange={formik.handleChange}
+              >
+                {field.options.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          ) : (
+            <InputField
+              {...field}
+              key={field.name}
+              id={field.name}
+              name={field.name}
+              label={field.placeholder}
+              value={formik.values[field.name]}
+              onChange={formik.handleChange}
+              error={
+                formik.touched[field.name] && Boolean(formik.errors[field.name])
+              }
+              helperText={
+                formik.touched[field.name] && formik.errors[field.name]
+              }
+            />
+          )}
+        </Fragment>
+      ))}
+      <Button type='submit'>Save</Button>
+    </FormContainer>
   )
 }

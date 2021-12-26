@@ -1,11 +1,17 @@
 import { useCallback, useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { Board } from '../components/Board'
 import { Filter } from '../components/Filter'
 import { moveIssue } from '../redux/projectsSlice'
-import { ColumnContainer } from '../styles/common'
+import {
+  ButtonLink,
+  ColumnContainer,
+  Container,
+  FlexContainer,
+  Title,
+} from '../styles/common'
 
 export function IssueBoards() {
   const { projectId } = useParams()
@@ -46,9 +52,14 @@ export function IssueBoards() {
   }
 
   return projectExists ? (
-    <>
+    <Container>
+      <FlexContainer>
+        <Title>Issue Boards</Title>
+        <ButtonLink primary='true' to={`/projects/${projectId}/new-issue`}>
+          New issue
+        </ButtonLink>
+      </FlexContainer>
       <Filter data={state} setFilteredData={updateFilteredState} />
-      <Link to={`/projects/${projectId}/new-issue`}>New Issue</Link>
       <ColumnContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           {(filteredState || state)?.map((board, index) => (
@@ -61,7 +72,7 @@ export function IssueBoards() {
           ))}
         </DragDropContext>
       </ColumnContainer>
-    </>
+    </Container>
   ) : (
     <Navigate to={`/projects/${projectId}`} />
   )
