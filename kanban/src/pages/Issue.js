@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Form } from '../components/Form/Form';
 import { updateIssue } from '../redux/projectsSlice';
 import { Navigate } from 'react-router-dom';
-import { Button, Container } from '../styles/common';
+import { Button, Container, IssueLink } from '../styles/common';
 import { IssueInfo } from '../components/IssueInfo/IssueInfo';
 
 export const Issue = () => {
@@ -37,12 +37,11 @@ export const Issue = () => {
     <Container>
       {isOnEdit && <Form type="issue" initialState={issue} onSubmit={onSubmit} />}
       {!isOnEdit && (
-        <>
+        <IssueInfo full issue={issue}>
           <Button primary onClick={handleClick}>
             Edit
           </Button>
-          <IssueInfo issue={issue} />
-        </>
+        </IssueInfo>
       )}
     </Container>
   );

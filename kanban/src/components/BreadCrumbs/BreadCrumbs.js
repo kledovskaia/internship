@@ -9,10 +9,8 @@ export const BreadCrumbs = () => {
   const { projectId, issueId } = useParams();
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const projectTitle = useSelector((state) => state.projects.value[projectId]?.title);
-  const issueTitle = useSelector(
-    (state) =>
-      state.projects.value[projectId]?.issueBoards?.flatMap((board) => board)?.find((issue) => issue.id === issueId)
-        ?.title
+  const issue = useSelector((state) =>
+    state.projects.value[projectId]?.issueBoards?.flatMap((board) => board)?.find((issue) => issue.id === issueId)
   );
 
   useLayoutEffect(() => {
@@ -34,7 +32,7 @@ export const BreadCrumbs = () => {
       {breadCrumbs.map((route, index) => {
         let label = route.split('/').pop();
         if (label === projectId) label = projectTitle || "Project Doesn't Exist";
-        else if (label === issueId) label = issueTitle || "Issue Doesn't Exist";
+        else if (label === issueId) label = `${issue.info} ${issue.title}` || "Issue Doesn't Exist";
         else
           label = label
             .split('-')

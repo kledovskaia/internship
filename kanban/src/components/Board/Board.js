@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd';
 import { Droppable } from 'react-beautiful-dnd';
-import { Link } from 'react-router-dom';
+import { IssueLink } from '../../styles/common';
 import { IssueInfo } from '../IssueInfo/IssueInfo';
 import { Status } from '../Status/Status';
 import { BoardContainer, BoardIssue, BoardList } from './styles';
@@ -18,9 +18,9 @@ export const Board = ({ boardIndex, board, projectId }) => {
               <Draggable key={item.id} draggableId={item.id} index={item.index}>
                 {(provided) => (
                   <BoardIssue ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                    <Link to={`/projects/${projectId}/issue-boards/${item.id}`}>
+                    <IssueLink to={`/projects/${projectId}/issue-boards/${item.id}`}>
                       <IssueInfo issue={item} />
-                    </Link>
+                    </IssueLink>
                   </BoardIssue>
                 )}
               </Draggable>

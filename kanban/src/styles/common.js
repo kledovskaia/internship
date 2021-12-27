@@ -71,3 +71,7 @@ export const ProjectList = styled.ul`
   }
 `;
 export const ProjectListItem = styled.li``;
+export const IssueLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`;

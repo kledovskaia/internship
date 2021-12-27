@@ -1,18 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { moveInsideAnArray, moveInsideAnArrayOfArrays } from '../helpers/utils';
 
-const getItems = (count, offset = 0) =>
-  Array.from({ length: count }, (v, k) => k).map((k, index) => ({
-    index,
-    id: new Date().getTime() + Math.floor(Math.random() * 10000).toString(),
-    content: `item ${k + offset}`,
-    title: `item ${k + offset}`,
-  }));
-
 const initialState = { value: {} };
 
 const defaultProject = {
-  issueBoards: [getItems(5), getItems(5, 5), getItems(5, 10), getItems(5, 15)],
+  issueBoards: [[], [], [], []],
 };
 
 const status = {
@@ -20,6 +12,14 @@ const status = {
   'IN PROGRESS': 1,
   TEST: 2,
   DONE: 3,
+};
+
+const priorities = {
+  Critical: 'FC',
+  Major: 'FC',
+  Normal: 'FC',
+  Minor: 'MAR',
+  Unknown: 'BC',
 };
 
 export const projectsSlice = createSlice({
@@ -33,12 +33,19 @@ export const projectsSlice = createSlice({
         ...project,
       };
     },
-    newIssue: (state, action) => {
-      const { id, issue } = action.payload;
-      issue.status = issue.status || 'TODO';
-      const board = state.value[id].issueBoards[status[issue.status]];
-      insertIssue(board, issue);
-    },
+    newIssue: (() => {
+      let counter = 1;
+
+      return (state, action) => {
+        const { id, issue } = action.payload;
+        issue.status = issue.status || 'TODO';
+        issue.priority = issue.priority || 'Unknown';
+        issue.info = `${priorities[issue.priority]}-${counter}`;
+        const board = state.value[id].issueBoards[status[issue.status]];
+        insertIssue(board, issue);
+        counter++;
+      };
+    })(),
     updateIssue: (state, action) => {
       const { id, issue } = action.payload;
       let oldIssue = state.value[id].issueBoards.flatMap((item) => item).find((item) => item.id === issue.id);
