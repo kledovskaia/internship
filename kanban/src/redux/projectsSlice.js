@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { moveInsideAnArray, moveInsideAnArrayOfArrays } from '../helpers/utils';
-import { projectsSliceInitialState } from './data/projectsSliceInitialState';
-
-const initialState = projectsSliceInitialState;
+import { project } from './data/project';
 
 const defaultProject = {
   issueBoards: [[], [], [], []],
@@ -23,6 +21,21 @@ const priorities = {
   Unknown: 'BC',
 };
 
+let counter = 0;
+
+project.issueBoards.forEach((board) =>
+  board.forEach((issue) => {
+    issue.info = `${priorities[issue.priority]}-${counter}`;
+    counter++;
+  })
+);
+
+const initialState = {
+  value: {
+    [project.id]: project,
+  },
+};
+
 export const projectsSlice = createSlice({
   name: 'projects',
   initialState,
@@ -34,19 +47,15 @@ export const projectsSlice = createSlice({
         ...project,
       };
     },
-    newIssue: (() => {
-      let counter = 1;
-
-      return (state, action) => {
-        const { id, issue } = action.payload;
-        issue.status = issue.status || 'TODO';
-        issue.priority = issue.priority || 'Unknown';
-        issue.info = `${priorities[issue.priority]}-${counter}`;
-        const board = state.value[id].issueBoards[status[issue.status]];
-        insertIssue(board, issue);
-        counter++;
-      };
-    })(),
+    newIssue: (state, action) => {
+      const { id, issue } = action.payload;
+      issue.status = issue.status || 'TODO';
+      issue.priority = issue.priority || 'Unknown';
+      issue.info = `${priorities[issue.priority]}-${counter}`;
+      const board = state.value[id].issueBoards[status[issue.status]];
+      insertIssue(board, issue);
+      counter++;
+    },
     updateIssue: (state, action) => {
       const { id, issue } = action.payload;
       let oldIssue = state.value[id].issueBoards.flatMap((item) => item).find((item) => item.id === issue.id);

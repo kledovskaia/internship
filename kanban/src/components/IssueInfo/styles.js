@@ -29,6 +29,7 @@ export const IssueDescription = styled.p`
 `;
 export const IssueFooter = styled.div`
   display: flex;
+  align-items: center;
 
   & > * + * {
     margin-left: 0.5rem;
