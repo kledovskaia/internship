@@ -10,7 +10,7 @@ export const IssueInfo = ({ issue, full, children }) => {
       <IssueContainer>
         <IssueTitle>{issue.title}</IssueTitle>
         <IssueFooter>
-          <Priority>{issue.priority}</Priority>
+          <Priority value={issue.priority} />
           <StoryPoints>{issue.points}</StoryPoints>
         </IssueFooter>
       </IssueContainer>
@@ -20,7 +20,7 @@ export const IssueInfo = ({ issue, full, children }) => {
     <IssueContainer full>
       <IssueTitle>{issue.title}</IssueTitle>
       <FlexContainer>
-        <Priority>{issue.priority}</Priority>
+        <Priority value={issue.priority} />
         <StoryPoints>{issue.points}</StoryPoints>
         <Status>{issue.status}</Status>
         {children}

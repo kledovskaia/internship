@@ -1,6 +1,6 @@
 import * as priorityIcons from '../../icons/Priority';
 
-export const Priority = ({ children }) => {
-  const Icon = priorityIcons[children || 'Unknown'];
+export const Priority = ({ value }) => {
+  const Icon = priorityIcons[value || 'Unknown'];
   return <Icon />;
 };

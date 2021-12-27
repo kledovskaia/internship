@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { routes } from '../../data/routes';
@@ -15,7 +15,7 @@ export const BreadCrumbs = () => {
         ?.title
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const route = routes.find(
       (route) => route.path === pathname.replace(projectId, ':projectId').replace(issueId, ':issueId')
     );
