@@ -8,13 +8,12 @@ export const initialState = {
 
 const localStorageKey = 'kanban-store';
 const preloadedState = getFromLocalStorage(localStorageKey) || initialState;
-const localStorageMiddleware = (store) => (next) => (action) => {
-  saveToLocalStorageWithDebounce(localStorageKey, store.getState());
-  next(action);
-};
 
 export const store = configureStore({
   reducer: { projects },
-  ...(preloadedState ? { preloadedState } : {}),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
+  preloadedState,
+});
+
+store.subscribe(() => {
+  saveToLocalStorageWithDebounce(localStorageKey, store.getState());
 });
