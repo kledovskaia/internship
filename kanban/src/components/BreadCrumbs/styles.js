@@ -4,6 +4,15 @@ import styled from 'styled-components/macro';
 export const BreadCrumbsContainer = styled.ul`
   display: flex;
 
+  & > * {
+    white-space: nowrap;
+  }
+
+  & > *:last-of-type {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   & > * + * {
     padding-left: 1.5em;
     position: relative;
@@ -18,6 +27,10 @@ export const BreadCrumbsContainer = styled.ul`
       width: 0.75em;
       background: url('/icons/chevron-right.svg') center center / contain no-repeat;
     }
+  }
+
+  @media screen and (max-width: 30em) {
+    font-size: 0.8rem;
   }
 `;
 export const BreadCrumbsItem = styled.li``;
