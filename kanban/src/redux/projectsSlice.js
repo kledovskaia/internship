@@ -1,36 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { moveInsideAnArray, moveInsideAnArrayOfArrays } from '../helpers/utils';
+import { priorities, status } from './data/labels';
 import { project } from './data/project';
 
 const defaultProject = {
   issueBoards: [[], [], [], []],
 };
 
-const status = {
-  TODO: 0,
-  'IN PROGRESS': 1,
-  TEST: 2,
-  DONE: 3,
-};
+let counter = 14;
 
-const priorities = {
-  Critical: 'FC',
-  Major: 'FC',
-  Normal: 'FC',
-  Minor: 'MAR',
-  Unknown: 'BC',
-};
-
-let counter = 0;
-
-project.issueBoards.forEach((board) =>
-  board.forEach((issue) => {
-    issue.info = `${priorities[issue.priority]}-${counter}`;
-    counter++;
-  })
-);
-
-const initialState = {
+export const initialState = {
   value: {
     [project.id]: project,
   },
@@ -100,4 +78,34 @@ const updateStatuses = (state, projectId) => {
     const statuses = Object.entries(status);
     board.forEach((issue) => issue.status !== statuses[index][0] && (issue.status = statuses[index][0]));
   });
+};
+
+export const moveInsideAnArray = ({ state, source, destination }) => {
+  const sInd = +source.droppableId;
+  const list = state[sInd];
+  const startIndex = source.index;
+  const endIndex = destination.index;
+
+  const changedList = Array.from(list);
+  const [removed] = changedList.splice(startIndex, 1);
+  changedList.splice(endIndex, 0, removed);
+
+  const result = [...state];
+  result[sInd] = changedList.map((item, index) => ({ ...item, index }));
+
+  return result;
+};
+
+export const moveInsideAnArrayOfArrays = ({ state, sInd, dInd, source, destination }) => {
+  const sourceClone = Array.from(state[sInd]);
+  const destClone = Array.from(state[dInd]);
+  const [removed] = sourceClone.splice(source.index, 1);
+
+  destClone.splice(destination.index, 0, removed);
+
+  const result = [...state];
+  result[sInd] = sourceClone.map((item, index) => ({ ...item, index }));
+  result[dInd] = destClone.map((item, index) => ({ ...item, index }));
+
+  return result;
 };

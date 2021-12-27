@@ -23,7 +23,6 @@ export const Filter = ({ data, setFilteredData }) => {
   };
   const filterData = useCallback(
     debounce((filter, data) => {
-      console.log('hit');
       if (!data) return;
       if (filter) {
         setFilteredData(
