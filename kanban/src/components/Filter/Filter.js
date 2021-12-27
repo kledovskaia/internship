@@ -23,39 +23,25 @@ export const Filter = ({ data, setFilteredData }) => {
   };
   const filterData = useCallback(
     debounce((filter, data) => {
+      console.log('hit');
       if (!data) return;
-      setFilteredData(
-        data.map((board) =>
-          board.filter((issue) =>
-            formatted(filter).every((searchWord) => formatted(issue.title).some((word) => word.includes(searchWord)))
+      if (filter) {
+        setFilteredData(
+          data.map((board) =>
+            board.filter((issue) =>
+              formatted(filter).every((searchWord) => formatted(issue.title).some((word) => word.includes(searchWord)))
+            )
           )
-        )
-      );
+        );
+      } else {
+        setFilteredData(null);
+      }
     }, 500),
     []
   );
 
   useLayoutEffect(() => {
-    if (!filter) {
-      setFilteredData(null);
-      return;
-    }
     if (!data) return;
-
-    setFilteredData(
-      data.map((board) =>
-        board.filter((issue) =>
-          formatted(filter).every((searchWord) => formatted(issue.title).some((word) => word.includes(searchWord)))
-        )
-      )
-    );
-  }, [data]);
-
-  useLayoutEffect(() => {
-    if (!filter) {
-      setFilteredData(null);
-      return;
-    }
     filterData(filter, data);
   }, [filter, data]);
 
