@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro'
+import styled from 'styled-components/macro';
 
 export const FilterContainer = styled.form`
   display: grid;
@@ -8,4 +8,4 @@ export const FilterContainer = styled.form`
   button {
     justify-self: left;
   }
-`
+`;

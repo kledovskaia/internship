@@ -1,5 +1,5 @@
-import { BreadCrumbs } from '../components/BreadCrumbs'
-import { Page } from '../styles/common'
+import { BreadCrumbs } from '../components/BreadCrumbs/BreadCrumbs';
+import { Page } from '../styles/common';
 
 export const PageContainer = ({ children }) => {
   return (
@@ -7,5 +7,5 @@ export const PageContainer = ({ children }) => {
       <BreadCrumbs />
       {children}
     </Page>
-  )
-}
+  );
+};

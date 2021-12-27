@@ -1,28 +1,27 @@
-import { useFormik } from 'formik'
-import { Button } from '../../styles/common'
-import { InputField, FormContainer } from './styles'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import { Fragment } from 'react'
-import * as form from '../../data/form'
+import { useFormik } from 'formik';
+import { Button } from '../../styles/common';
+import { InputField, FormContainer } from './styles';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { Fragment } from 'react';
+import * as form from '../../data/form';
 
 export const Form = ({ type, onSubmit, initialState }) => {
   const formik = useFormik({
     initialValues: {
-      ...Object.fromEntries(
-        form.fields[type].map(({ name }) => [name, initialState?.[name] || ''])
-      ),
+      ...Object.fromEntries(form.fields[type].map(({ name }) => [name, initialState?.[name] || ''])),
     },
     validationSchema: form.schemas[type],
     onSubmit: (values) => {
+      console.log(values);
       onSubmit({
         ...initialState,
         ...values,
-      })
+      });
     },
-  })
+  });
 
   return (
     <FormContainer onSubmit={formik.handleSubmit}>
@@ -54,17 +53,13 @@ export const Form = ({ type, onSubmit, initialState }) => {
               label={field.placeholder}
               value={formik.values[field.name]}
               onChange={formik.handleChange}
-              error={
-                formik.touched[field.name] && Boolean(formik.errors[field.name])
-              }
-              helperText={
-                formik.touched[field.name] && formik.errors[field.name]
-              }
+              error={formik.touched[field.name] && Boolean(formik.errors[field.name])}
+              helperText={formik.touched[field.name] && formik.errors[field.name]}
             />
           )}
         </Fragment>
       ))}
-      <Button type='submit'>Save</Button>
+      <Button type="submit">Save</Button>
     </FormContainer>
-  )
-}
+  );
+};

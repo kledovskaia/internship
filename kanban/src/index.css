@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  font-size: 87.5%;
 }
 
 *,
@@ -14,6 +15,7 @@ body {
   color: #252c32;
   font-family: Inter, sans-serif;
   background-color: #fff;
+  min-height: 100vh;
 }
 
 h1,

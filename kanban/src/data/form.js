@@ -1,4 +1,4 @@
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
 export const schemas = {
   project: Yup.object().shape({
@@ -7,13 +7,9 @@ export const schemas = {
   issue: Yup.object().shape({
     title: Yup.string().max(100, 'Too Long!').required('Title is Required'),
     description: Yup.string().max(300, 'Too Long!'),
-    points: Yup.number()
-      .positive('Positive')
-      .integer('Integer')
-      .max(10, '0 - 10')
-      .typeError('Number'),
+    points: Yup.number().positive('Positive').integer('Integer').max(10, '0 - 10').typeError('Number'),
   }),
-}
+};
 
 export const fields = {
   project: [{ name: 'title', placeholder: 'Title *' }],
@@ -40,4 +36,4 @@ export const fields = {
       multiline: true,
     },
   ],
-}
+};
