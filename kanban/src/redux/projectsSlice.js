@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { moveInsideAnArray, moveInsideAnArrayOfArrays } from '../helpers/utils';
+import { projectsSliceInitialState } from './data/projectsSliceInitialState';
 
-const initialState = { value: {} };
+const initialState = projectsSliceInitialState;
 
 const defaultProject = {
   issueBoards: [[], [], [], []],
@@ -58,9 +59,7 @@ export const projectsSlice = createSlice({
         const from = state.value[id].issueBoards[status[oldIssue.status]];
         const to = state.value[id].issueBoards[status[issue.status]];
         from.splice(oldIssue.index, 1);
-        insertIssue(to, {
-          ...issue,
-        });
+        insertIssue(to, issue);
       }
     },
     moveIssue: (state, action) => {

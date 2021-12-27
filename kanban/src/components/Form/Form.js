@@ -15,10 +15,9 @@ export const Form = ({ type, onSubmit, initialState }) => {
     },
     validationSchema: form.schemas[type],
     onSubmit: (values) => {
-      console.log(values);
       onSubmit({
         ...initialState,
-        ...values,
+        ...Object.fromEntries(Object.entries(values).filter(([_, value]) => value)),
       });
     },
   });

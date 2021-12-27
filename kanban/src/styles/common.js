@@ -6,8 +6,9 @@ export const KanbanContainer = styled.section`
   flex: 1;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(4, minmax(20rem, 1fr));
   gap: 0.625rem;
+  overflow-x: auto;
 `;
 export const Page = styled.div`
   padding: 1rem;

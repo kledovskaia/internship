@@ -36,7 +36,10 @@ export const Filter = ({ data, setFilteredData }) => {
   );
 
   useLayoutEffect(() => {
-    if (!filter) return;
+    if (!filter) {
+      setFilteredData(null);
+      return;
+    }
     if (!data) return;
 
     setFilteredData(
