@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
@@ -38,9 +38,9 @@ export function IssueBoards() {
     [issueBoards]
   );
 
-  const updateFilteredState = (newState) => {
+  const updateFilteredState = useCallback((newState) => {
     setFilteredState(newState);
-  };
+  }, []);
 
   return projectExists ? (
     <Container>
@@ -50,7 +50,7 @@ export function IssueBoards() {
           New issue
         </ButtonLink>
       </FlexContainer>
-      <Filter data={issueBoards} setFilteredData={updateFilteredState} />
+      <Filter setFilteredData={updateFilteredState} />
       <KanbanContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           {(filteredState || issueBoards)?.map((board, index) => (

@@ -8,11 +8,16 @@ import IconButton from '@mui/material/IconButton';
 import { Button } from '../../styles/common';
 import { FilterContainer } from './styles';
 import { Search } from '../../icons/Search';
+import { selectIssueBoards } from '../../redux/selectors';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const formatted = (string) => string.toLowerCase().replace(/\s+/g, ' ').split(' ');
 
-export const Filter = ({ data, setFilteredData }) => {
+export const Filter = ({ setFilteredData }) => {
   const [filter, setFilter] = useState('');
+  const { projectId } = useParams();
+  const issueBoards = useSelector(selectIssueBoards(projectId));
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,29 +26,29 @@ export const Filter = ({ data, setFilteredData }) => {
   const handleChange = (event) => {
     setFilter(event.target.value);
   };
-  const filterData = useCallback(
-    debounce((filter, data) => {
-      if (!data) return;
-      if (filter) {
-        setFilteredData(
-          data.map((board) => ({
-            ...board,
-            items: board.items.filter((issue) =>
-              formatted(filter).every((searchWord) => formatted(issue.title).some((word) => word.includes(searchWord)))
-            ),
-          }))
-        );
-      } else {
-        setFilteredData(null);
-      }
-    }, 500),
-    []
-  );
+  const filterData = useCallback((filter, data) => {
+    if (data && filter) {
+      setFilteredData(
+        data.map((board) => ({
+          ...board,
+          items: board.items.filter((issue) =>
+            formatted(filter).every((searchWord) => formatted(issue.title).some((word) => word.includes(searchWord)))
+          ),
+        }))
+      );
+    } else {
+      setFilteredData(null);
+    }
+  }, []);
+  const filterDataWithDebounce = useCallback(debounce(filterData), []);
 
   useLayoutEffect(() => {
-    if (!data) return;
-    filterData(filter, data);
-  }, [filter, data]);
+    filterDataWithDebounce(filter, issueBoards);
+  }, [filter]);
+
+  useLayoutEffect(() => {
+    filterData(filter, issueBoards);
+  }, [issueBoards]);
 
   return (
     <FilterContainer onSubmit={handleSubmit}>
