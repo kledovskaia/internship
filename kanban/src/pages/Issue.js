@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Form } from '../components/Form/Form';
 import { updateIssue } from '../redux/projectsSlice';
 import { Navigate } from 'react-router-dom';
-import { Button, Container, IssueLink } from '../styles/common';
+import { Button, Container } from '../styles/common';
 import { IssueInfo } from '../components/IssueInfo/IssueInfo';
 
 export const Issue = () => {
@@ -13,7 +13,7 @@ export const Issue = () => {
   const projectExists = useSelector((state) => projectId in state.projects.value);
   const dispatch = useDispatch();
   const issue = useSelector((state) =>
-    state.projects.value[projectId]?.issueBoards?.flatMap((board) => board)?.find((issue) => issue.id === issueId)
+    state.projects.value[projectId]?.issueBoards?.flatMap((board) => board.items)?.find((issue) => issue.id === issueId)
   );
 
   const onSubmit = (value) => {

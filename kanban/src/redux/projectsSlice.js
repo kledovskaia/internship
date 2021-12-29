@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { priorities, status } from './data/labels';
+import { priorities } from './data/labels';
 import { project } from './data/project';
 
 const defaultProject = {
-  issueBoards: [[], [], [], []],
+  issueBoards: [
+    { title: 'TODO', items: [] },
+    { title: 'IN PROGRESS', items: [] },
+    { title: 'TEST', items: [] },
+    { title: 'DONE', items: [] },
+  ],
 };
-
-let counter = 14;
 
 export const initialState = {
   value: {
@@ -27,24 +30,28 @@ export const projectsSlice = createSlice({
     },
     newIssue: (state, action) => {
       const { id, issue } = action.payload;
-      issue.status = issue.status || 'TODO';
+      issue.status = issue.status || state.value[id].issueBoards[0].title;
       issue.priority = issue.priority || 'Unknown';
-      issue.info = `${priorities[issue.priority]}-${counter}`;
-      const board = state.value[id].issueBoards[status[issue.status]];
+      const infoId =
+        Object.values(state.value)
+          .flatMap((project) => project.issueBoards)
+          ?.flatMap((board) => board.items)?.length || 0;
+      issue.info = `${priorities[issue.priority]}-${infoId}`;
+      const board = state.value[id].issueBoards.find((board) => board.title === issue.status).items;
       insertIssue(board, issue);
-      counter++;
     },
     updateIssue: (state, action) => {
       const { id, issue } = action.payload;
-      let oldIssue = state.value[id].issueBoards.flatMap((item) => item).find((item) => item.id === issue.id);
+      let oldIssue = state.value[id].issueBoards.flatMap((board) => board.items).find((item) => item.id === issue.id);
 
       if (oldIssue.status === issue.status) {
         Object.entries(issue).forEach(([key, value]) => {
           oldIssue[key] = value;
         });
       } else {
-        const from = state.value[id].issueBoards[status[oldIssue.status]];
-        const to = state.value[id].issueBoards[status[issue.status]];
+        const from = state.value[id].issueBoards.find((board) => board.title === oldIssue.status).items;
+        const to = state.value[id].issueBoards.find((board) => board.title === issue.status).items;
+        console.log(from, to);
         from.splice(oldIssue.index, 1);
         insertIssue(to, issue);
       }
@@ -55,7 +62,7 @@ export const projectsSlice = createSlice({
         state: state.value[id].issueBoards,
         ...action.payload,
       });
-      updateStatuses(state, id);
+      updateStatuses(state.value[id].issueBoards);
     },
   },
 });
@@ -73,16 +80,15 @@ const insertIssue = (arrayOfIssues, issue) => {
 
 const updateIndexes = (arrayOfIssues) => arrayOfIssues.forEach((issue, index) => (issue.index = index));
 
-const updateStatuses = (state, projectId) => {
-  state.value[projectId].issueBoards.forEach((board, index) => {
-    const statuses = Object.entries(status);
-    board.forEach((issue) => issue.status !== statuses[index][0] && (issue.status = statuses[index][0]));
+const updateStatuses = (boards) => {
+  boards.forEach((board) => {
+    board.items.forEach((issue) => issue.status !== board.title && (issue.status = board.title));
   });
 };
 
 export const moveInsideAnArray = ({ state, source, destination }) => {
   const sInd = +source.droppableId;
-  const list = state[sInd];
+  const list = state[sInd].items;
   const startIndex = source.index;
   const endIndex = destination.index;
 
@@ -91,21 +97,21 @@ export const moveInsideAnArray = ({ state, source, destination }) => {
   changedList.splice(endIndex, 0, removed);
 
   const result = [...state];
-  result[sInd] = changedList.map((item, index) => ({ ...item, index }));
+  result[sInd].items = changedList.map((item, index) => ({ ...item, index }));
 
   return result;
 };
 
 export const moveInsideAnArrayOfArrays = ({ state, sInd, dInd, source, destination }) => {
-  const sourceClone = Array.from(state[sInd]);
-  const destClone = Array.from(state[dInd]);
+  const sourceClone = Array.from(state[sInd].items);
+  const destClone = Array.from(state[dInd].items);
   const [removed] = sourceClone.splice(source.index, 1);
 
   destClone.splice(destination.index, 0, removed);
 
   const result = [...state];
-  result[sInd] = sourceClone.map((item, index) => ({ ...item, index }));
-  result[dInd] = destClone.map((item, index) => ({ ...item, index }));
+  result[sInd].items = sourceClone.map((item, index) => ({ ...item, index }));
+  result[dInd].items = destClone.map((item, index) => ({ ...item, index }));
 
   return result;
 };

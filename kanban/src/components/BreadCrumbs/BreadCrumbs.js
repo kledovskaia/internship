@@ -10,7 +10,7 @@ export const BreadCrumbs = () => {
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const projectTitle = useSelector((state) => state.projects.value[projectId]?.title);
   const issue = useSelector((state) =>
-    state.projects.value[projectId]?.issueBoards?.flatMap((board) => board)?.find((issue) => issue.id === issueId)
+    state.projects.value[projectId]?.issueBoards?.flatMap((board) => board.items)?.find((issue) => issue.id === issueId)
   );
 
   useLayoutEffect(() => {
