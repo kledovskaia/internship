@@ -3,12 +3,13 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Form } from '../components/Form/Form';
 import { newIssue } from '../redux/projectsSlice';
 import { v4 as uuidv4 } from 'uuid';
+import { isProjectExist } from '../redux/selectors';
 
 export const NewIssue = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { projectId } = useParams();
-  const projectExists = useSelector((state) => projectId in state.projects.value);
+  const projectExists = useSelector(isProjectExist(projectId));
 
   const onSubmit = (issue) => {
     dispatch(

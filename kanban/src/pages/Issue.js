@@ -6,15 +6,14 @@ import { updateIssue } from '../redux/projectsSlice';
 import { Navigate } from 'react-router-dom';
 import { Button, Container } from '../styles/common';
 import { IssueInfo } from '../components/IssueInfo/IssueInfo';
+import { isProjectExist, selectIssue } from '../redux/selectors';
 
 export const Issue = () => {
   const [isOnEdit, setIsOnEdit] = useState(false);
   const { projectId, issueId } = useParams();
-  const projectExists = useSelector((state) => projectId in state.projects.value);
+  const projectExists = useSelector(isProjectExist(projectId));
   const dispatch = useDispatch();
-  const issue = useSelector((state) =>
-    state.projects.value[projectId]?.issueBoards?.flatMap((board) => board.items)?.find((issue) => issue.id === issueId)
-  );
+  const issue = useSelector(selectIssue(issueId));
 
   const onSubmit = (value) => {
     dispatch(

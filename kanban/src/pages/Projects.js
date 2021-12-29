@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
+import { selectProjects } from '../redux/selectors';
 import { ButtonLink, Container, ProjectList, ProjectListItem, TitleLink } from '../styles/common';
 
 export const Projects = () => {
-  const projects = useSelector((state) => state.projects.value);
+  const projects = useSelector(selectProjects);
 
   return (
     <Container>

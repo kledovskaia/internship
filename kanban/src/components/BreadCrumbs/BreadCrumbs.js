@@ -2,16 +2,15 @@ import { useLayoutEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { routes } from '../../data/routes';
+import { selectIssue, selectProjectTitle } from '../../redux/selectors';
 import { BreadCrumbsContainer, BreadCrumbsItem, BreadCrumbsLink } from './styles';
 
 export const BreadCrumbs = () => {
   const { pathname } = useLocation();
   const { projectId, issueId } = useParams();
   const [breadCrumbs, setBreadCrumbs] = useState([]);
-  const projectTitle = useSelector((state) => state.projects.value[projectId]?.title);
-  const issue = useSelector((state) =>
-    state.projects.value[projectId]?.issueBoards?.flatMap((board) => board.items)?.find((issue) => issue.id === issueId)
-  );
+  const projectTitle = useSelector(selectProjectTitle(projectId));
+  const issue = useSelector(selectIssue(issueId));
 
   useLayoutEffect(() => {
     const route = routes.find(

@@ -32,10 +32,7 @@ export const projectsSlice = createSlice({
       const { id, issue } = action.payload;
       issue.status = issue.status || state.value[id].issueBoards[0].title;
       issue.priority = issue.priority || 'Unknown';
-      const infoId =
-        Object.values(state.value)
-          .flatMap((project) => project.issueBoards)
-          ?.flatMap((board) => board.items)?.length || 0;
+      const infoId = state.value[id].issueBoards?.flatMap((board) => board.items)?.length || 0;
       issue.info = `${priorities[issue.priority]}-${infoId}`;
       const board = state.value[id].issueBoards.find((board) => board.title === issue.status).items;
       insertIssue(board, issue);

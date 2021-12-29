@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { selectProject } from '../redux/selectors';
 import { ButtonLink, Container } from '../styles/common';
 
 export const Project = () => {
   const { projectId } = useParams();
-  const project = useSelector((state) => state.projects.value[projectId]);
+  const project = useSelector(selectProject(projectId));
 
   return !project ? (
     <h1>Project Doesn't Exist</h1>

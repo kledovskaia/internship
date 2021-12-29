@@ -5,12 +5,13 @@ import { Navigate, useParams } from 'react-router-dom';
 import { Board } from '../components/Board/Board';
 import { Filter } from '../components/Filter/Filter';
 import { moveIssue } from '../redux/projectsSlice';
+import { isProjectExist, selectIssueBoards } from '../redux/selectors';
 import { ButtonLink, Container, FlexContainer, KanbanContainer, Title } from '../styles/common';
 
 export function IssueBoards() {
   const { projectId } = useParams();
-  const state = useSelector((state) => state.projects.value[projectId]?.issueBoards);
-  const projectExists = useSelector((state) => projectId in state.projects.value);
+  const issueBoards = useSelector(selectIssueBoards(projectId));
+  const projectExists = useSelector(isProjectExist(projectId));
   const [filteredState, setFilteredState] = useState(null);
   const dispatch = useDispatch();
 
@@ -34,7 +35,7 @@ export function IssueBoards() {
         })
       );
     },
-    [state]
+    [issueBoards]
   );
 
   const updateFilteredState = (newState) => {
@@ -49,10 +50,10 @@ export function IssueBoards() {
           New issue
         </ButtonLink>
       </FlexContainer>
-      <Filter data={state} setFilteredData={updateFilteredState} />
+      <Filter data={issueBoards} setFilteredData={updateFilteredState} />
       <KanbanContainer>
         <DragDropContext onDragEnd={onDragEnd}>
-          {(filteredState || state)?.map((board, index) => (
+          {(filteredState || issueBoards)?.map((board, index) => (
             <Board key={index} projectId={projectId} board={board} boardIndex={index} />
           ))}
         </DragDropContext>
