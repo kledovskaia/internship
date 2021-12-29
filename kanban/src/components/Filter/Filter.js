@@ -26,11 +26,12 @@ export const Filter = ({ data, setFilteredData }) => {
       if (!data) return;
       if (filter) {
         setFilteredData(
-          data.map((board) =>
-            board.filter((issue) =>
+          data.map((board) => ({
+            ...board,
+            items: board.items.filter((issue) =>
               formatted(filter).every((searchWord) => formatted(issue.title).some((word) => word.includes(searchWord)))
-            )
-          )
+            ),
+          }))
         );
       } else {
         setFilteredData(null);
