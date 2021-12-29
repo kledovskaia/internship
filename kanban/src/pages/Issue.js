@@ -13,7 +13,7 @@ export const Issue = () => {
   const { projectId, issueId } = useParams();
   const projectExists = useSelector(isProjectExist(projectId));
   const dispatch = useDispatch();
-  const issue = useSelector(selectIssue(issueId));
+  const issue = useSelector(selectIssue(projectId, issueId));
 
   const onSubmit = (value) => {
     dispatch(

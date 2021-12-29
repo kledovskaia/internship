@@ -10,7 +10,7 @@ export const BreadCrumbs = () => {
   const { projectId, issueId } = useParams();
   const [breadCrumbs, setBreadCrumbs] = useState([]);
   const projectTitle = useSelector(selectProjectTitle(projectId));
-  const issue = useSelector(selectIssue(issueId));
+  const issue = useSelector(selectIssue(projectId, issueId));
 
   useLayoutEffect(() => {
     const route = routes.find(
