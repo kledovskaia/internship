@@ -1,8 +1,11 @@
 import { auth, getTicketCollectionQuery, getTicketQuery } from "../firebase/firebase";
-import { useAuthState, useDocumentData, useCollectionData } from 'react-firebase-hooks'  
-import { useEffect, useState } from "react";
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore'  
+import { useContext, useEffect, useState } from "react";
+import { TicketIdContext } from "../context/TicketId";
 
-export const useFirebase = (ticketId) => {
+export const useFirebase = () => {
+  const { ticketId } = useContext(TicketIdContext);
   const [user, authLoading, authError] = useAuthState(auth);
   const [ticket, ticketLoading, ticketError] = useDocumentData(getTicketQuery(ticketId));
   const [ticketCollection, ticketCollectionLoading, ticketCollectionError] = useCollectionData(getTicketCollectionQuery());
