@@ -8,7 +8,7 @@ export const auth = getAuth();
 const db = getFirestore(app);
 const ticketsRef = collection(db, "tickets");
 export const getTicketCollectionQuery = () => query(ticketsRef);
-export const getTicketQuery = (id) => doc(ticketsRef, id);
+export const getTicketQuery = (id) => id ? doc(ticketsRef, id) : null;
 
 export const login = () => signInWithPopup(auth, GoogleAuthProvider);
 

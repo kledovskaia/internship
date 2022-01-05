@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export const TicketIdContext = createContext(null);
+export const TicketIdContext = createContext({});
 
 export const TicketIdContextProvider = ({ children }) => {
   const [ticketId, setTicketId] = useState(null);
