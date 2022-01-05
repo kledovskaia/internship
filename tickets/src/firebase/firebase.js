@@ -2,6 +2,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/
 import { getFirestore, collection, query, doc } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from './config';
+import { seed } from './seed'
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
@@ -15,3 +16,5 @@ export const login = () => signInWithPopup(auth, GoogleAuthProvider);
 export const logout = () => {
   signOut(auth)
 };
+
+seed(app);
