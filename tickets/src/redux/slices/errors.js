@@ -8,11 +8,10 @@ const errorsSlice = createSlice({
   name: 'errors',
   initialState,
   reducers: {
-    setError: (state, action) => {
-      if (Array.isArray(action.payload)) state.value.push(...action.payload)
-      else state.value.push(action.payload)
+    setErrors: (state, action) => {
+      state.value.push(...action.payload)
     }
   }
 })
-export const { setError } = errorsSlice.actions;
+export const { setErrors } = errorsSlice.actions;
 export default errorsSlice.reducer;
