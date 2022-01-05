@@ -40,6 +40,10 @@
     "@babel/polyfill": "^7.8.3",
     "eslint-plugin-jest": "^23.8.2",
     "normalize.css": "^8.0.1",
-    "tar": ">=4.4.18"
+    "tar": ">=4.4.18",
+    "trim-newlines": ">=3.0.1",
+    "glob-parent": ">=5.1.2",
+    "node-notifier": ">=8.0.1"
+
   }
 }
