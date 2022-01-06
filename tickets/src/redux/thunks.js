@@ -4,10 +4,12 @@ import { getUser } from "./selectors";
 
 export const addTicket = createAsyncThunk(
   'ticket/add',
-  async ({ data }, { rejectWithValue, getState }) => {
+  async (data, { rejectWithValue, getState }) => {
     try {
-      checkAuthentication();
-      return await addTicketFirebase(data)
+      const state = getState();
+      const user = state.user.value;
+      checkAuthentication(user);
+      return await addTicketFirebase(data, user)
     } catch (error) {
       console.log(error);
       rejectWithValue(error);
@@ -16,10 +18,12 @@ export const addTicket = createAsyncThunk(
 )
 export const updateTicket = createAsyncThunk(
   'ticket/update',
-  async ({ data }, { rejectWithValue, getState }) => {
+  async (data, { rejectWithValue, getState }) => {
     try {
-      checkAuthentication();
-      await checkPermission(data.id, getState);
+      const state = getState();
+      const user = state.user.value;
+      checkAuthentication(user);
+      await checkExistanceAndPermission(data.id, user);
       return await updateTicketFirebase(data)
     } catch (error) {
       console.log(error);
@@ -29,10 +33,12 @@ export const updateTicket = createAsyncThunk(
 )
 export const deleteTicket = createAsyncThunk(
   'ticket/delete',
-  async ({ id }, { rejectWithValue, getState }) => {
+  async (id, { rejectWithValue, getState }) => {
     try {
-      checkAuthentication();
-      await checkPermission(id, getState);
+      const state = getState();
+      const user = state.user.value;
+      checkAuthentication(user);
+      await checkExistanceAndPermission(id, user);
       return await deleteTicketFirebase(id);
     } catch (error) {
       console.log(error);
@@ -40,12 +46,10 @@ export const deleteTicket = createAsyncThunk(
     }
   }
 )
-const checkAuthentication = (getState) => {
-  const user = getState(getUser());
+const checkAuthentication = (user) => {
   if (!user) throw new Error('Please authenticate to perform this action');
 }
-const checkPermission = async (ticketId, getState) => {
-  const user = getState(getUser());
+const checkExistanceAndPermission = async (ticketId, user) => {
   const ticket = await getTicketFirebase(ticketId);
   if (!ticket) throw new Error('Ticket doesn\'t exist');
   if (user.id !== ticket.author.id) throw new Error('You don\'t have permission to modify this ticket');

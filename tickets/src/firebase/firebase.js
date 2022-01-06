@@ -1,5 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { getFirestore, collection, query, doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, collection, query, doc, setDoc, deleteDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from './config';
 import { seed } from './seed'
@@ -21,12 +21,21 @@ export const logout = () => {
 
 // seed();
 
-export const addTicketFirebase = (ticket) => {
+export const addTicketFirebase = (ticket, author) => {
   const id = nanoid();
-  return setDoc(doc(db, "tickets", id), { ...ticket, id })
+  return setDoc(doc(db, "tickets", id), { 
+    ...ticket, 
+    id,
+    author,
+    completed: false,
+    createdAt: serverTimestamp(), 
+  })
 }
 export const updateTicketFirebase = (ticket) => {
-  return setDoc(doc(db, "tickets", ticket.id), ticket, { merge: true })
+  return setDoc(doc(db, "tickets", ticket.id), {
+    ...ticket,
+    updatedAt: serverTimestamp(),
+  }, { merge: true })
 }
 export const deleteTicketFirebase = (ticketId) => {
   return deleteDoc(doc(db, "tickets", ticketId))
