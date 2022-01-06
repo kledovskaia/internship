@@ -1,11 +1,12 @@
+import { serverTimestamp } from "firebase/firestore";
+
 export const initialTickets = [
   {
-    author: 'someId',
-    title: 'title',
-    description: 'description',
+    title: '',
+    description: '',
     priority: 'high',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    completed: true,
+    author: {},
+    completed: false,
+    createdAt: serverTimestamp(),
   }
 ]
