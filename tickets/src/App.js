@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "./firebase/firebase";
-import { addTicket } from "./redux/thunks";
+import { addTicket, updateTicket } from "./redux/thunks";
 
 export const App = () => {
   const dispatch = useDispatch()
@@ -9,11 +9,17 @@ export const App = () => {
     title: '',
     description: '',
     priority: '',
+    id: "TM6vxwBhShly3egUZDnRb",
+    author: {
+      displayName: "Maddison",
+      email: "feirs911@gmail.com",
+      id: "5iHASEr2lDO17KFFvono2yIQ7Kh2",
+      photoURL: "https://lh3.googleusercontent.com/a/AATXAJzpS1F6-3qdP1pQS3HpsxPEveGE1LQiae2rCfuS=s96-c"
+    } 
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addTicket(formState))
-    
+    dispatch(updateTicket(formState)) 
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +33,10 @@ export const App = () => {
     <>
     <button onClick={login}>Google Provider</button>
     <form onSubmit={handleSubmit}>
-      { Object.entries(formState).map(([name, value]) => <input key={name} name={name} value={value} onChange={handleChange}/>) }
-      <button>send</button>
+      <input name="title" value={formState.title} onChange={handleChange}/>
+      <input name="description" value={formState.description} onChange={handleChange}/>
+      <input name="priority" value={formState.priority} onChange={handleChange}/>
+      <button>delete</button>
     </form>
     </>
   );
