@@ -1,7 +1,9 @@
+import { addDoc } from 'firebase/firestore';
+import { ticketsRef } from './firebase';
 import { initialTickets } from './initialTickets';
 
-export const seed = (app) => {
+export const seed = () => {
   initialTickets.forEach(ticket => {
-    app.firestore().collection('tickets').add(ticket)
+    addDoc(ticketsRef, ticket)
   })
 }

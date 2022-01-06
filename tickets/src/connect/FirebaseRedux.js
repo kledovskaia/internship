@@ -28,7 +28,13 @@ export const FirebaseRedux = ({ children }) => {
   }, [errors, dispatch])
   
   useEffect(() => {
-    dispatch(setUser(user))
+    if (!user) dispatch(setUser(user))
+    else dispatch(setUser({
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid,
+    }))
   }, [user, dispatch])
 
   useEffect(() => {

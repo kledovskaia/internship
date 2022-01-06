@@ -1,5 +1,7 @@
+import { login } from "./firebase/firebase";
+
 export const App = () => {
   return (
-    <div>Hello world!</div>
+    <button onClick={login}>Google Provider</button>
   );
 }
