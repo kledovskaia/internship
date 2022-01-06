@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "./firebase/firebase";
-import { addTicket, updateTicket } from "./redux/thunks";
+import { addTicket, deleteTicket, updateTicket } from "./redux/thunks";
 
 export const App = () => {
   const dispatch = useDispatch()
@@ -19,7 +19,7 @@ export const App = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateTicket(formState)) 
+    dispatch(deleteTicket(formState.id)) 
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
