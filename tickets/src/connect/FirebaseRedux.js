@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { TicketIdContext } from "../context/TicketId";
 import { useFirebase } from "../hooks/useFirebase";
-import { setErrors } from "../redux/slices/errors";
+import { setMessages } from "../redux/slices/messages";
 import { setLoading } from "../redux/slices/loading";
 import { setTicket } from "../redux/slices/ticket";
 import { setTicketCollection } from "../redux/slices/ticketCollection";
@@ -24,13 +24,12 @@ export const FirebaseRedux = ({ children }) => {
   }, [loading, dispatch])
 
   useEffect(() => {
-    dispatch(setErrors(errors))
+    dispatch(setMessages({ errors }))
   }, [errors, dispatch])
   
   useEffect(() => {
     if (!user) dispatch(setUser(user))
     else dispatch(setUser({
-      email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
       id: user.uid,
