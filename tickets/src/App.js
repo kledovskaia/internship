@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "./firebase/firebase";
+import { login, logout } from "./firebase/firebase";
 import { addTicket, deleteTicket, updateTicket } from "./redux/thunks";
 
 export const App = () => {
@@ -32,6 +32,7 @@ export const App = () => {
   return (
     <>
     <button onClick={login}>Google Provider</button>
+    <button onClick={logout}>logout</button>
     <form onSubmit={handleSubmit}>
       <input name="title" value={formState.title} onChange={handleChange}/>
       <input name="description" value={formState.description} onChange={handleChange}/>
