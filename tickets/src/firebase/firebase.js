@@ -40,6 +40,8 @@ export const updateTicketFirebase = (ticket) => {
 export const deleteTicketFirebase = (ticketId) => {
   return deleteDoc(doc(db, "tickets", ticketId))
 }
-export const getTicketFirebase = (ticketId) => {
-  return getDoc(doc(db, "tickets", ticketId))
+export const getTicketFirebase = async (ticketId) => {
+  const ticketDoc = await getDoc(doc(db, "tickets", ticketId))
+  if (!ticketDoc.exists()) throw new Error('Ticket doesn\'t exist');
+  return ticketDoc.data()
 }

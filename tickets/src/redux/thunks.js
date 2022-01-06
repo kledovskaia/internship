@@ -51,6 +51,5 @@ const checkAuthentication = (user) => {
 }
 const checkExistanceAndPermission = async (ticketId, user) => {
   const ticket = await getTicketFirebase(ticketId);
-  if (!ticket) throw new Error('Ticket doesn\'t exist');
   if (user.id !== ticket.author.id) throw new Error('You don\'t have permission to modify this ticket');
 }
