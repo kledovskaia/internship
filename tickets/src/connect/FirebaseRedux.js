@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { TicketIdContext } from "../context/TicketId";
 import { useFirebase } from "../hooks/useFirebase";
@@ -30,7 +30,7 @@ export const FirebaseRedux = ({ children }) => {
     dispatch(addMessage(transformedErrors))
   }, [errors, dispatch])
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!user) dispatch(setUser(user))
     else dispatch(setUser({
       displayName: user.displayName,

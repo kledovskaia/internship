@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import thunks from "../thunks";
+import ticketThunks from "../thunks/tickets";
+import * as authThunks from '../thunks/auth';
 
 const initialState = {
   value: false,
@@ -13,7 +14,7 @@ const loadingSlice = createSlice({
       state.value = action.payload;
     }
   },
-  extraReducers: Object.values(thunks).reduce((acc, thunk) => {
+  extraReducers: Object.values({...ticketThunks, ...authThunks}).reduce((acc, thunk) => {
     return {
       ...acc, 
       [thunk.pending]: (state) => { state.value = true },

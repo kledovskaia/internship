@@ -2,7 +2,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/
 import { getFirestore, collection, query, doc, setDoc, deleteDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from './config';
-import { seed } from './seed'
+// import { seed } from './seed'
 import { nanoid } from 'nanoid';
 
 const app = initializeApp(firebaseConfig);
@@ -13,9 +13,9 @@ export const getTicketCollectionQuery = () => query(ticketsRef);
 export const getTicketQuery = (id) => id ? doc(ticketsRef, id) : null;
 
 const AuthProvider = new GoogleAuthProvider();
-export const login =  () => signInWithPopup(auth, AuthProvider);
+export const loginFirebase =  () => signInWithPopup(auth, AuthProvider);
 
-export const logout = () => {
+export const logoutFirebase = () => {
   signOut(auth)
 };
 

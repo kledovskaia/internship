@@ -3,8 +3,8 @@ import {
   addTicketFirebase,
   deleteTicketFirebase,
   updateTicketFirebase,
-} from '../firebase/firebase';
-import { addMessage } from './slices/messages';
+} from '../../firebase/firebase';
+import { addMessage } from '../slices/messages';
 
 const temp = {
   'add': addTicketFirebase,
