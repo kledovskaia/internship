@@ -4,12 +4,18 @@ import {
   deleteTicketFirebase,
   updateTicketFirebase,
 } from '../firebase/firebase';
+import { addMessage } from './slices/messages';
 
 export const addTicket = createAsyncThunk(
   'ticket/add',
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
-      return await addTicketFirebase(data);
+      const result = await addTicketFirebase(data);
+      dispatch(addMessage({
+        type: 'success',
+        content: 'Added!'
+      }))
+      return result;
     } catch (error) {
       console.log(error);
       rejectWithValue(error);
@@ -18,9 +24,14 @@ export const addTicket = createAsyncThunk(
 );
 export const updateTicket = createAsyncThunk(
   'ticket/update',
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
-      return await updateTicketFirebase(data);
+      const result = await updateTicketFirebase(data);
+      dispatch(addMessage({
+        type: 'success',
+        content: 'Updated!'
+      }))
+      return result;
     } catch (error) {
       console.log(error);
       rejectWithValue(error);
@@ -29,9 +40,14 @@ export const updateTicket = createAsyncThunk(
 );
 export const deleteTicket = createAsyncThunk(
   'ticket/delete',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
-      return await deleteTicketFirebase(id);
+      const result = await deleteTicketFirebase(id);
+      dispatch(addMessage({
+        type: 'success',
+        content: 'Deleted!'
+      }))
+      return result;
     } catch (error) {
       console.log(error);
       rejectWithValue(error);
