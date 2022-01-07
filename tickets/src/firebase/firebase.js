@@ -21,7 +21,15 @@ export const logout = () => {
 
 // seed();
 
-export const addTicketFirebase = (ticket, author) => {
+export const addTicketFirebase = (ticket) => {
+  const user = getUser();
+  checkAuthentication();
+  const author = {
+    photoURL:  user.photoURL,
+    displayName: user.displayName,
+    id: user.uid,
+  }
+
   const id = nanoid();
   return setDoc(doc(db, "tickets", id), { 
     ...ticket, 
@@ -31,17 +39,41 @@ export const addTicketFirebase = (ticket, author) => {
     createdAt: serverTimestamp(), 
   })
 }
-export const updateTicketFirebase = (ticket) => {
-  return setDoc(doc(db, "tickets", ticket.id), {
+export const updateTicketFirebase = async (ticket) => {
+  checkAuthentication();
+  await checkTicketExistance(ticket.id);
+  await checkPermissonToModify(ticket.id);
+      
+  return await setDoc(doc(db, "tickets", ticket.id), {
     ...ticket,
     updatedAt: serverTimestamp(),
   }, { merge: true })
 }
-export const deleteTicketFirebase = (ticketId) => {
-  return deleteDoc(doc(db, "tickets", ticketId))
+export const deleteTicketFirebase = async (ticketId) => {
+  checkAuthentication();
+  await checkTicketExistance(ticketId);
+  await checkPermissonToModify(ticketId);
+
+  return deleteDoc(doc(db, "tickets", ticketId));
 }
-export const getTicketFirebase = async (ticketId) => {
-  const ticketDoc = await getDoc(doc(db, "tickets", ticketId))
+const getTicketFirebase = async (ticketId) => {
+  const ticketDoc = await getDoc(doc(db, "tickets", ticketId));
   if (!ticketDoc.exists()) throw new Error('Ticket doesn\'t exist');
-  return ticketDoc.data()
+  return ticketDoc.data();
 }
+const checkPermissonToModify = async (id) => {
+  const idToken = await getAuth().currentUser.getIdToken(true);
+  const decodedToken = await getAuth().verifyIdToken(idToken);
+  const { uid } = decodedToken;
+  if (id !== uid) throw new Error('You don\'t have permission to modify this ticket')
+  return true;
+}
+const checkAuthentication = () => {
+  const user = getUser();
+  if (!user) throw new Error('Please authenticate to perform this action');
+  return user;
+}
+const checkTicketExistance = async (id) => {
+  await getTicketFirebase(id);
+};
+const getUser = () => getAuth().currentUser
