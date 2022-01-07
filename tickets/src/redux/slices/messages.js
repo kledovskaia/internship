@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import * as thunks from "../thunks"
+import { messageTransformer } from "../../utils/utils"
+import thunks from "../thunks"
 
 const initialState = {
   value: [],
@@ -19,10 +20,9 @@ const messagesSlice = createSlice({
     return {
       ...acc,
       [thunk.rejected]: (state, { payload }) => {
-        const transform = error => ({ type: 'error', content: error.message });
         const errors = Array.isArray(payload) ? payload : [payload];
-        const formatted =  errors.map(transform);
-        state.value.push(...formatted);
+        const transformed =  messageTransformer('error', errors)
+        state.value.push(...transformed);
       },
     };
   },{})
