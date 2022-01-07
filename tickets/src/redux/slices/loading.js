@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import * as thunks from "../thunks";
+import thunks from "../thunks";
 
 const initialState = {
   value: false,

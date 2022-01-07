@@ -1,55 +1,85 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
-import { addTicketFirebase, deleteTicketFirebase, getTicketFirebase, updateTicketFirebase } from "../firebase/firebase";
-import { getUser } from "./selectors";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  addTicketFirebase,
+  deleteTicketFirebase,
+  updateTicketFirebase,
+} from '../firebase/firebase';
+import { addMessage } from './slices/messages';
 
-export const addTicket = createAsyncThunk(
-  'ticket/add',
-  async (data, { rejectWithValue, getState }) => {
-    try {
-      const state = getState();
-      const user = state.user.value;
-      checkAuthentication(user);
-      return await addTicketFirebase(data, user)
-    } catch (error) {
-      console.log(error);
-      rejectWithValue(error);
-    }
-  }
-)
-export const updateTicket = createAsyncThunk(
-  'ticket/update',
-  async (data, { rejectWithValue, getState }) => {
-    try {
-      const state = getState();
-      const user = state.user.value;
-      checkAuthentication(user);
-      await checkExistanceAndPermission(data.id, user);
-      return await updateTicketFirebase(data)
-    } catch (error) {
-      console.log(error);
-      rejectWithValue(error);
-    }
-  }
-)
-export const deleteTicket = createAsyncThunk(
-  'ticket/delete',
-  async (id, { rejectWithValue, getState }) => {
-    try {
-      const state = getState();
-      const user = state.user.value;
-      checkAuthentication(user);
-      await checkExistanceAndPermission(id, user);
-      return await deleteTicketFirebase(id);
-    } catch (error) {
-      console.log(error);
-      rejectWithValue(error);
-    }
-  }
-)
-const checkAuthentication = (user) => {
-  if (!user) throw new Error('Please authenticate to perform this action');
+const temp = {
+  'add': addTicketFirebase,
+  'update': updateTicketFirebase,
+  'delete': deleteTicketFirebase,
 }
-const checkExistanceAndPermission = async (ticketId, user) => {
-  const ticket = await getTicketFirebase(ticketId);
-  if (user.id !== ticket.author.id) throw new Error('You don\'t have permission to modify this ticket');
-}
+
+export default Object.entries(temp).reduce((thunks, [action, fn]) => {
+  return {
+    ...thunks,
+    [`${action}Ticket`]: createAsyncThunk(
+      `ticket/${action}`,
+      async (data, { rejectWithValue, dispatch }) => {
+        try {
+          const result = await fn(data);
+          dispatch(addMessage({
+            type: 'success',
+            content: `${action[0].toUpperCase() + action.slice(1)}ed!`
+          }))
+          return result;
+        } catch (error) {
+          console.log(error);
+          rejectWithValue(error);
+        }
+      }
+    )
+  }
+},{})
+
+
+// export const addTicket = createAsyncThunk(
+//   'ticket/add',
+//   async (data, { rejectWithValue, dispatch }) => {
+//     try {
+//       const result = await addTicketFirebase(data);
+//       dispatch(addMessage({
+//         type: 'success',
+//         content: 'Added!'
+//       }))
+//       return result;
+//     } catch (error) {
+//       console.log(error);
+//       rejectWithValue(error);
+//     }
+//   }
+// );
+// export const updateTicket = createAsyncThunk(
+//   'ticket/update',
+//   async (data, { rejectWithValue, dispatch }) => {
+//     try {
+//       const result = await updateTicketFirebase(data);
+//       dispatch(addMessage({
+//         type: 'success',
+//         content: 'Updated!'
+//       }))
+//       return result;
+//     } catch (error) {
+//       console.log(error);
+//       rejectWithValue(error);
+//     }
+//   }
+// );
+// export const deleteTicket = createAsyncThunk(
+//   'ticket/delete',
+//   async (id, { rejectWithValue, dispatch }) => {
+//     try {
+//       const result = await deleteTicketFirebase(id);
+//       dispatch(addMessage({
+//         type: 'success',
+//         content: 'Deleted!'
+//       }))
+//       return result;
+//     } catch (error) {
+//       console.log(error);
+//       rejectWithValue(error);
+//     }
+//   }
+// );

@@ -2,11 +2,12 @@ import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { TicketIdContext } from "../context/TicketId";
 import { useFirebase } from "../hooks/useFirebase";
-import { setMessages } from "../redux/slices/messages";
+import { addMessage } from "../redux/slices/messages";
 import { setLoading } from "../redux/slices/loading";
 import { setTicket } from "../redux/slices/ticket";
 import { setTicketCollection } from "../redux/slices/ticketCollection";
 import { setUser } from "../redux/slices/user";
+import { messageTransformer } from "../utils/utils";
 
 export const FirebaseRedux = ({ children }) => {
   const { ticketId } = useContext(TicketIdContext)
@@ -24,7 +25,9 @@ export const FirebaseRedux = ({ children }) => {
   }, [loading, dispatch])
 
   useEffect(() => {
-    dispatch(setMessages({ errors }))
+    if (!errors.length) return;
+    const transformedErrors = errors.map(messageTransformer('error', errors))   
+    dispatch(addMessage(transformedErrors))
   }, [errors, dispatch])
   
   useEffect(() => {

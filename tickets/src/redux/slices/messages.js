@@ -1,36 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit"
-import * as thunks from "../thunks"
+import { messageTransformer } from "../../utils/utils"
+import thunks from "../thunks"
 
 const initialState = {
-  value: {
-    notifications: [],
-    errors: [],
-  },
+  value: [],
 }
 
 const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    setMessages: (state, action) => {
-      const entries = Object.entries(action.payload);
-      entries.forEach(entry => {
-        const [type, value] = entry;
-        if (Array.isArray(value)) state.value[type].push(...value)
-        else state.value[type].push(value)
-      })
+    addMessage: (state, { payload }) => {
+      if (Array.isArray(payload)) state.value.push(...payload)
+      else state.value.push(payload)
     }
   },
-  extraReducers: Object.values(thunks).reduce((acc, thunk) => {
+  extraReducers: 
+  Object.values(thunks).reduce((acc, thunk) => {
     return {
       ...acc,
-      [thunk.rejected]: (state, action) => {
-        console.log(action.type);
-        state.value.errors.push(action.payload)
+      [thunk.rejected]: (state, { payload }) => {
+        const errors = Array.isArray(payload) ? payload : [payload];
+        const transformed =  messageTransformer('error', errors)
+        state.value.push(...transformed);
       },
-      // [thunk.fulfilled]: (state, action) => { state.value.notifications.push(action.payload) }
     };
   },{})
 })
-export const { setMessages } = messagesSlice.actions;
+export const { addMessage } = messagesSlice.actions;
 export default messagesSlice.reducer;
