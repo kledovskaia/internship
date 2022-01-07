@@ -1,8 +1,7 @@
-import { auth, getTicketCollectionQuery, getTicketQuery } from "../firebase/firebase";
+import { auth, getTicketCollectionQuery } from "../firebase/firebase";
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore'  
-import { useContext, useEffect, useState } from "react";
-import { TicketIdContext } from "../context/TicketId";
+import { useCollectionData } from 'react-firebase-hooks/firestore'  
+import { useEffect, useState } from "react";
 
 const transform = ({ updatedAt, createdAt, ...doc }) => ({
   ...doc,
@@ -11,27 +10,24 @@ const transform = ({ updatedAt, createdAt, ...doc }) => ({
 })
 
 export const useFirebase = () => {
-  const { ticketId } = useContext(TicketIdContext);
   const [user, authLoading, authError] = useAuthState(auth);
-  const [ticket, ticketLoading, ticketError] = useDocumentData(getTicketQuery(ticketId), { transform });
   const [ticketCollection, ticketCollectionLoading, ticketCollectionError] = useCollectionData(getTicketCollectionQuery(), { transform });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    setLoading(authLoading || ticketLoading || ticketCollectionLoading);
-  }, [authLoading, ticketLoading, ticketCollectionLoading])
+    setLoading(authLoading || ticketCollectionLoading);
+  }, [authLoading, ticketCollectionLoading])
 
   useEffect(() => {
-    const newErrors = [authError, ticketError, ticketCollectionError].filter(error => error)
+    const newErrors = [authError, ticketCollectionError].filter(error => error)
     setErrors(state => [...state, ...newErrors]);
-  }, [authError, ticketError, ticketCollectionError])
+  }, [authError, ticketCollectionError])
 
   return {
     errors,
     loading,
-    user, 
-    ticket,
+    user,
     ticketCollection
   }
 }
