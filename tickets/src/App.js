@@ -9,6 +9,8 @@ import { New } from "./pages/New";
 import { Ticket } from "./components/Ticket/Ticket";
 import { Tickets } from "./pages/Tickets";
 import { getUser } from "./redux/selectors";
+import { useContext, useEffect } from "react";
+import { ThemeContext } from "./context/Theme";
 
 const routes = ({
   '/dashboard': <Dashboard />,
@@ -21,6 +23,7 @@ const routes = ({
 
 export const App = () => {
   const user = useSelector(getUser)
+  const toggleTheme = useContext(ThemeContext)
 
   if (!user) return (
       <Routes>
@@ -29,8 +32,10 @@ export const App = () => {
       </Routes>
   )
 
+
   return ( 
       <>
+      <button onClick={toggleTheme}>Toggle theme</button>
         <Sidebar />
         <Header />
         <Routes>

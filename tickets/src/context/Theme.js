@@ -1,4 +1,5 @@
-import { createTheme, ThemeProvider } from "@mui/system";
+import { CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { createContext, useCallback, useState } from "react";
 
 const darkTheme = createTheme({
@@ -12,19 +13,24 @@ const lightTheme = createTheme({
   },
 });
 
+const themes = {
+  dark: darkTheme,
+  light: lightTheme,
+}
+
 export const ThemeContext = createContext();
 
 export const ThemeContextProvider = ({ children }) => {
-  const [theme, setTheme] = useState(darkTheme);
-  const toggleTheme = useCallback(() => {
-    setTheme(state => state === darkTheme ? lightTheme : darkTheme)
-  }, [])
+  const [mode, setMode] = useState('dark')
   
+  const toggleMode = useCallback(() => setMode(state => state === 'dark' ? 'light' : 'dark'), []);
+
   return (
-    <ThemeContext.Provider value={toggleTheme}>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themes[mode]}>
+      <ThemeContext.Provider value={toggleMode}>
+        <CssBaseline />
         { children }
-      </ThemeProvider>
-    </ThemeContext.Provider>
+      </ThemeContext.Provider>
+    </ThemeProvider>
   )
 }
