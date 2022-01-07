@@ -1,14 +1,8 @@
-import { useDispatch, useSelector } from "react-redux"
-import { Navigate } from "react-router-dom"
-import { getUser } from "../redux/selectors"
+import { useDispatch } from "react-redux"
 import { login } from "../redux/thunks/auth"
 
 export const Login = () => {
-  const user = useSelector(getUser);
   const dispatch = useDispatch();
-
-  if (user) return <Navigate to="/dashboard"/>;
-
   const handleClick = () => dispatch(login());
 
   return (

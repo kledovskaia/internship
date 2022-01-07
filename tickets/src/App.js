@@ -7,21 +7,31 @@ import { Ticket } from "./pages/Ticket";
 import { Tickets } from "./pages/Tickets";
 import { getUser } from "./redux/selectors";
 
-const getRoutes = (user) => ({
-  '/dashboard': user ? <Dashboard /> : <Navigate to="/"/>,
-  '/tickets': user ? <Tickets /> : <Navigate to="/"/>,
-  '/tickets/:id': user ? <Ticket /> : <Navigate to="/"/>,
-  '/new': user ? <New /> : <Navigate to="/"/>,
-  '/': !user ? <Login /> : <Navigate to="/dashboard"/>,
-  '*': <Navigate to="/"/>
+const routes = ({
+  '/dashboard': <Dashboard />,
+  '/tickets': <Tickets />,
+  '/tickets/:id': <Ticket />,
+  '/new': <New />,
+  '*': <Navigate to="/dashboard "/>
 })
 
 export const App = () => {
   const user = useSelector(getUser)
 
-  return (
-    <Routes>
-      { Object.entries(getRoutes(user)).map(([path, element]) => <Route key={path} path={path} element={element} />) }
-    </Routes>
+  if (!user) return (
+      <Routes>
+        <Route exact path="/" element={<Login />}/>
+        <Route path="*" element={<Navigate to="/"/>}/>
+      </Routes>
+  )
+
+  return ( 
+      <Page>
+        <Sidebar />
+        <Header />
+        <Routes>
+          { Object.entries(routes).map(([path, element]) => <Route key={path} path={path} element={element} />) }          
+        </Routes>
+      </Page>  
   );
 }
