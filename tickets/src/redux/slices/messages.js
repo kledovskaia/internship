@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { messageTransformer } from "../../utils/utils"
-import thunks from "../thunks"
+import thunks from "../thunks/tickets"
 
 const initialState = {
   value: [],
