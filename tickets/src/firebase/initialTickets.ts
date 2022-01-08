@@ -1,6 +1,6 @@
-import { serverTimestamp } from "firebase/firestore";
+import { serverTimestamp } from 'firebase/firestore';
 
-export const initialTickets = [
+const initialTickets = [
   {
     title: '',
     description: '',
@@ -8,5 +8,7 @@ export const initialTickets = [
     author: {},
     completed: false,
     createdAt: serverTimestamp(),
-  }
-]
+  },
+];
+
+export default initialTickets;
