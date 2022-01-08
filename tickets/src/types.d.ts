@@ -1,0 +1,3 @@
+type TTicket = {
+  id: string;
+};

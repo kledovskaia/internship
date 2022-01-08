@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "module": "commonJS",
+    "lib": ["es6", "dom"],
+    "target": "ES5",
+    "jsx": "react-jsx",
+    "paths": {
+      "*": ["./src/*.d.ts"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
