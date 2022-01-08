@@ -21,10 +21,10 @@ const fields = {
 };
 
 type Props = {
-  ticket: TTicket;
+  ticket: TTicket | null;
 };
 
-function Form({ ticket }: Props) {
+export default function Form({ ticket }: Props) {
   const {
     control,
     handleSubmit,
@@ -83,5 +83,3 @@ function Form({ ticket }: Props) {
     </form>
   );
 }
-
-export default Form;
