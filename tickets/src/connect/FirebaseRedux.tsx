@@ -1,13 +1,17 @@
-import { useEffect, useLayoutEffect } from "react";
+import { ReactNode, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useFirebase } from "../hooks/useFirebase";
+import useFirebase from "../hooks/useFirebase";
 import { addMessage } from "../redux/slices/messages";
 import { setLoading } from "../redux/slices/loading";
 import { setTicketCollection } from "../redux/slices/ticketCollection";
 import { setUser } from "../redux/slices/user";
 import { messageTransformer } from "../utils/utils";
 
-export const FirebaseRedux = ({ children }) => {
+type Props = {
+  children: ReactNode
+}
+
+export const FirebaseRedux = ({ children }: Props) => {
   const { 
     errors,
     loading,

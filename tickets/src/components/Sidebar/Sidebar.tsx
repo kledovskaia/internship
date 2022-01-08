@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom';
 
-export const Sidebar = () => {
+export default function Sidebar() {
   return (
     <nav>
       <ul>
@@ -8,5 +8,5 @@ export const Sidebar = () => {
         <li><NavLink to="/tickets">Tickets</NavLink></li>
       </ul>
     </nav>
-  )
+  );
 }
