@@ -75,10 +75,10 @@ export const updateTicketFirebase = async (ticket: TTicket) => {
     updatedAt: serverTimestamp(),
   }, { merge: true });
 };
-export const deleteTicketFirebase = async (ticketId: TTicket['id']) => {
+export const deleteTicketFirebase = async (ticket: TTicket) => {
   checkAuthentication();
-  await checkTicketExistance(ticketId);
-  await checkPermissonToModify(ticketId);
+  await checkTicketExistance(ticket.id);
+  await checkPermissonToModify(ticket.id);
 
-  return deleteDoc(doc(db, 'tickets', ticketId));
+  return deleteDoc(doc(db, 'tickets', ticket.id));
 };

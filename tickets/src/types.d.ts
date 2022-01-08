@@ -9,3 +9,19 @@ type TTicket = {
   },
   updatedAt?: number,
 };
+
+type TMessage = {
+  message: string,
+}
+
+type TMessageTransformed = {
+  type: TType,
+  content: TMessage['message'],
+}
+type TType = 'error' | 'message';
+
+type TUser = {
+  displayName: string,
+  photoURL: string,
+  id: string,
+}

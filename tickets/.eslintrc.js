@@ -23,6 +23,12 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: [
+        'state',
+      ],
+    }],
     'import/extensions': ['error', 'never'],
     'no-undef': 'off',
     'react/jsx-filename-extension': [
