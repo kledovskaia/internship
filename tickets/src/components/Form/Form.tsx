@@ -1,24 +1,30 @@
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { MenuItem, Select, TextField } from '@mui/material';
+import {
+  Button,
+  FormControl, InputLabel, MenuItem, Select, TextField,
+} from '@mui/material';
+import { Title2 } from '../../styles';
+import { FormContainer } from './styles';
 
 const schema = yup
   .object({
-    title: yup.string().required(),
-    description: yup.string().required(),
+    title: yup.string().max(50, 'Maximum 50 characters').required('Title is required'),
+    description: yup.string().max(100, 'Maximum 100 characters'),
+    priority: yup.string().required('Priority is required'),
   })
   .required();
 
 const fields = {
-  title: { label: 'Title *', name: 'title' },
+  title: { label: 'Ticket Title *', name: 'title' },
   description: { label: 'Description', name: 'description' },
   priority: {
-    label: 'Priority *',
+    label: 'Select Priority',
     name: 'priority',
     options: ['low', 'normal', 'high'],
   },
-};
+} as const;
 
 type Props = {
   ticket: TTicket | null;
@@ -26,27 +32,31 @@ type Props = {
 
 export default function Form({ ticket }: Props) {
   const {
+    register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: ticket,
   });
 
   console.log(ticket);
 
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <FormContainer onSubmit={handleSubmit((data) => console.log(data))}>
+      <Title2>{ticket ? 'Editing' : 'Creating'}</Title2>
       <Controller
         name={fields.title.name}
         control={control}
         render={({ field: { name, value } }) => (
           <TextField
+          // eslint-disable-next-line react/jsx-props-no-spreading
+            {...register('title')}
             name={name}
             value={value}
-            label={fields.title.label}
+            label={errors.title ? errors.title.message : fields.title.label}
             error={Boolean(errors.title)}
-            helperText={errors.title ? errors.title.message : ''}
           />
         )}
       />
@@ -55,12 +65,13 @@ export default function Form({ ticket }: Props) {
         control={control}
         render={({ field: { name, value } }) => (
           <TextField
+          // eslint-disable-next-line react/jsx-props-no-spreading
+            {...register('description')}
             name={name}
             value={value}
             multiline
-            label={fields.description.label}
+            label={errors.description ? errors.description.message : fields.description.label}
             error={Boolean(errors.description)}
-            helperText={errors.description ? errors.description.message : ''}
           />
         )}
       />
@@ -68,18 +79,25 @@ export default function Form({ ticket }: Props) {
         name={fields.priority.name}
         control={control}
         render={({ field: { name, value } }) => (
-          <Select name={name} value={value}>
-            <MenuItem disabled>{fields.priority.label}</MenuItem>
-            {fields.priority.options.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </Select>
+          <FormControl required sx={{ minWidth: 120 }}>
+            <InputLabel id="select-label">{errors.priority ? errors.priority.message : fields.priority.label}</InputLabel>
+            <Select
+            // eslint-disable-next-line react/jsx-props-no-spreading
+              {...register('priority')}
+              labelId={name}
+              id={name}
+              value={value}
+              label={errors.priority ? errors.priority.message : fields.priority.label}
+            >
+              { fields.priority.options.map((option) => (
+                <MenuItem value={option}>{option}</MenuItem>
+              )) }
+            </Select>
+          </FormControl>
         )}
       />
 
-      <input type="submit" />
-    </form>
+      <Button type="submit">Save</Button>
+    </FormContainer>
   );
 }

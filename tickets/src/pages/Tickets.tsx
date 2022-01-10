@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getTicketCollection } from '../redux/selectors';
-import { TicketPreview } from '../components/TicketPreview/TicketPreview';
+import TicketPreview from '../components/TicketPreview/TicketPreview';
 
 export default function Tickets() {
   const ticketCollection = useSelector(getTicketCollection);
