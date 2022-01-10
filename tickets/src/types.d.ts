@@ -8,6 +8,8 @@ type TTicket = {
     nanoseconds: number,
   },
   updatedAt?: number,
+  author: TUser,
+  completed: boolean,
 };
 
 type TMessage = {
@@ -24,4 +26,13 @@ type TUser = {
   displayName: string,
   photoURL: string,
   id: string,
+}
+type TStatistic = {
+  high: number,
+  low: number,
+  normal: number,
+  uncompleted: {
+    count: number,
+    percentage: number,
+  }
 }
