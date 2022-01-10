@@ -37,5 +37,6 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'operator-linebreak': [2, 'after'],
+    'import/prefer-default-export': 'off',
   },
 };
