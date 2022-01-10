@@ -28,11 +28,14 @@ type TUser = {
   id: string,
 }
 type TStatistic = {
-  high: number,
-  low: number,
-  normal: number,
-  uncompleted: {
-    count: number,
+  high: TStat,
+  low: TStat,
+  normal: TStat,
+  uncompleted: TStat & {
     percentage: number,
   }
+}
+
+type TStat = {
+  count: number,
 }

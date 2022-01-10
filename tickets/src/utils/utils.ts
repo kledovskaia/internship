@@ -8,15 +8,15 @@ export const messageTransformer: TMessageTransformer = (type, array) => array.ma
 type TCalc = (tickets: TTicket[]) => TStatistic
 export const calculateStatistic: TCalc = (tickets) => tickets.reduce((acc, ticket, i, array) => ({
   ...acc,
-  [ticket.priority]: acc[ticket.priority] + 1,
+  [ticket.priority]: { count: acc[ticket.priority].count + 1 },
   uncompleted: {
     count: acc.uncompleted.count + Number(!ticket.completed),
     percentage: ((acc.uncompleted.count + Number(!ticket.completed)) / array.length) * 100,
   },
 }), {
-  high: 0,
-  low: 0,
-  normal: 0,
+  high: { count: 0 },
+  low: { count: 0 },
+  normal: { count: 0 },
   uncompleted: {
     count: 0,
     percentage: 0,

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { calculateStatistic } from '../utils/utils';
-import { getMyTickets, getTicketCollection, getUser } from '../redux/selectors';
+import { getTicketCollection, getUser } from '../redux/selectors';
 
 function Dashboard() {
   const user = useSelector(getUser);
