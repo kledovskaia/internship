@@ -20,9 +20,7 @@ export default function Tickets() {
         pageSize * pageNumber,
         pageSize * pageNumber + pageSize,
       ).map((ticket) => (
-        <Link to={`/tickets/edit/${ticket.id}`}>
-          <TicketPreview key={ticket.id} ticket={ticket} />
-        </Link>
+        <TicketPreview key={ticket.id} ticket={ticket} />
       ))}
     </Paper>
   );

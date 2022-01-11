@@ -38,18 +38,12 @@ const checkPermissonToModify = async (id: TTicket['id']) => {
   if (id !== uid) throw new Error('You don\'t have permission to modify this ticket');
   return true;
 };
-const checkAuthentication = () => {
-  const user = getUser();
-  if (!user) throw new Error('Please authenticate to perform this action');
-  return user;
-};
 const checkTicketExistance = async (id: TTicket['id']) => {
   await getTicketFirebase(id);
 };
 
 export const addTicketFirebase = (ticket: Partial<TTicket>) => {
   const user = getUser();
-  checkAuthentication();
   const author = {
     photoURL: user.photoURL,
     displayName: user.displayName,
@@ -66,7 +60,6 @@ export const addTicketFirebase = (ticket: Partial<TTicket>) => {
   });
 };
 export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
-  checkAuthentication();
   await checkTicketExistance(ticket.id);
   await checkPermissonToModify(ticket.author.id);
 
@@ -76,7 +69,6 @@ export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
   }, { merge: true });
 };
 export const deleteTicketFirebase = async (ticket: TTicket) => {
-  checkAuthentication();
   await checkTicketExistance(ticket.id);
   await checkPermissonToModify(ticket.author.id);
 
