@@ -50,10 +50,10 @@ export const getChartData = (days: number, tickets: TTicket[]): TChartData => {
   }
   const todayMS = Date.now();
   const lastCompletedTickets = tickets.filter(
-    (ticket) => ticket.completed && (todayMS - ticket.updatedAt > DAY * 14),
+    (ticket) => ticket.completed && (todayMS - (ticket.updatedAt || ticket.createdAt) <= DAY * 14),
   );
   lastCompletedTickets.forEach((ticket) => {
-    const date = new Date(ticket.updatedAt).getDate().toString().padStart(2, '0');
+    const date = new Date((ticket.updatedAt || ticket.createdAt)).getDate().toString().padStart(3, '+0');
     result[date][ticket.priority] += 1;
   });
 
