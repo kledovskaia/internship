@@ -62,3 +62,23 @@ export const getChartData = (days: number, tickets: TTicket[]): TChartData => {
     .reverse()
     .map(([_, value]) => ({ ...value, label: value.label.slice(1) }));
 };
+
+type TTime = {
+  seconds: number,
+  nanoseconds: number,
+}
+type TUntransformedTicket = TTicket & {
+  createdAt: TTime,
+  updatedAt: TTime,
+}
+type TTransform = (arg: TUntransformedTicket) => TTicket;
+
+export const transformTicket: TTransform = ({ updatedAt, createdAt, ...doc }) => ({
+  ...doc,
+  ...(createdAt ?
+    { createdAt: createdAt.seconds * 1000 + createdAt.nanoseconds / 1000 } :
+    {}),
+  ...(updatedAt ?
+    { updatedAt: updatedAt.seconds * 1000 + updatedAt.nanoseconds / 1000 } :
+    {}),
+});

@@ -1,24 +1,14 @@
 import { useSelector } from 'react-redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import {
+  Link,
+  Navigate, Route, Routes, useNavigate,
+} from 'react-router-dom';
+import { useEffect } from 'react';
+import { routes } from './data/routes';
 import Page from './pages/Page';
 import { Loader } from './components/Loader/Loader';
-import Sidebar from './components/Sidebar/Sidebar';
-import Dashboard from './pages/Dashboard';
-import Edit from './pages/Edit';
 import Login from './pages/Login';
-import New from './pages/New';
-import Ticket from './components/Ticket/Ticket';
-import Tickets from './pages/Tickets';
 import { getUser } from './redux/selectors';
-
-const routes = ({
-  '/dashboard': { title: 'Dashboard', element: <Dashboard /> },
-  '/tickets': { title: 'Tickets', element: <Tickets /> },
-  '/tickets/new': { title: 'New', element: <New /> },
-  '/tickets/edit/:id': { title: 'Edit', element: <Edit /> },
-  '/tickets/:id': { title: 'Ticket', element: <Ticket /> },
-  '*': { title: '', element: <Navigate to="/dashboard " /> },
-});
 
 export default function App() {
   const user = useSelector(getUser);

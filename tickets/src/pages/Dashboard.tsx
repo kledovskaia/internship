@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Paper } from '@mui/material';
+
 import { Statistic } from '../components/Statistic/Statistic';
 import { calculateStatistic, getChartData } from '../utils/utils';
 import { getTicketCollection, getUser } from '../redux/selectors';

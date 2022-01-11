@@ -1,34 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { transformTicket } from '../utils/utils';
 import { auth, getTicketCollectionQuery } from '../firebase/firebase';
-
-type TTime = {
-  seconds: number,
-  nanoseconds: number,
-}
-type TUntransformedTicket = TTicket & {
-  createdAt: TTime,
-  updatedAt: TTime,
-}
-type TTransform = (arg: TUntransformedTicket) => TTicket;
-
-const transform: TTransform = ({ updatedAt, createdAt, ...doc }) => ({
-  ...doc,
-  ...(createdAt ?
-    { createdAt: createdAt.seconds * 1000 + createdAt.nanoseconds / 1000 } :
-    {}),
-  ...(updatedAt ?
-    { updatedAt: updatedAt.seconds * 1000 + updatedAt.nanoseconds / 1000 } :
-    {}),
-});
 
 export default function useFirebase() {
   const [user, authLoading, authError] = useAuthState(auth);
   const [ticketCollection, ticketCollectionLoading, ticketCollectionError] =
     useCollectionData(
       getTicketCollectionQuery(),
-      { transform },
+      { transform: transformTicket },
     );
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);

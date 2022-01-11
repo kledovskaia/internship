@@ -5,9 +5,8 @@ import {
   Button,
   FormControl, InputLabel, MenuItem, Select, TextField,
 } from '@mui/material';
-import { BaseSyntheticEvent } from 'react';
-import { Title2 } from '../../styles';
 import { FormContainer } from './styles';
+import { Title2 } from '../../styles';
 
 const schema = yup
   .object({
