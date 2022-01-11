@@ -47,7 +47,7 @@ const checkTicketExistance = async (id: TTicket['id']) => {
   await getTicketFirebase(id);
 };
 
-export const addTicketFirebase = (ticket: TTicket) => {
+export const addTicketFirebase = (ticket: Partial<TTicket>) => {
   const user = getUser();
   checkAuthentication();
   const author = {
@@ -65,7 +65,7 @@ export const addTicketFirebase = (ticket: TTicket) => {
     createdAt: serverTimestamp(),
   });
 };
-export const updateTicketFirebase = async (ticket: TTicket) => {
+export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
   checkAuthentication();
   await checkTicketExistance(ticket.id);
   await checkPermissonToModify(ticket.id);

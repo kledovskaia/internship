@@ -28,9 +28,10 @@ const fields = {
 
 type Props = {
   ticket: TTicket | null;
+  onSubmit: (ticket: Partial<TTicket>) => void;
 };
 
-export default function Form({ ticket }: Props) {
+export default function Form({ ticket, onSubmit }: Props) {
   const {
     register,
     control,
@@ -41,10 +42,8 @@ export default function Form({ ticket }: Props) {
     defaultValues: ticket,
   });
 
-  console.log(ticket);
-
   return (
-    <FormContainer onSubmit={handleSubmit((data) => console.log(data))}>
+    <FormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
       <Title2>{ticket ? 'Editing' : 'Creating'}</Title2>
       <Controller
         name={fields.title.name}
