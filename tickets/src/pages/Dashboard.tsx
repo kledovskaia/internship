@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Paper } from '@mui/material';
+import { Statistic } from '../components/Statistic/Statistic';
 import { calculateStatistic, getChartData } from '../utils/utils';
 import { getTicketCollection, getUser } from '../redux/selectors';
 import Chart from '../components/Chart/Chart';
@@ -23,31 +24,20 @@ function Dashboard() {
   return (
     (
       <>
-        {totalStatistic && Object.entries(totalStatistic).map(([key, value]) => (
+        {totalStatistic && Object.entries(totalStatistic).map(([title, value]) => (
           <Paper elevation={3}>
-            <div>
-              {key}
-              :
-              {' '}
-              {JSON.stringify(value)}
-            </div>
+            <Statistic {...{ title, value }} />
           </Paper>
         ))}
         <Paper elevation={3}>
           <Chart data={chartData} />
         </Paper>
-        {myStatistic && Object.entries(myStatistic).map(([key, value]) => (
+        {myStatistic && Object.entries(myStatistic).map(([title, value]) => (
           <Paper elevation={3}>
-            <div>
-              {key}
-              :
-              {' '}
-              {JSON.stringify(value)}
-            </div>
+            <Statistic {...{ title, value }} />
           </Paper>
         ))}
       </>
-      // <Statistic count={} title={} percentage={} />
     )
   );
 }

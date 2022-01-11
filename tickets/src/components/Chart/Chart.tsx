@@ -74,9 +74,9 @@ export default function Chart({ data }: Props) {
       <YAxis />
       {/* <Tooltip /> */}
 
-      <Bar dataKey="low" stackId="a" fill="#ffc658" />
-      <Bar dataKey="normal" stackId="a" fill="#82ca9d" />
-      <Bar dataKey="high" stackId="a" fill="#8884d8" />
+      <Bar dataKey="high" stackId="a" fill="#EB5757" />
+      <Bar dataKey="normal" stackId="a" fill="#29CC97" />
+      <Bar dataKey="low" stackId="a" fill="#F2C94C" />
     </BarChart>
   );
 }
