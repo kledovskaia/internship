@@ -68,7 +68,7 @@ export const addTicketFirebase = (ticket: Partial<TTicket>) => {
 export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
   checkAuthentication();
   await checkTicketExistance(ticket.id);
-  await checkPermissonToModify(ticket.id);
+  await checkPermissonToModify(ticket.author.id);
 
   return setDoc(doc(db, 'tickets', ticket.id), {
     ...ticket,
@@ -78,7 +78,7 @@ export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
 export const deleteTicketFirebase = async (ticket: TTicket) => {
   checkAuthentication();
   await checkTicketExistance(ticket.id);
-  await checkPermissonToModify(ticket.id);
+  await checkPermissonToModify(ticket.author.id);
 
   return deleteDoc(doc(db, 'tickets', ticket.id));
 };
