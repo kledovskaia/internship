@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Paper } from '@mui/material';
+import GridViewIcon from '@mui/icons-material/GridView';
+import ViewListIcon from '@mui/icons-material/ViewList';
 import { getTicketCollection } from '../redux/selectors';
 import TicketPreview from '../components/TicketPreview/TicketPreview';
 
@@ -18,7 +20,9 @@ export default function Tickets() {
         pageSize * pageNumber,
         pageSize * pageNumber + pageSize,
       ).map((ticket) => (
-        <TicketPreview key={ticket.id} ticket={ticket} />
+        <Link to={`/tickets/edit/${ticket.id}`}>
+          <TicketPreview key={ticket.id} ticket={ticket} />
+        </Link>
       ))}
     </Paper>
   );

@@ -6,8 +6,8 @@ import { getTicket } from '../redux/selectors';
 
 function Edit() {
   const dispatch = useDispatch();
-  const { ticketId } = useParams();
-  const ticket = useSelector(getTicket(ticketId));
+  const { id } = useParams();
+  const ticket = useSelector(getTicket(id));
 
   const onSubmit = (data: Partial<TTicket>) => dispatch(updateTicket(data));
 

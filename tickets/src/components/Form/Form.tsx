@@ -49,12 +49,17 @@ export default function Form({ ticket, onSubmit }: Props) {
   });
 
   const submit = (data: TTicket) => {
-    onSubmit(data);
-    reset({
-      title: '',
-      description: '',
-      priority: '',
+    onSubmit({
+      ...(ticket || {}),
+      ...data,
     });
+    if (!ticket) {
+      reset({
+        title: '',
+        description: '',
+        priority: '',
+      });
+    }
   };
 
   return (
