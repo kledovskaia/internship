@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { Paper } from '@mui/material';
 import { addTicket } from '../redux/thunks/tickets';
 import Form from '../components/Form/Form';
 
@@ -8,10 +9,9 @@ function New() {
   const onSubmit = (data: Partial<TTicket>) => dispatch(addTicket(data));
 
   return (
-    <>
-      <h1>New</h1>
+    <Paper elevation={3}>
       <Form ticket={null} onSubmit={onSubmit} />
-    </>
+    </Paper>
   );
 }
 

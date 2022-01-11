@@ -33,7 +33,6 @@ export default function Tickets() {
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           rowsPerPageOptions={[8, 16, 32, 64]}
           pagination
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...data}
         />
       </div>
