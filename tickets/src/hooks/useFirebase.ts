@@ -15,7 +15,9 @@ type TTransform = (arg: TUntransformedTicket) => TTicket;
 
 const transform: TTransform = ({ updatedAt, createdAt, ...doc }) => ({
   ...doc,
-  createdAt: createdAt.seconds * 1000 + createdAt.nanoseconds / 1000,
+  ...(createdAt ?
+    { createdAt: createdAt.seconds * 1000 + createdAt.nanoseconds / 1000 } :
+    {}),
   ...(updatedAt ?
     { updatedAt: updatedAt.seconds * 1000 + updatedAt.nanoseconds / 1000 } :
     {}),
@@ -24,7 +26,10 @@ const transform: TTransform = ({ updatedAt, createdAt, ...doc }) => ({
 export default function useFirebase() {
   const [user, authLoading, authError] = useAuthState(auth);
   const [ticketCollection, ticketCollectionLoading, ticketCollectionError] =
-    useCollectionData(getTicketCollectionQuery(), { transform });
+    useCollectionData(
+      getTicketCollectionQuery(),
+      { transform },
+    );
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 

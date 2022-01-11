@@ -5,6 +5,7 @@ import {
   Button,
   FormControl, InputLabel, MenuItem, Select, TextField,
 } from '@mui/material';
+import { BaseSyntheticEvent } from 'react';
 import { Title2 } from '../../styles';
 import { FormContainer } from './styles';
 
@@ -28,33 +29,49 @@ const fields = {
 
 type Props = {
   ticket: TTicket | null;
+  onSubmit: (ticket: Partial<TTicket>) => void;
 };
 
-export default function Form({ ticket }: Props) {
+export default function Form({ ticket, onSubmit }: Props) {
   const {
+    reset,
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: ticket,
+    defaultValues: ticket || {
+      title: '',
+      description: '',
+      priority: '',
+    },
   });
 
-  console.log(ticket);
+  const submit = (data: TTicket) => {
+    onSubmit({
+      ...(ticket || {}),
+      ...data,
+    });
+    if (!ticket) {
+      reset({
+        title: '',
+        description: '',
+        priority: '',
+      });
+    }
+  };
 
   return (
-    <FormContainer onSubmit={handleSubmit((data) => console.log(data))}>
+    <FormContainer onSubmit={handleSubmit(submit)}>
       <Title2>{ticket ? 'Editing' : 'Creating'}</Title2>
       <Controller
         name={fields.title.name}
         control={control}
-        render={({ field: { name, value } }) => (
+        render={({ field }) => (
           <TextField
-          // eslint-disable-next-line react/jsx-props-no-spreading
             {...register('title')}
-            name={name}
-            value={value}
+            {...field}
             label={errors.title ? errors.title.message : fields.title.label}
             error={Boolean(errors.title)}
           />
@@ -63,12 +80,10 @@ export default function Form({ ticket }: Props) {
       <Controller
         name={fields.description.name}
         control={control}
-        render={({ field: { name, value } }) => (
+        render={({ field }) => (
           <TextField
-          // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register('description')}
-            name={name}
-            value={value}
+            {...register('title')}
+            {...field}
             multiline
             label={errors.description ? errors.description.message : fields.description.label}
             error={Boolean(errors.description)}
@@ -78,15 +93,13 @@ export default function Form({ ticket }: Props) {
       <Controller
         name={fields.priority.name}
         control={control}
-        render={({ field: { name, value } }) => (
+        render={({ field }) => (
           <FormControl required sx={{ minWidth: 120 }}>
             <InputLabel id="select-label">{errors.priority ? errors.priority.message : fields.priority.label}</InputLabel>
             <Select
-            // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register('priority')}
-              labelId={name}
-              id={name}
-              value={value}
+              {...register('title')}
+              {...field}
+              labelId="select-label"
               label={errors.priority ? errors.priority.message : fields.priority.label}
             >
               { fields.priority.options.map((option) => (

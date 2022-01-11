@@ -8,7 +8,7 @@ import { addMessage } from '../slices/messages';
 
 export const addTicket = createAsyncThunk(
   'ticket/add',
-  async (ticket: TTicket, { rejectWithValue, dispatch }) => {
+  async (ticket: Partial<TTicket>, { rejectWithValue, dispatch }) => {
     let result;
     try {
       result = await addTicketFirebase(ticket);
@@ -25,7 +25,7 @@ export const addTicket = createAsyncThunk(
 );
 export const updateTicket = createAsyncThunk(
   'ticket/update',
-  async (ticket: TTicket, { rejectWithValue, dispatch }) => {
+  async (ticket: Partial<TTicket>, { rejectWithValue, dispatch }) => {
     let result;
     try {
       result = await updateTicketFirebase(ticket);

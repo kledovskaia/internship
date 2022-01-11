@@ -3,10 +3,7 @@ type TTicket = {
   description?: string,
   priority: 'low' | 'normal' | 'high',
   id: string;
-  createdAt: number | {
-    seconds: number,
-    nanoseconds: number,
-  },
+  createdAt?: number,
   updatedAt?: number,
   author: TUser,
   completed: boolean,
@@ -38,4 +35,12 @@ type TStatistic = {
 
 type TStat = {
   count: number,
+}
+
+type TChartData = TChartBar[]
+type TChartBar = {
+  label: string,
+  low: number,
+  high: number,
+  normal: number,
 }
