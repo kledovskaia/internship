@@ -3,6 +3,7 @@ import {
   addTicketFirebase,
   deleteTicketFirebase,
   updateTicketFirebase,
+  updateTicketsCountFirebase,
 } from '../../firebase/firebase';
 import { addMessage } from '../slices/messages';
 
@@ -11,7 +12,8 @@ export const addTicket = createAsyncThunk(
   async (ticket: Partial<TTicket>, { rejectWithValue, dispatch }) => {
     let result;
     try {
-      result = await addTicketFirebase(ticket);
+      await addTicketFirebase(ticket);
+      await updateTicketsCountFirebase(1);
       dispatch(addMessage({
         type: 'success',
         content: 'Added!',
@@ -28,7 +30,7 @@ export const updateTicket = createAsyncThunk(
   async (ticket: Partial<TTicket>, { rejectWithValue, dispatch }) => {
     let result;
     try {
-      result = await updateTicketFirebase(ticket);
+      await updateTicketFirebase(ticket);
       dispatch(addMessage({
         type: 'success',
         content: 'Updated!',
@@ -45,7 +47,8 @@ export const deleteTicket = createAsyncThunk(
   async (ticket: TTicket, { rejectWithValue, dispatch }) => {
     let result;
     try {
-      result = await deleteTicketFirebase(ticket);
+      await deleteTicketFirebase(ticket);
+      await updateTicketsCountFirebase(-1);
       dispatch(addMessage({
         type: 'success',
         content: 'Deleted!',

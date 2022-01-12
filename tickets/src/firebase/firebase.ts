@@ -18,6 +18,9 @@ import {
   DocumentData,
   where,
   FieldPath,
+  updateDoc,
+  FieldValue,
+  increment,
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { nanoid } from 'nanoid';
@@ -115,3 +118,7 @@ export const deleteTicketFirebase = async (ticket: TTicket) => {
 
   return deleteDoc(doc(db, 'tickets', ticket.id));
 };
+
+export const updateTicketsCountFirebase = async (value: number) => setDoc(doc(db, 'counters', 'tickets'), {
+  value: increment(value),
+}, { merge: true });
