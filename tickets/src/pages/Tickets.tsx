@@ -7,11 +7,12 @@ import { Paper } from '@mui/material';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import queryString from 'query-string';
+import Pagination from '../components/Pagination/Pagination';
 import { getTicketCollection } from '../redux/selectors';
 import TicketPreview from '../components/TicketPreview/TicketPreview';
 
 const defaultQuery = {
-  perPage: '4',
+  perPage: '8',
   page: '0',
 };
 
@@ -34,56 +35,26 @@ export default function Tickets() {
       ...filter,
     }));
   };
-  const nextPage = useCallback(() => {
-    setQuery(((state) => ({
-      ...state,
-      page: (+state.page + 1).toString(),
-    })));
-  }, [query]);
-  const prevPage = useCallback(() => {
-    setQuery(((state) => ({
-      ...state,
-      page: (+state.page - 1).toString(),
-    })));
-  }, [query]);
 
   return (
     <Paper elevation={3}>
       <h1>Tickets</h1>
       <Link to="/tickets/new">New Ticket</Link>
       {ticketCollection && (
-      <>
-        {ticketCollection.slice(
+        ticketCollection.slice(
           +query.page * +query.perPage,
           (+query.page * +query.perPage) + +query.perPage,
         ).map((ticket) => (
           <TicketPreview key={ticket.id} ticket={ticket} />
-        ))}
-        <button onClick={() => +query.page > 0 && prevPage()} disabled={+query.page <= 0} type="button">PrevPage</button>
-        <button
-          onClick={
-          () => ticketCollection.length > ((+query.page + 1) * +query.perPage) && nextPage()
-        }
-          disabled={ticketCollection.length <= ((+query.page + 1) * +query.perPage)}
-          type="button"
-        >
-          NextPage
-
-        </button>
-      </>
+        ))
       )}
-      <select
-        name="perPage"
-        onChange={(e) => onChange({
-          [e.target.name]: e.target.value,
-        })}
-      >
-        <option value="4">4</option>
-        <option value="6">6</option>
-        <option value="8">8</option>
-        <option value="10">10</option>
-      </select>
 
+      <Pagination
+        page={+query.page}
+        perPage={+query.perPage}
+        handleChange={onChange}
+        total={ticketCollection?.length || 0}
+      />
     </Paper>
   );
 }

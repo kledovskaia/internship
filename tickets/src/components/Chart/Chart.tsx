@@ -37,15 +37,12 @@ export default function Chart({ data }: Props) {
           height={350}
           data={data}
         >
-          <Legend
-            verticalAlign="top"
-            height={50}
-          />
           <XAxis dataKey="label" />
           <YAxis />
           <Bar dataKey="high" stackId="a" fill="#EB5757" />
           <Bar dataKey="normal" stackId="a" fill="#29CC97" />
           <Bar dataKey="low" stackId="a" fill="#F2C94C" />
+          <Legend verticalAlign="top" />
         </BarChart>
       </BarChartContainer>
     </ChartContainer>
