@@ -46,6 +46,7 @@ export const getTicketCollectionQuery: TGetTicketCollectionQuery = (params) => {
   return query(
     ticketsRef,
     orderBy('createdAt'),
+    limit((+params.page + 1) * +params.perPage),
   );
 
   // !!!!!
