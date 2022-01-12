@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { Link as RLink } from 'react-router-dom';
 
 export const TableContainer = styled.div`
   display: grid;
@@ -9,4 +10,14 @@ export const TableContainer = styled.div`
   }
 `;
 export const TableHeader = styled.div``;
-export const TableCell = styled.div``;
+export const TableCell = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Link = styled(RLink)`
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+  padding: 0 1em;
+`;

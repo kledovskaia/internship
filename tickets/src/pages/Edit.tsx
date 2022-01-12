@@ -11,7 +11,7 @@ function Edit() {
 
   const onSubmit = (data: Partial<TTicket>) => dispatch(updateTicket(data));
 
-  return <Form ticket={ticket} onSubmit={onSubmit} />;
+  return <Form ticket={Object.fromEntries(Object.entries(ticket).filter(([key]) => key !== 'createdAt' && key !== 'updatedAt')) as Partial<TTicket>} onSubmit={onSubmit} />;
 }
 
 export default Edit;

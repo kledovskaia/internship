@@ -27,7 +27,7 @@ const fields = {
 } as const;
 
 type Props = {
-  ticket: TTicket | null;
+  ticket: Partial<TTicket> | null;
   onSubmit: (ticket: Partial<TTicket>) => void;
 };
 

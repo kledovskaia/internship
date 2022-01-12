@@ -2,7 +2,6 @@ import {
   useEffect, useLayoutEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { setTotal } from '../redux/slices/total';
 import useFirebase from '../hooks/useFirebase';
 import { addMessage } from '../redux/slices/messages';
 import { setLoading } from '../redux/slices/loading';
@@ -16,7 +15,6 @@ type Props = {
 
 export default function FirebaseRedux({ children }: Props) {
   const {
-    total,
     errors,
     loading,
     user,
@@ -28,10 +26,6 @@ export default function FirebaseRedux({ children }: Props) {
   useEffect(() => {
     dispatch(setLoading(loading));
   }, [loading, dispatch]);
-
-  useEffect(() => {
-    dispatch(setTotal(total));
-  }, [total, dispatch]);
 
   useEffect(() => {
     if (!errors.length) return;

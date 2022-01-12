@@ -1,7 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-export const getTotal = (state: RootState) => state.total.value;
 export const getUser = (state: RootState) => state.user.value;
 export const getTicketCollection = (state: RootState) => state.ticketCollection.value;
 export const getLoading = (state: RootState) => state.loading.value;

@@ -4,7 +4,6 @@ import user from './slices/user';
 import ticketCollection from './slices/ticketCollection';
 import loading from './slices/loading';
 import messages from './slices/messages';
-import total from './slices/total';
 import dashboardTickets from './slices/dashboardTickets';
 
 const reducer = combineReducers({
@@ -12,7 +11,6 @@ const reducer = combineReducers({
   ticketCollection,
   loading,
   messages,
-  total,
   dashboardTickets,
 });
 

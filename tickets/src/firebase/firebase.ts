@@ -21,6 +21,7 @@ import {
   updateDoc,
   FieldValue,
   increment,
+  Timestamp,
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { nanoid } from 'nanoid';
@@ -33,34 +34,10 @@ export const auth = getAuth();
 const db = getFirestore(app);
 export const ticketsRef = collection(db, 'tickets');
 
-type TGetTicketCollectionQuery = (
-  params?: TQueryParams
-) => void
-
-export const totalQuery = doc(getFirestore(app), 'counters', 'tickets');
-export const getTicketCollectionQuery: TGetTicketCollectionQuery = (params) => {
-  if (!Object.keys(params).length) {
-    return query(
-      ticketsRef,
-    );
-  }
-  return query(
-    ticketsRef,
-    orderBy('createdAt'),
-    limit((+params.page + 1) * +params.perPage),
-  );
-
-  // !!!!!
-  // firebase v.8.X.X
-  // .firestore().collection('items')
-  // .limit(L)
-  // .offset(O)
-  // .get()
-
-  // Actually fetches O + L documents
-  // I could use pointers, but it wouldn't work with links
-  // I think it's better to use mongodb in this case
-};
+export const TicketCollectionQuery = query(
+  ticketsRef,
+  orderBy('createdAt', 'desc'),
+);
 
 const AuthProvider = new GoogleAuthProvider();
 export const loginFirebase = () => signInWithPopup(auth, AuthProvider);
@@ -100,15 +77,12 @@ export const addTicketFirebase = (ticket: Partial<TTicket>) => {
   const id = nanoid();
   return setDoc(doc(db, 'tickets', id), {
     ...ticket,
-    priority: {
-      label: ticket.priority,
-      level: priorityLevels[ticket.priority],
-    },
     id,
     author,
     completed: false,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
+    // Here was a problem with serverTimestamp
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
   });
 };
 export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
@@ -117,7 +91,7 @@ export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
 
   return setDoc(doc(db, 'tickets', ticket.id), {
     ...ticket,
-    updatedAt: serverTimestamp(),
+    updatedAt: Date.now(),
   }, { merge: true });
 };
 export const deleteTicketFirebase = async (ticket: TTicket) => {

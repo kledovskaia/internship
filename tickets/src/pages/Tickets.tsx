@@ -9,7 +9,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import queryString from 'query-string';
 import { Title1 } from '../styles';
 import Pagination from '../components/Pagination/Pagination';
-import { getTicketCollection, getTotal } from '../redux/selectors';
+import { getTicketCollection } from '../redux/selectors';
 import Table from '../components/Table/Table';
 
 const defaultQuery = {
@@ -18,7 +18,6 @@ const defaultQuery = {
 };
 
 export default function Tickets() {
-  const total = useSelector(getTotal);
   const location = useLocation();
   const [query, setQuery] = useState<TQueryParams>({
     ...defaultQuery,
@@ -43,19 +42,17 @@ export default function Tickets() {
       <Title1>All tickets</Title1>
       <Link to="/tickets/new">New Ticket</Link>
       <Table
-        // rowsCount={+query.perPage}
         tickets={ticketCollection?.slice(
           +query.page * +query.perPage,
           (+query.page * +query.perPage) + +query.perPage,
         )}
       />
-      {/* )} */}
-      {!!total && (
+      {ticketCollection && (
       <Pagination
         page={+query.page}
         perPage={+query.perPage}
         handleChange={onChange}
-        total={total}
+        total={ticketCollection.length}
       />
       )}
 
