@@ -36,3 +36,11 @@ export const GridFullWidth = styled(Paper)`
   align-items: center;
   justify-content: center;
 `;
+
+export const GridSmallWidth = styled(Paper)`
+  display: flex;
+  padding: 1.5em;
+  & > * {
+    flex: 1
+  }
+`;

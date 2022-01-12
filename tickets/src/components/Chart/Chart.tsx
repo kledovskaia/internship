@@ -14,7 +14,7 @@ export default function Chart({ data }: Props) {
   return (
     <BarChart
       width={1200}
-      height={500}
+      height={350}
       data={data}
     >
       <Legend
