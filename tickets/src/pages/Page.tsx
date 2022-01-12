@@ -77,14 +77,14 @@ export default function Page({ children, pageTitle }: Props) {
           {
           // ['Inbox', 'Starred', 'Send email', 'Drafts']
           navLinks.map(({ path, title, Icon }) => (
-            <ListItem button key={title}>
-              <NavLink to={path}>
+            <NavLink to={path} key={title}>
+              <ListItem button>
                 <ListItemIcon>
                   <Icon />
                 </ListItemIcon>
                 <ListItemText primary={title} />
-              </NavLink>
-            </ListItem>
+              </ListItem>
+            </NavLink>
           ))
 }
         </List>
