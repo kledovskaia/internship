@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
-  useCallback, useContext, useEffect, useState,
+  useCallback, useEffect, useState,
 } from 'react';
 import { Paper } from '@mui/material';
 import GridViewIcon from '@mui/icons-material/GridView';

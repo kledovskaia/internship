@@ -16,6 +16,8 @@ import {
   endBefore,
   limitToLast,
   DocumentData,
+  where,
+  FieldPath,
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { nanoid } from 'nanoid';
@@ -32,19 +34,26 @@ type TGetTicketCollectionQuery = (
 ) => void
 
 export const getTicketCollectionQuery: TGetTicketCollectionQuery = (params) => {
-  if (!Object.keys(params).length) return null;
+  if (!Object.keys(params).length) {
+    return query(
+      ticketsRef,
+    );
+  }
   return query(
     ticketsRef,
     orderBy('createdAt'),
   );
 
-  // Actually fetches O + L documents
-  // I can use pointers, but it wont work with links
-  // By the way it's better to use Mongo for pagination
+  // !!!!!
+  // firebase v.8.X.X
   // .firestore().collection('items')
   // .limit(L)
   // .offset(O)
   // .get()
+
+  // Actually fetches O + L documents
+  // I could use pointers, but it wouldn't work with links
+  // I think it's better to use mongodb in this case
 };
 
 const AuthProvider = new GoogleAuthProvider();
