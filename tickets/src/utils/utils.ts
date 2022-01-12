@@ -82,3 +82,8 @@ export const transformTicket: TTransform = ({ updatedAt, createdAt, ...doc }) =>
     { updatedAt: updatedAt.seconds * 1000 + updatedAt.nanoseconds / 1000 } :
     {}),
 });
+
+export const getFromLocalStorage = (name: string) => JSON.parse(localStorage.getItem(name));
+export const setToLocalStorage = (key: string, value: unknown) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};

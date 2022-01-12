@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getFromLocalStorage } from '../../utils/utils';
+
+const user = getFromLocalStorage('tickets-user');
 
 const initialState = {
-  value: null as TUser | null,
+  value: user as TUser | null,
 };
 
 const userSlice = createSlice({
