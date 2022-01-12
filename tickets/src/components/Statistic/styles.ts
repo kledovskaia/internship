@@ -26,8 +26,8 @@ export const StatisticCount = styled.p`
   margin: 0;
 `;
 export const StatisticPercent = styled.p`
-  margin-left: 0.25em;
-  font-size: 2em;
   padding: 0;
   margin: 0;
+  margin-left: 0.25em;
+  font-size: 2em;
 `;

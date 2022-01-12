@@ -32,9 +32,6 @@ export const GridContainer = styled.div`
 export const GridFullWidth = styled(Paper)`
   padding: 1em;
   grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const GridSmallWidth = styled(Paper)`

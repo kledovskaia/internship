@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { GridContainer, GridFullWidth, GridSmallWidth } from '../styles';
+import {
+  GridContainer, GridFullWidth, GridSmallWidth, Title3,
+} from '../styles';
 import { Statistic } from '../components/Statistic/Statistic';
 import { calculateStatistic, getChartData } from '../utils/utils';
 import { getTicketCollection, getUser } from '../redux/selectors';
