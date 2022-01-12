@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 import { useLocation } from 'react-router-dom';
-import queryString from 'query-string';
+import queryString, { ParsedQuery } from 'query-string';
+import equal from 'deep-equal';
 import { getFromLocalStorage, transformTicket } from '../utils/utils';
 import { auth, getTicketCollectionQuery, totalQuery } from '../firebase/firebase';
 
@@ -18,7 +19,7 @@ import { auth, getTicketCollectionQuery, totalQuery } from '../firebase/firebase
 // }
 export default function useFirebase() {
   const location = useLocation();
-  const [params, setParams] = useState({});
+  const [params, setParams] = useState<ParsedQuery>({});
   const [ticketsQuery, setTicketsQuery] = useState(null);
   const [authUser, authLoading, authError] = useAuthState(auth);
   const [total, totalLoading, totalError] = useDocumentData(totalQuery);
@@ -33,6 +34,9 @@ export default function useFirebase() {
 
   useEffect(() => {
     if (!location.search) return;
+    const paramsObj = queryString.parse(location.search);
+    if (equal(params, paramsObj)) return;
+    if (+paramsObj.page < +params.page) return;
     setParams(queryString.parse(location.search));
   }, [location]);
 

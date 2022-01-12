@@ -41,14 +41,13 @@ export default function Tickets() {
     <Paper elevation={3}>
       <h1>Tickets</h1>
       <Link to="/tickets/new">New Ticket</Link>
-      {ticketCollection && (
-        ticketCollection.slice(
-          +query.page * +query.perPage,
-          (+query.page * +query.perPage) + +query.perPage,
-        ).map((ticket) => (
-          <TicketPreview key={ticket.id} ticket={ticket} />
-        ))
-      )}
+
+      {ticketCollection?.slice(
+        +query.page * +query.perPage,
+        (+query.page * +query.perPage) + +query.perPage,
+      ).map((ticket) => (
+        <TicketPreview key={ticket.id} ticket={ticket} />
+      ))}
       {!!total && (
       <Pagination
         page={+query.page}

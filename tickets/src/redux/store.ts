@@ -5,6 +5,7 @@ import ticketCollection from './slices/ticketCollection';
 import loading from './slices/loading';
 import messages from './slices/messages';
 import total from './slices/total';
+import dashboardTickets from './slices/dashboardTickets';
 
 const reducer = combineReducers({
   user,
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   loading,
   messages,
   total,
+  dashboardTickets,
 });
 
 export const store = configureStore({
