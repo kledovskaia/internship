@@ -2,9 +2,6 @@ import {
   getAuth, signInWithPopup, GoogleAuthProvider, signOut,
 } from 'firebase/auth';
 import {
-<<<<<<< Updated upstream
-  getFirestore, collection, query, doc, setDoc, deleteDoc, getDoc, serverTimestamp,
-=======
   getFirestore,
   collection,
   query,
@@ -21,7 +18,6 @@ import {
   DocumentData,
   where,
   FieldPath,
->>>>>>> Stashed changes
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { nanoid } from 'nanoid';
@@ -32,9 +28,6 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 const db = getFirestore(app);
 export const ticketsRef = collection(db, 'tickets');
-<<<<<<< Updated upstream
-export const getTicketCollectionQuery = () => query(ticketsRef);
-=======
 
 type TGetTicketCollectionQuery = (
   params?: TQueryParams
@@ -62,7 +55,6 @@ export const getTicketCollectionQuery: TGetTicketCollectionQuery = (params) => {
   // I could use pointers, but it wouldn't work with links
   // I think it's better to use mongodb in this case
 };
->>>>>>> Stashed changes
 
 const AuthProvider = new GoogleAuthProvider();
 export const loginFirebase = () => signInWithPopup(auth, AuthProvider);
