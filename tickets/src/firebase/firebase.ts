@@ -9,23 +9,10 @@ import {
   setDoc,
   deleteDoc,
   getDoc,
-  serverTimestamp,
-  limit,
   orderBy,
-  startAfter,
-  endBefore,
-  limitToLast,
-  DocumentData,
-  where,
-  FieldPath,
-  updateDoc,
-  FieldValue,
-  increment,
-  Timestamp,
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
-import { nanoid } from 'nanoid';
-import { priorityLevels } from '../data/priorityLevels';
+import { configTicketObj } from '../utils/configurators';
 import firebaseConfig from './config';
 // import { seed } from './seed'
 
@@ -48,7 +35,7 @@ export const logoutFirebase = () => {
 
 // seed();
 
-const getUser = () => getAuth().currentUser;
+export const getUser = () => getAuth().currentUser;
 
 const getTicketFirebase = async (ticketId: TTicket['id']) => {
   const ticketDoc = await getDoc(doc(db, 'tickets', ticketId));
@@ -66,33 +53,20 @@ const checkTicketExistance = async (id: TTicket['id']) => {
   await getTicketFirebase(id);
 };
 
-export const addTicketFirebase = (ticket: Partial<TTicket>) => {
-  const user = getUser();
-  const author = {
-    photoURL: user.photoURL,
-    displayName: user.displayName,
-    id: user.uid,
-  };
-
-  const id = nanoid();
-  return setDoc(doc(db, 'tickets', id), {
-    ...ticket,
-    id,
-    author,
-    completed: false,
-    // Here was a problem with serverTimestamp
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-  });
+export const addTicketFirebase = async (ticket: Partial<TTicket>) => {
+  const ticketObj = configTicketObj(ticket);
+  await setDoc(doc(db, 'tickets', ticketObj.id), ticketObj);
+  return ticketObj.id;
 };
 export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
   await checkTicketExistance(ticket.id);
   await checkPermissonToModify(ticket.author.id);
 
-  return setDoc(doc(db, 'tickets', ticket.id), {
+  await setDoc(doc(db, 'tickets', ticket.id), {
     ...ticket,
     updatedAt: Date.now(),
   }, { merge: true });
+  return ticket.id;
 };
 export const deleteTicketFirebase = async (ticket: TTicket) => {
   await checkTicketExistance(ticket.id);
@@ -100,7 +74,3 @@ export const deleteTicketFirebase = async (ticket: TTicket) => {
 
   return deleteDoc(doc(db, 'tickets', ticket.id));
 };
-
-export const updateTicketsCountFirebase = async (value: number) => setDoc(doc(db, 'counters', 'tickets'), {
-  value: increment(value),
-}, { merge: true });

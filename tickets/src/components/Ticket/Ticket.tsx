@@ -1,18 +1,22 @@
 import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { getTicket, getUser } from '../../redux/selectors';
+import { Link } from 'react-router-dom';
+import { getUser } from '../../redux/selectors';
 
-export default function Ticket() {
-  const { id } = useParams();
-  const ticket = useSelector(getTicket(id));
+type Props = {
+  ticket: TTicket
+}
+
+export default function Ticket({ ticket }: Props) {
   const user = useSelector(getUser);
 
   return (
+    !!ticket && (
     <div>
       <h1>{ticket.title}</h1>
       {
-        ticket.author.id === user.id && <Link to={`/tickets/edit/${id}`}>Edit ticket</Link>
+        ticket.author.id === user.id && <Link to={`/tickets/edit/${ticket.id}`}>Edit ticket</Link>
       }
     </div>
+    )
   );
 }

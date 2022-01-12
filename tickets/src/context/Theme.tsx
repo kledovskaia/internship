@@ -33,7 +33,7 @@ export function ThemeContextProvider({ children }: Props) {
     dispatch(addMessage({
       id: nanoid(),
       type: 'success',
-      content: 'Theme has changed',
+      content: 'Theme changed',
     }));
   }, []);
 

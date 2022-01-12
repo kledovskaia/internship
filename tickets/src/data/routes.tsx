@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import Ticket from '../components/Ticket/Ticket';
+import TicketPage from '../pages/TicketPage';
 import Dashboard from '../pages/Dashboard';
 import Edit from '../pages/Edit';
 import New from '../pages/New';
@@ -10,6 +10,6 @@ export const routes = ({
   '/tickets': <Tickets />,
   '/tickets/new': <New />,
   '/tickets/edit/:id': <Edit />,
-  '/tickets/:id': <Ticket />,
+  '/tickets/:id': <TicketPage />,
   '*': <Navigate to="/dashboard " />,
 });

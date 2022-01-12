@@ -1,24 +1,23 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Form from '../components/Form/Form';
 import { getTicket } from '../redux/selectors';
-import Page from './Page';
+import Ticket from '../components/Ticket/Ticket';
 import { GridFullWidth, Title1 } from '../styles';
+import Page from './Page';
 
-function Edit() {
+function TicketPage() {
   const { id } = useParams();
   const ticket = useSelector(getTicket(id));
-
   return (
     <Page header={(
-      <Title1>Edit</Title1>
+      <Title1>New</Title1>
     )}
     >
       <GridFullWidth elevation={3}>
-        <Form ticket={Object.fromEntries(Object.entries(ticket).filter(([key]) => key !== 'createdAt' && key !== 'updatedAt')) as Partial<TTicket>} />
+        <Ticket ticket={ticket} />
       </GridFullWidth>
     </Page>
   );
 }
 
-export default Edit;
+export default TicketPage;

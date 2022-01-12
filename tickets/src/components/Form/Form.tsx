@@ -8,6 +8,9 @@ import {
 import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { configTicketObj } from '../../utils/configurators';
+import { updateTicket, addTicket } from '../../redux/thunks/tickets';
 import { addMessage } from '../../redux/slices/messages';
 import {
   ButtonContainer, EditingButtons, FormContainer, FormLargeField, FormTitle,
@@ -33,17 +36,16 @@ const fields = {
 
 type Props = {
   ticket?: Partial<TTicket>,
-  onSubmit: (ticket: Partial<TTicket>) => void;
   onComplete?: () => void,
   onDelete?: () => void
 };
 
 export default function Form({
-  ticket, onSubmit, onComplete, onDelete,
+  ticket, onComplete, onDelete,
 }: Props) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-    reset,
     register,
     control,
     handleSubmit,
@@ -67,18 +69,24 @@ export default function Form({
     }
   }, [errors]);
 
-  const submit = (data: TTicket) => {
-    onSubmit({
-      ...(ticket || {}),
-      ...data,
-    });
-    if (!ticket) {
-      reset({
-        title: '',
-        description: '',
-        priority: '',
-      });
+  const submit = async (data: TTicket) => {
+    let result;
+    if (ticket) {
+      result = await dispatch(updateTicket({
+        ...ticket,
+        ...data,
+      }));
+      // payload doesn't exist on bla bla bla, but actially exists
+      // eslint-disable-next-line
+      // @ts-ignore
+      navigate(`/tickets/${result.payload}`);
+      return;
     }
+    result = await dispatch(addTicket(configTicketObj(data)));
+    // payload doesn't exist on bla bla bla, but actially exists
+    // eslint-disable-next-line
+    // @ts-ignore
+    navigate(`/tickets/${result.payload}`);
   };
 
   return (
