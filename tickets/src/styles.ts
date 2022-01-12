@@ -9,7 +9,11 @@ export const Button = styled.button`
 
 export const Title1 = styled.h1``;
 export const Title2 = styled.h2``;
-export const Title3 = styled.h3``;
+export const Title3 = styled.h3`
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+`;
 
 export const NavLink = styled(NLink)`
   display: flex;

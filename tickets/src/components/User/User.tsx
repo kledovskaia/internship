@@ -4,8 +4,10 @@ import {
 import { Box } from '@mui/system';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Title3 } from '../../styles';
 import { logout } from '../../redux/thunks/auth';
 import { getUser } from '../../redux/selectors';
+import { UserContainer } from './styles';
 
 export function User() {
   const user = useSelector(getUser);
@@ -14,22 +16,21 @@ export function User() {
   const handleLogout = () => dispatch(logout());
 
   return (
-    // <div>
-    //   <Avatar alt={user.displayName} src={user.photoURL} />
-    // </div>
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <>
-          {user.displayName}
+        <UserContainer onClick={(event) => {
+          setAnchorElUser(event.currentTarget);
+        }}
+        >
+          <Title3>
+            {user.displayName}
+          </Title3>
           <IconButton
-            onClick={(event) => {
-              setAnchorElUser(event.currentTarget);
-            }}
             sx={{ p: 0 }}
           >
             <Avatar alt={user.displayName} src={user.photoURL} />
           </IconButton>
-        </>
+        </UserContainer>
       </Tooltip>
       <Menu
         sx={{ mt: '45px' }}
