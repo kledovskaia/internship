@@ -68,7 +68,7 @@ export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
   }, { merge: true });
   return ticket.id;
 };
-export const deleteTicketFirebase = async (ticket: TTicket) => {
+export const deleteTicketFirebase = async (ticket: Partial<TTicket>) => {
   await checkTicketExistance(ticket.id);
   await checkPermissonToModify(ticket.author.id);
 

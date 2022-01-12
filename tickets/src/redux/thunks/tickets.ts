@@ -45,7 +45,7 @@ export const updateTicket = createAsyncThunk(
 );
 export const deleteTicket = createAsyncThunk(
   'ticket/delete',
-  async (ticket: TTicket, { rejectWithValue, dispatch }) => {
+  async (ticket: Partial<TTicket>, { rejectWithValue, dispatch }) => {
     let result;
     try {
       await deleteTicketFirebase(ticket);

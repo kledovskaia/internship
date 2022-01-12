@@ -14,9 +14,13 @@ function Edit() {
       <Title1>Edit</Title1>
     )}
     >
-      <GridFullWidth elevation={3}>
-        <Form ticket={Object.fromEntries(Object.entries(ticket).filter(([key]) => key !== 'createdAt' && key !== 'updatedAt')) as Partial<TTicket>} />
-      </GridFullWidth>
+      {
+        ticket && (
+        <GridFullWidth elevation={3}>
+          <Form ticket={Object.fromEntries(Object.entries(ticket).filter(([key]) => key !== 'createdAt' && key !== 'updatedAt')) as Partial<TTicket>} />
+        </GridFullWidth>
+        )
+}
     </Page>
   );
 }

@@ -8,7 +8,7 @@ export const getMessages = (state: RootState) => state.messages.value;
 
 export const getTicket = (id: TTicket['id']) => createSelector(
   getTicketCollection,
-  (tickets) => tickets.find((ticket) => ticket.id === id),
+  (tickets) => tickets?.find((ticket) => ticket.id === id),
 );
 
 export const getMyTickets = createSelector(

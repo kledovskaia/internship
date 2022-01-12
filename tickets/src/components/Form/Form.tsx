@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { configTicketObj } from '../../utils/configurators';
-import { updateTicket, addTicket } from '../../redux/thunks/tickets';
+import { updateTicket, addTicket, deleteTicket } from '../../redux/thunks/tickets';
 import { addMessage } from '../../redux/slices/messages';
 import {
   ButtonContainer, EditingButtons, FormContainer, FormLargeField, FormTitle,
@@ -36,13 +36,9 @@ const fields = {
 
 type Props = {
   ticket?: Partial<TTicket>,
-  onComplete?: () => void,
-  onDelete?: () => void
 };
 
-export default function Form({
-  ticket, onComplete, onDelete,
-}: Props) {
+export default function Form({ ticket }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -68,6 +64,20 @@ export default function Form({
       }));
     }
   }, [errors]);
+
+  const onDelete = async () => {
+    if (!ticket) return;
+    await dispatch(deleteTicket(ticket));
+    navigate('/tickets');
+  };
+
+  const onComplete = () => {
+    if (!ticket) return;
+    dispatch(updateTicket({
+      ...ticket,
+      completed: true,
+    }));
+  };
 
   const submit = async (data: TTicket) => {
     let result;
@@ -99,6 +109,7 @@ export default function Form({
           <TextField
             {...register('title')}
             {...field}
+            disabled={ticket?.completed}
             label={errors.title ? errors.title.message : fields.title.label}
             error={Boolean(errors.title)}
           />
@@ -114,6 +125,7 @@ export default function Form({
             <Select
               {...register('title')}
               {...field}
+              disabled={ticket?.completed}
               labelId="select-label"
               label={errors.priority ? errors.priority.message : fields.priority.label}
               error={Boolean(errors.title)}
@@ -134,6 +146,7 @@ export default function Form({
               {...register('title')}
               {...field}
               multiline
+              disabled={ticket?.completed}
               label={errors.description ? errors.description.message : fields.description.label}
               error={Boolean(errors.description)}
             />
@@ -141,12 +154,35 @@ export default function Form({
         />
       </FormLargeField>
       <ButtonContainer>
-        <Button variant="contained" color="primary" type="submit">Save Details</Button>
+        <Button
+          disabled={ticket?.completed}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          {ticket?.completed ? 'Completed' : 'Save Details'}
+        </Button>
         {
           ticket && (
             <EditingButtons>
-              <Button onClick={onComplete} variant="contained" color="warning" type="button">Complete</Button>
-              <Button onClick={onDelete} variant="contained" color="error" type="button">Delete</Button>
+              <Button
+                disabled={ticket?.completed}
+                onClick={onComplete}
+                variant="contained"
+                color="warning"
+                type="button"
+              >
+                {ticket?.completed ? 'Completed' : 'Complete'}
+              </Button>
+              <Button
+                disabled={ticket?.completed}
+                onClick={onDelete}
+                variant="contained"
+                color="error"
+                type="button"
+              >
+                {ticket?.completed ? 'Completed' : 'Delete'}
+              </Button>
             </EditingButtons>
           )
         }
