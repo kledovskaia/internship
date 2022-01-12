@@ -1,15 +1,16 @@
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
-  useCallback, useEffect, useState,
+  useEffect, useState,
 } from 'react';
 import { Paper } from '@mui/material';
-import GridViewIcon from '@mui/icons-material/GridView';
+import GridViewSharpIcon from '@mui/icons-material/GridViewSharp';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import queryString from 'query-string';
+import { Title1 } from '../styles';
 import Pagination from '../components/Pagination/Pagination';
 import { getTicketCollection, getTotal } from '../redux/selectors';
-import TicketPreview from '../components/TicketPreview/TicketPreview';
+import Table from '../components/Table/Table';
 
 const defaultQuery = {
   perPage: '8',
@@ -39,15 +40,16 @@ export default function Tickets() {
 
   return (
     <Paper elevation={3}>
-      <h1>Tickets</h1>
+      <Title1>All tickets</Title1>
       <Link to="/tickets/new">New Ticket</Link>
-
-      {ticketCollection?.slice(
-        +query.page * +query.perPage,
-        (+query.page * +query.perPage) + +query.perPage,
-      ).map((ticket) => (
-        <TicketPreview key={ticket.id} ticket={ticket} />
-      ))}
+      <Table
+        // rowsCount={+query.perPage}
+        tickets={ticketCollection?.slice(
+          +query.page * +query.perPage,
+          (+query.page * +query.perPage) + +query.perPage,
+        )}
+      />
+      {/* )} */}
       {!!total && (
       <Pagination
         page={+query.page}

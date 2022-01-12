@@ -102,7 +102,7 @@ export default function Form({ ticket, onSubmit }: Props) {
               label={errors.priority ? errors.priority.message : fields.priority.label}
             >
               { fields.priority.options.map((option) => (
-                <MenuItem value={option}>{option}</MenuItem>
+                <MenuItem key={option} value={option}>{option}</MenuItem>
               )) }
             </Select>
           </FormControl>

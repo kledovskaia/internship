@@ -24,6 +24,7 @@ import {
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { nanoid } from 'nanoid';
+import { priorityLevels } from '../data/priorityLevels';
 import firebaseConfig from './config';
 // import { seed } from './seed'
 
@@ -99,10 +100,15 @@ export const addTicketFirebase = (ticket: Partial<TTicket>) => {
   const id = nanoid();
   return setDoc(doc(db, 'tickets', id), {
     ...ticket,
+    priority: {
+      label: ticket.priority,
+      level: priorityLevels[ticket.priority],
+    },
     id,
     author,
     completed: false,
     createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
   });
 };
 export const updateTicketFirebase = async (ticket: Partial<TTicket>) => {
