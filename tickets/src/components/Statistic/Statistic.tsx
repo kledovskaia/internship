@@ -1,3 +1,7 @@
+import {
+  StatisticContainer, StatisticCount, StatisticData, StatisticPercent, StatisticTitle,
+} from './styles';
+
 type Props = {
   title: string,
   value: {
@@ -8,14 +12,21 @@ type Props = {
 
 export function Statistic({ title, value }: Props) {
   return (
-    <div>
-      {title}
-      :
-      {' '}
-      {value.count}
-      ,
-      {' '}
-      { value?.percentage && `${value.percentage}%` }
-    </div>
+    <StatisticContainer>
+      <StatisticTitle>
+        {title}
+      </StatisticTitle>
+      <StatisticData>
+        <StatisticCount>
+          {value.count}
+        </StatisticCount>
+        { value?.percentage && (
+        <StatisticPercent>
+          {value.percentage}
+          %
+        </StatisticPercent>
+        )}
+      </StatisticData>
+    </StatisticContainer>
   );
 }

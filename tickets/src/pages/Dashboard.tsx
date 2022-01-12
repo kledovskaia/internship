@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Paper } from '@mui/material';
 
+import { GridContainer, GridFullWidth } from '../styles';
 import { Statistic } from '../components/Statistic/Statistic';
 import { calculateStatistic, getChartData } from '../utils/utils';
 import { getTicketCollection, getUser } from '../redux/selectors';
@@ -24,21 +25,21 @@ function Dashboard() {
 
   return (
     (
-      <>
+      <GridContainer>
         {totalStatistic && Object.entries(totalStatistic).map(([title, value]) => (
           <Paper elevation={3}>
-            <Statistic {...{ title, value }} />
+            <Statistic {...{ title: `Total ${title[0].toUpperCase() + title.slice(1)}`, value }} />
           </Paper>
         ))}
-        <Paper elevation={3}>
+        <GridFullWidth>
           <Chart data={chartData} />
-        </Paper>
+        </GridFullWidth>
         {myStatistic && Object.entries(myStatistic).map(([title, value]) => (
           <Paper elevation={3}>
-            <Statistic {...{ title, value }} />
+            <Statistic {...{ title: title[0].toUpperCase() + title.slice(1), value }} />
           </Paper>
         ))}
-      </>
+      </GridContainer>
     )
   );
 }

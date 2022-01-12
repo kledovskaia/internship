@@ -1,6 +1,12 @@
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+<<<<<<< Updated upstream
 import { useEffect, useState } from 'react';
+=======
+import {
+  useCallback, useEffect, useState,
+} from 'react';
+>>>>>>> Stashed changes
 import { Paper } from '@mui/material';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ViewListIcon from '@mui/icons-material/ViewList';
