@@ -1,5 +1,5 @@
 import {
-  createContext, useEffect, useLayoutEffect, useMemo,
+  useEffect, useLayoutEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import useFirebase from '../hooks/useFirebase';
@@ -13,12 +13,8 @@ type Props = {
   children: JSX.Element
 }
 
-export const PaginationContext = createContext(null);
-
 export default function FirebaseRedux({ children }: Props) {
   const {
-    nextPage,
-    prevPage,
     errors,
     loading,
     user,
@@ -57,14 +53,7 @@ export default function FirebaseRedux({ children }: Props) {
     dispatch(setTicketCollection(ticketCollection));
   }, [ticketCollection, dispatch]);
 
-  const value = useMemo(() => ({
-    nextPage,
-    prevPage,
-  }), [nextPage, prevPage]);
-
   return (
-    <PaginationContext.Provider value={value}>
-      {children}
-    </PaginationContext.Provider>
+    children
   );
 }

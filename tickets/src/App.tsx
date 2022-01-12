@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import {
-  Link,
   Navigate, Route, Routes,
 } from 'react-router-dom';
 import { routes } from './data/routes';

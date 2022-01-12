@@ -31,22 +31,9 @@ export default function useFirebase() {
   const [user, setUser] = useState(getFromLocalStorage('tickets-user'));
 
   useEffect(() => {
-    console.log(ticketCollection);
-  }, [ticketCollection]);
-
-  useEffect(() => {
     if (!location.search) return;
-    setParams((state) => ({ ...state, params: queryString.parse(location.search) }));
+    setParams(queryString.parse(location.search));
   }, [location]);
-
-  const nextPage = () => setParams({
-    params: queryString.parse(location.search),
-    last: ticketCollection[ticketCollection.length - 1],
-  });
-  const prevPage = () => setParams({
-    params: queryString.parse(location.search),
-    first: ticketCollection[0],
-  });
 
   useEffect(() => {
     if (!authLoading) {
@@ -70,8 +57,6 @@ export default function useFirebase() {
   }, [authError, ticketCollectionError]);
 
   return {
-    nextPage,
-    prevPage,
     errors,
     loading,
     user,

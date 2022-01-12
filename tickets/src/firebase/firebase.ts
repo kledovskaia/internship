@@ -27,42 +27,20 @@ export const auth = getAuth();
 const db = getFirestore(app);
 export const ticketsRef = collection(db, 'tickets');
 
-type TGetTicketCollectionQuery = (args: {
-  params?: TQueryParams,
-  first?: DocumentData,
-  last?: DocumentData,
-}) => void
+type TGetTicketCollectionQuery = (
+  params?: TQueryParams
+) => void
 
-export const getTicketCollectionQuery: TGetTicketCollectionQuery = (args) => {
-  if (!Object.keys(args).length) return null;
-  const {
-    params,
-    first,
-    last,
-  } = args;
-  if (first) {
-    return query(
-      ticketsRef,
-      orderBy('createdAt'),
-      endBefore(first),
-      limitToLast(+params.perPage),
-    );
-  }
-  if (last) {
-    return query(
-      ticketsRef,
-      orderBy('createdAt'),
-      startAfter(last),
-      limit(+params.perPage),
-    );
-  }
+export const getTicketCollectionQuery: TGetTicketCollectionQuery = (params) => {
+  if (!Object.keys(params).length) return null;
   return query(
     ticketsRef,
     orderBy('createdAt'),
-    limit(+params.perPage),
   );
 
   // Actually fetches O + L documents
+  // I can use pointers, but it wont work with links
+  // By the way it's better to use Mongo for pagination
   // .firestore().collection('items')
   // .limit(L)
   // .offset(O)
