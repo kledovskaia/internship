@@ -52,13 +52,13 @@ export default function Form({ ticket, onSubmit }: Props) {
       ...(ticket || {}),
       ...data,
     });
-    if (!ticket) {
-      reset({
-        title: '',
-        description: '',
-        priority: '',
-      });
-    }
+    // if (!ticket) {
+    //   reset({
+    //     title: '',
+    //     description: '',
+    //     priority: '',
+    //   });
+    // }
   };
 
   return (

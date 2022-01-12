@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux';
 import {
-  Link,
-  Navigate, Route, Routes, useNavigate,
+  Navigate, Route, Routes,
 } from 'react-router-dom';
-import { useEffect } from 'react';
 import { routes } from './data/routes';
 import Page from './pages/Page';
 import { Loader } from './components/Loader/Loader';

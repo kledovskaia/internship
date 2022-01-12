@@ -10,13 +10,13 @@ import { store } from './redux/store';
 ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
-      <FirebaseRedux>
-        <ThemeContextProvider>
-          <BrowserRouter>
+      <ThemeContextProvider>
+        <BrowserRouter>
+          <FirebaseRedux>
             <App />
-          </BrowserRouter>
-        </ThemeContextProvider>
-      </FirebaseRedux>
+          </FirebaseRedux>
+        </BrowserRouter>
+      </ThemeContextProvider>
     </Provider>
   </StrictMode>,
   document.getElementById('root'),

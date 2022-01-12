@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useLocation } from 'react-router-dom';
@@ -6,6 +6,16 @@ import queryString from 'query-string';
 import { getFromLocalStorage, transformTicket } from '../utils/utils';
 import { auth, getTicketCollectionQuery } from '../firebase/firebase';
 
+// const pageSize = 3;
+// const field = 'username';
+
+// let query = (ref) => ref.orderBy(field).limit(pageSize);
+// function nextPage(last) {
+//   query = (ref) => ref.orderBy(field).startAfter(last[field]).limit(pageSize);
+// }
+// function prevPage(first) {
+//   query = (ref) => ref.orderBy(field).endBefore(first[field]).limitToLast(pageSize);
+// }
 export default function useFirebase() {
   const location = useLocation();
   const [params, setParams] = useState({});
@@ -24,6 +34,12 @@ export default function useFirebase() {
     if (!location.search) return;
     setParams(queryString.parse(location.search));
   }, [location]);
+
+  useEffect(() => {
+    if (!authLoading) {
+      setUser(authUser);
+    }
+  }, [authUser, authLoading]);
 
   useEffect(() => {
     setTicketsQuery(getTicketCollectionQuery(params));
