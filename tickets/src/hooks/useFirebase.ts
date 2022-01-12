@@ -36,7 +36,10 @@ export default function useFirebase() {
     if (!location.search) return;
     const paramsObj = queryString.parse(location.search);
     if (equal(params, paramsObj)) return;
-    if (+paramsObj.page < +params.page) return;
+    if (
+      equal(paramsObj.orderBy, params.orderBy) &&
+      +paramsObj.page < +params.page
+    ) return;
     setParams(queryString.parse(location.search));
   }, [location]);
 
