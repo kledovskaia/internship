@@ -1,4 +1,5 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
+import 'styled-components/macro';
 
 export const UserContainer = styled.div`
   cursor: pointer;

@@ -9,7 +9,9 @@ export const HeaderLeft = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  margin-left: auto;
+  & > * + * {
+    margin-left: 2em;
+  }
 `;
 
 export const HeaderRight = styled.div`

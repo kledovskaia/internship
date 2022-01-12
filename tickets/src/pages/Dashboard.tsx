@@ -30,21 +30,19 @@ function Dashboard() {
         <Title1>Dashboard</Title1>
       )}
       >
-        <GridContainer>
-          {totalStatistic && Object.entries(totalStatistic).map(([title, value]) => (
-            <GridSmallWidth key={title} elevation={3}>
-              <Statistic {...{ title: `Total ${title[0].toUpperCase() + title.slice(1)}`, value }} />
-            </GridSmallWidth>
-          ))}
-          <GridFullWidth elevation={3}>
-            <Chart data={chartData} />
-          </GridFullWidth>
-          {myStatistic && Object.entries(myStatistic).map(([title, value]) => (
-            <GridSmallWidth key={title} elevation={3}>
-              <Statistic {...{ title: title[0].toUpperCase() + title.slice(1), value }} />
-            </GridSmallWidth>
-          ))}
-        </GridContainer>
+        {totalStatistic && Object.entries(totalStatistic).map(([title, value]) => (
+          <GridSmallWidth key={title} elevation={3}>
+            <Statistic {...{ title: `Total ${title[0].toUpperCase() + title.slice(1)}`, value }} />
+          </GridSmallWidth>
+        ))}
+        <GridFullWidth elevation={3}>
+          <Chart data={chartData} />
+        </GridFullWidth>
+        {myStatistic && Object.entries(myStatistic).map(([title, value]) => (
+          <GridSmallWidth key={title} elevation={3}>
+            <Statistic {...{ title: title[0].toUpperCase() + title.slice(1), value }} />
+          </GridSmallWidth>
+        ))}
       </Page>
     )
   );

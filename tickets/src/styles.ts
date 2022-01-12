@@ -1,4 +1,5 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
+import 'styled-components/macro';
 import { NavLink as NLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
 
@@ -40,4 +41,12 @@ export const GridSmallWidth = styled(Paper)`
   & > * {
     flex: 1
   }
+`;
+
+export const ContentContainer = styled.div`
+  padding: 2em 0;
+`;
+
+export const Card = styled(Paper)`
+  padding: 2em;
 `;

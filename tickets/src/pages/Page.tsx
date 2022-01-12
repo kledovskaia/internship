@@ -15,7 +15,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { navLinks } from '../data/navLinks';
 import Header from '../components/Header/Header';
-import { NavLink, Title1 } from '../styles';
+import { GridContainer, NavLink } from '../styles';
 import { AppBar } from '../components/AppBar/AppBar';
 import { Drawer } from '../components/Drawer/Drawer';
 import { DrawerHeader } from '../components/DrawerHeader/DrawerHeader';
@@ -91,7 +91,9 @@ export default function Page({ children, header }: Props) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {children}
+        <GridContainer>
+          {children}
+        </GridContainer>
       </Box>
     </Box>
   );

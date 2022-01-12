@@ -1,4 +1,5 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
+import 'styled-components/macro';
 import { Link as RLink } from 'react-router-dom';
 
 export const TableContainer = styled.div`

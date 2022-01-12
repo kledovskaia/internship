@@ -5,7 +5,7 @@ import {
   Button,
   FormControl, InputLabel, MenuItem, Select, TextField,
 } from '@mui/material';
-import { FormContainer } from './styles';
+import { FormContainer, FormTitle } from './styles';
 import { Title2 } from '../../styles';
 
 const schema = yup
@@ -52,18 +52,18 @@ export default function Form({ ticket, onSubmit }: Props) {
       ...(ticket || {}),
       ...data,
     });
-    // if (!ticket) {
-    //   reset({
-    //     title: '',
-    //     description: '',
-    //     priority: '',
-    //   });
-    // }
+    if (!ticket) {
+      reset({
+        title: '',
+        description: '',
+        priority: '',
+      });
+    }
   };
 
   return (
     <FormContainer onSubmit={handleSubmit(submit)}>
-      <Title2>{ticket ? 'Editing' : 'Creating'}</Title2>
+      <FormTitle>{ticket ? 'Editing' : 'Creating'}</FormTitle>
       <Controller
         name={fields.title.name}
         control={control}
@@ -76,19 +76,7 @@ export default function Form({ ticket, onSubmit }: Props) {
           />
         )}
       />
-      <Controller
-        name={fields.description.name}
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...register('title')}
-            {...field}
-            multiline
-            label={errors.description ? errors.description.message : fields.description.label}
-            error={Boolean(errors.description)}
-          />
-        )}
-      />
+
       <Controller
         name={fields.priority.name}
         control={control}
@@ -106,6 +94,19 @@ export default function Form({ ticket, onSubmit }: Props) {
               )) }
             </Select>
           </FormControl>
+        )}
+      />
+      <Controller
+        name={fields.description.name}
+        control={control}
+        render={({ field }) => (
+          <TextField
+            {...register('title')}
+            {...field}
+            multiline
+            label={errors.description ? errors.description.message : fields.description.label}
+            error={Boolean(errors.description)}
+          />
         )}
       />
 

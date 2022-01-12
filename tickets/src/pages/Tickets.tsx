@@ -1,9 +1,8 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Paper } from '@mui/material';
 import GridViewSharpIcon from '@mui/icons-material/GridViewSharp';
 import ViewListIcon from '@mui/icons-material/ViewList';
-import { Title1 } from '../styles';
+import { GridFullWidth, Title1 } from '../styles';
 import Pagination from '../components/Pagination/Pagination';
 import { getTicketCollection } from '../redux/selectors';
 import Table from '../components/Table/Table';
@@ -23,7 +22,7 @@ export default function Tickets() {
       </>
       )}
     >
-      <Paper elevation={3}>
+      <GridFullWidth elevation={3}>
         <Title1>All tickets</Title1>
         <Link to="/tickets/new">New Ticket</Link>
         <Table
@@ -41,7 +40,7 @@ export default function Tickets() {
         />
         )}
 
-      </Paper>
+      </GridFullWidth>
     </Page>
   );
 }
