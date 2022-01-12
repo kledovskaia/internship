@@ -49,13 +49,15 @@ export default function Tickets() {
           <TicketPreview key={ticket.id} ticket={ticket} />
         ))
       )}
-
+      {!!total && (
       <Pagination
         page={+query.page}
         perPage={+query.perPage}
         handleChange={onChange}
         total={total}
       />
+      )}
+
     </Paper>
   );
 }
