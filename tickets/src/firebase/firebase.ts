@@ -36,6 +36,7 @@ type TGetTicketCollectionQuery = (
   params?: TQueryParams
 ) => void
 
+export const totalQuery = doc(getFirestore(app), 'counters', 'tickets');
 export const getTicketCollectionQuery: TGetTicketCollectionQuery = (params) => {
   if (!Object.keys(params).length) {
     return query(

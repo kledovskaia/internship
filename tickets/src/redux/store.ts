@@ -4,12 +4,14 @@ import user from './slices/user';
 import ticketCollection from './slices/ticketCollection';
 import loading from './slices/loading';
 import messages from './slices/messages';
+import total from './slices/total';
 
 const reducer = combineReducers({
   user,
   ticketCollection,
   loading,
   messages,
+  total,
 });
 
 export const store = configureStore({

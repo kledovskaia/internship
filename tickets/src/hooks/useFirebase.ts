@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { getFromLocalStorage, transformTicket } from '../utils/utils';
-import { auth, getTicketCollectionQuery } from '../firebase/firebase';
+import { auth, getTicketCollectionQuery, totalQuery } from '../firebase/firebase';
 
 // const pageSize = 3;
 // const field = 'username';
@@ -21,6 +21,7 @@ export default function useFirebase() {
   const [params, setParams] = useState({});
   const [ticketsQuery, setTicketsQuery] = useState(null);
   const [authUser, authLoading, authError] = useAuthState(auth);
+  const [total, totalLoading, totalError] = useDocumentData(totalQuery);
   const [ticketCollection, ticketCollectionLoading, ticketCollectionError] =
     useCollectionData(
       ticketsQuery,
@@ -46,17 +47,18 @@ export default function useFirebase() {
   }, [params]);
 
   useEffect(() => {
-    setLoading(authLoading || ticketCollectionLoading);
-  }, [authLoading, ticketCollectionLoading]);
+    setLoading(authLoading || ticketCollectionLoading || totalLoading);
+  }, [authLoading, ticketCollectionLoading, totalLoading]);
 
   useEffect(() => {
-    const newErrors = [authError, ticketCollectionError].filter(
+    const newErrors = [authError, ticketCollectionError, totalError].filter(
       (error) => error,
     );
     setErrors((state) => [...state, ...newErrors]);
-  }, [authError, ticketCollectionError]);
+  }, [authError, ticketCollectionError, totalError]);
 
   return {
+    total: total?.value,
     errors,
     loading,
     user,

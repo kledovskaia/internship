@@ -8,7 +8,7 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import queryString from 'query-string';
 import Pagination from '../components/Pagination/Pagination';
-import { getTicketCollection } from '../redux/selectors';
+import { getTicketCollection, getTotal } from '../redux/selectors';
 import TicketPreview from '../components/TicketPreview/TicketPreview';
 
 const defaultQuery = {
@@ -17,6 +17,7 @@ const defaultQuery = {
 };
 
 export default function Tickets() {
+  const total = useSelector(getTotal);
   const location = useLocation();
   const [query, setQuery] = useState<TQueryParams>({
     ...defaultQuery,
@@ -53,7 +54,7 @@ export default function Tickets() {
         page={+query.page}
         perPage={+query.perPage}
         handleChange={onChange}
-        total={ticketCollection?.length || 0}
+        total={total}
       />
     </Paper>
   );
