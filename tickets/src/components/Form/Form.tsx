@@ -9,7 +9,9 @@ import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../../redux/slices/messages';
-import { FormContainer, FormLargeField, FormTitle } from './styles';
+import {
+  ButtonContainer, EditingButtons, FormContainer, FormLargeField, FormTitle,
+} from './styles';
 
 const schema = yup
   .object({
@@ -30,11 +32,15 @@ const fields = {
 } as const;
 
 type Props = {
-  ticket: Partial<TTicket> | null;
+  ticket?: Partial<TTicket>,
   onSubmit: (ticket: Partial<TTicket>) => void;
+  onComplete?: () => void,
+  onDelete?: () => void
 };
 
-export default function Form({ ticket, onSubmit }: Props) {
+export default function Form({
+  ticket, onSubmit, onComplete, onDelete,
+}: Props) {
   const dispatch = useDispatch();
   const {
     reset,
@@ -126,8 +132,17 @@ export default function Form({ ticket, onSubmit }: Props) {
           )}
         />
       </FormLargeField>
-
-      <Button type="submit">Save</Button>
+      <ButtonContainer>
+        <Button variant="contained" color="primary" type="submit">Save Details</Button>
+        {
+          ticket && (
+            <EditingButtons>
+              <Button onClick={onComplete} variant="contained" color="warning" type="button">Complete</Button>
+              <Button onClick={onDelete} variant="contained" color="error" type="button">Delete</Button>
+            </EditingButtons>
+          )
+        }
+      </ButtonContainer>
     </FormContainer>
   );
 }

@@ -21,3 +21,14 @@ export const FormLargeField = styled.div`
     flex: 1;
   }
 `;
+export const ButtonContainer = styled.div`
+  grid-column: 1 / -1;
+  display: flex;
+`;
+
+export const EditingButtons = styled.div`
+  flex: 1;
+  margin-left: 2em;
+  display: flex;
+  justify-content: space-between;
+`;

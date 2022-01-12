@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { Paper } from '@mui/material';
-import { Title1 } from '../styles';
+import { GridFullWidth, Title1 } from '../styles';
 import { addTicket } from '../redux/thunks/tickets';
 import Form from '../components/Form/Form';
 import Page from './Page';
@@ -15,9 +14,9 @@ function New() {
       <Title1>New</Title1>
     )}
     >
-      <Paper elevation={3}>
-        <Form ticket={null} onSubmit={onSubmit} />
-      </Paper>
+      <GridFullWidth elevation={3}>
+        <Form onSubmit={onSubmit} />
+      </GridFullWidth>
     </Page>
   );
 }

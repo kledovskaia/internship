@@ -39,5 +39,6 @@ module.exports = {
     'operator-linebreak': [2, 'after'],
     'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
   },
 };

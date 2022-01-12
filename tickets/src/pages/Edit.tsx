@@ -4,7 +4,7 @@ import { updateTicket } from '../redux/thunks/tickets';
 import Form from '../components/Form/Form';
 import { getTicket } from '../redux/selectors';
 import Page from './Page';
-import { Card, GridFullWidth, Title1 } from '../styles';
+import { GridFullWidth, Title1 } from '../styles';
 
 function Edit() {
   const dispatch = useDispatch();

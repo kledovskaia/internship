@@ -1,8 +1,11 @@
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { nanoid } from 'nanoid';
 import {
   createContext, ReactNode, useCallback, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../redux/slices/messages';
 
 const darkTheme = createTheme({
   palette: {
@@ -23,9 +26,15 @@ type Props = {
 
 export function ThemeContextProvider({ children }: Props) {
   const [theme, setTheme] = useState(darkTheme);
+  const dispatch = useDispatch();
 
   const toggleMode = useCallback(() => {
     setTheme((state) => (state === darkTheme ? lightTheme : darkTheme));
+    dispatch(addMessage({
+      id: nanoid(),
+      type: 'success',
+      content: 'Theme has changed',
+    }));
   }, []);
 
   return (

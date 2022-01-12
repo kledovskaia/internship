@@ -6,6 +6,8 @@ import App from './App';
 import FirebaseRedux from './connect/FirebaseRedux';
 import { ThemeContextProvider } from './context/Theme';
 import { store } from './redux/store';
+import { Loader } from './components/Loader/Loader';
+import { Toaster } from './components/Toaster/Toaster';
 
 ReactDOM.render(
   <StrictMode>
@@ -13,7 +15,11 @@ ReactDOM.render(
       <ThemeContextProvider>
         <BrowserRouter>
           <FirebaseRedux>
-            <App />
+            <>
+              <Loader />
+              <Toaster />
+              <App />
+            </>
           </FirebaseRedux>
         </BrowserRouter>
       </ThemeContextProvider>
