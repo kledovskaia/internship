@@ -1,23 +1,33 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import useFirebase from '../hooks/useFirebase';
 import { addMessage } from '../redux/slices/messages';
 import { setLoading } from '../redux/slices/loading';
 import { setTicketCollection } from '../redux/slices/ticketCollection';
 import { setUser } from '../redux/slices/user';
-import { messageTransformer } from '../utils/utils';
+import { getFromLocalStorage, messageTransformer, setToLocalStorage } from '../utils/utils';
 
 type Props = {
   children: JSX.Element
 }
 
 export default function FirebaseRedux({ children }: Props) {
+  const location = useLocation();
+  const [params, setParams] = useState({});
   const {
     errors,
     loading,
     user,
     ticketCollection,
-  } = useFirebase();
+  } = useFirebase(params);
+
+  useEffect(() => {
+    if (!location.search) return;
+    setParams(queryString.parse(location.search));
+  }, [location]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,15 +41,19 @@ export default function FirebaseRedux({ children }: Props) {
   }, [errors, dispatch]);
 
   useLayoutEffect(() => {
-    if (!user) dispatch(setUser(user));
-    else {
-      const userObj: TUser = {
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        id: user.uid,
-      };
-      dispatch(setUser(userObj));
+    if (user === null) {
+      setToLocalStorage('tickets-user', user);
+      dispatch(setUser(user));
+      return;
     }
+
+    const userObj: TUser = {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid,
+    };
+    setToLocalStorage('tickets-user', userObj);
+    dispatch(setUser(userObj));
   }, [user, dispatch]);
 
   useEffect(() => {

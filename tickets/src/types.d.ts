@@ -44,3 +44,10 @@ type TChartBar = {
   high: number,
   normal: number,
 }
+
+type TQueryParams = {
+  filter?: string | string[] | null,
+  page?: string | string[] | null,
+  perPage?: string | string[] | null,
+  order?: string | string[] | null,
+}

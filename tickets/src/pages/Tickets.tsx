@@ -13,10 +13,6 @@ const defaultQuery = {
   page: '0',
 };
 
-type TQueryParams = {
-  [key in string]: string | string[] | null
-}
-
 export default function Tickets() {
   const location = useLocation();
   const [query, setQuery] = useState<TQueryParams>({
@@ -41,7 +37,7 @@ export default function Tickets() {
     <Paper elevation={3}>
       <h1>Tickets</h1>
       <Link to="/tickets/new">New Ticket</Link>
-      {ticketCollection.map((ticket) => (
+      {ticketCollection?.map((ticket) => (
         <TicketPreview key={ticket.id} ticket={ticket} />
       ))}
       <select

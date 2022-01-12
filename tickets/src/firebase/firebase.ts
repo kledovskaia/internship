@@ -2,7 +2,20 @@ import {
   getAuth, signInWithPopup, GoogleAuthProvider, signOut,
 } from 'firebase/auth';
 import {
-  getFirestore, collection, query, doc, setDoc, deleteDoc, getDoc, serverTimestamp,
+  getFirestore,
+  collection,
+  query,
+  doc,
+  setDoc,
+  deleteDoc,
+  getDoc,
+  serverTimestamp,
+  limit,
+  orderBy,
+  startAfter,
+  endBefore,
+  limitToLast,
+  DocumentData,
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { nanoid } from 'nanoid';
@@ -13,7 +26,40 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 const db = getFirestore(app);
 export const ticketsRef = collection(db, 'tickets');
-export const getTicketCollectionQuery = () => query(ticketsRef);
+
+type TGetTicketCollectionQuery = (args: {
+  params: TQueryParams,
+  // pointer: DocumentData
+}) => void
+
+export const getTicketCollectionQuery: TGetTicketCollectionQuery = (
+  {
+    params,
+    // first, last
+  },
+) => {
+  if (!Object.keys(params).length) return null;
+  return query(
+    ticketsRef,
+    orderBy('createdAt'),
+    limit((+params.page + 1) * +params.perPage),
+    limitToLast(+params.perPage),
+
+    // firebase
+    // .firestore()
+    // .collection('users')
+
+    // await app
+    // .firestore().collection('items')
+    // .limit(5)
+    // .offset(10)
+    // .get()
+
+    // ...(type === 'prev' ?
+    //   [endBefore(first), limitToLast(+params.perPage)] :
+    //   [startAfter(last), limit(+params.perPage)]),
+  );
+};
 
 const AuthProvider = new GoogleAuthProvider();
 export const loginFirebase = () => signInWithPopup(auth, AuthProvider);
