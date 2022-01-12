@@ -28,37 +28,45 @@ const db = getFirestore(app);
 export const ticketsRef = collection(db, 'tickets');
 
 type TGetTicketCollectionQuery = (args: {
-  params: TQueryParams,
-  // pointer: DocumentData
+  params?: TQueryParams,
+  first?: DocumentData,
+  last?: DocumentData,
 }) => void
 
-export const getTicketCollectionQuery: TGetTicketCollectionQuery = (
-  {
+export const getTicketCollectionQuery: TGetTicketCollectionQuery = (args) => {
+  if (!Object.keys(args).length) return null;
+  const {
     params,
-    // first, last
-  },
-) => {
-  if (!Object.keys(params).length) return null;
+    first,
+    last,
+  } = args;
+  if (first) {
+    return query(
+      ticketsRef,
+      orderBy('createdAt'),
+      endBefore(first),
+      limitToLast(+params.perPage),
+    );
+  }
+  if (last) {
+    return query(
+      ticketsRef,
+      orderBy('createdAt'),
+      startAfter(last),
+      limit(+params.perPage),
+    );
+  }
   return query(
     ticketsRef,
     orderBy('createdAt'),
-    limit((+params.page + 1) * +params.perPage),
-    limitToLast(+params.perPage),
-
-    // firebase
-    // .firestore()
-    // .collection('users')
-
-    // await app
-    // .firestore().collection('items')
-    // .limit(5)
-    // .offset(10)
-    // .get()
-
-    // ...(type === 'prev' ?
-    //   [endBefore(first), limitToLast(+params.perPage)] :
-    //   [startAfter(last), limit(+params.perPage)]),
+    limit(+params.perPage),
   );
+
+  // Actually fetches O + L documents
+  // .firestore().collection('items')
+  // .limit(L)
+  // .offset(O)
+  // .get()
 };
 
 const AuthProvider = new GoogleAuthProvider();

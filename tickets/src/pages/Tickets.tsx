@@ -1,19 +1,20 @@
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Paper } from '@mui/material';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import queryString from 'query-string';
+import { PaginationContext } from '../connect/FirebaseRedux';
 import { getTicketCollection } from '../redux/selectors';
 import TicketPreview from '../components/TicketPreview/TicketPreview';
 
 const defaultQuery = {
-  perPage: '8',
-  page: '0',
+  perPage: '4',
 };
 
 export default function Tickets() {
+  const { nextPage, prevPage } = useContext(PaginationContext);
   const location = useLocation();
   const [query, setQuery] = useState<TQueryParams>({
     ...defaultQuery,
@@ -46,11 +47,13 @@ export default function Tickets() {
           [e.target.name]: e.target.value,
         })}
       >
+        <option value="4">4</option>
+        <option value="6">6</option>
         <option value="8">8</option>
-        <option value="16">16</option>
-        <option value="32">32</option>
-        <option value="64">64</option>
+        <option value="10">10</option>
       </select>
+      <button onClick={prevPage} type="button">PrevPage</button>
+      <button onClick={nextPage} type="button">NextPage</button>
     </Paper>
   );
 }

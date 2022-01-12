@@ -1,32 +1,29 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import {
+  createContext, useEffect, useLayoutEffect, useMemo,
+} from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import queryString from 'query-string';
 import useFirebase from '../hooks/useFirebase';
 import { addMessage } from '../redux/slices/messages';
 import { setLoading } from '../redux/slices/loading';
 import { setTicketCollection } from '../redux/slices/ticketCollection';
 import { setUser } from '../redux/slices/user';
-import { getFromLocalStorage, messageTransformer, setToLocalStorage } from '../utils/utils';
+import { messageTransformer, setToLocalStorage } from '../utils/utils';
 
 type Props = {
   children: JSX.Element
 }
 
+export const PaginationContext = createContext(null);
+
 export default function FirebaseRedux({ children }: Props) {
-  const location = useLocation();
-  const [params, setParams] = useState({});
   const {
+    nextPage,
+    prevPage,
     errors,
     loading,
     user,
     ticketCollection,
-  } = useFirebase(params);
-
-  useEffect(() => {
-    if (!location.search) return;
-    setParams(queryString.parse(location.search));
-  }, [location]);
+  } = useFirebase();
 
   const dispatch = useDispatch();
 
@@ -60,5 +57,14 @@ export default function FirebaseRedux({ children }: Props) {
     dispatch(setTicketCollection(ticketCollection));
   }, [ticketCollection, dispatch]);
 
-  return children;
+  const value = useMemo(() => ({
+    nextPage,
+    prevPage,
+  }), [nextPage, prevPage]);
+
+  return (
+    <PaginationContext.Provider value={value}>
+      {children}
+    </PaginationContext.Provider>
+  );
 }
