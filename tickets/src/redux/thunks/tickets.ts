@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 import {
   addTicketFirebase,
   deleteTicketFirebase,
@@ -15,8 +16,9 @@ export const addTicket = createAsyncThunk(
       await addTicketFirebase(ticket);
       await updateTicketsCountFirebase(1);
       dispatch(addMessage({
+        id: nanoid(),
         type: 'success',
-        content: 'Added!',
+        content: 'Created successfully!',
       }));
     } catch (error) {
       console.log(error);
@@ -32,8 +34,9 @@ export const updateTicket = createAsyncThunk(
     try {
       await updateTicketFirebase(ticket);
       dispatch(addMessage({
+        id: nanoid(),
         type: 'success',
-        content: 'Updated!',
+        content: 'Saved successfully!',
       }));
     } catch (error) {
       console.log(error);
@@ -50,8 +53,9 @@ export const deleteTicket = createAsyncThunk(
       await deleteTicketFirebase(ticket);
       await updateTicketsCountFirebase(-1);
       dispatch(addMessage({
+        id: nanoid(),
         type: 'success',
-        content: 'Deleted!',
+        content: `Ticket "${ticket.title}" has been removed!`,
       }));
     } catch (error) {
       console.log(error);

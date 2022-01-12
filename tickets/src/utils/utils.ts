@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 type TDebounce = (fn: (...args: unknown[]) => void, ms: number) => (...args: unknown[]) => void
 export const debounce: TDebounce = (fn, ms) => {
   let timer: NodeJS.Timeout;
@@ -9,12 +11,13 @@ export const debounce: TDebounce = (fn, ms) => {
   };
 };
 
-type TMessageTransformer = (type: TType, array: TMessage[]) => TMessageTransformed[]
+type TMessageTransformer = (type: TType, arg: TMessage) => TMessageTransformed
 
-export const messageTransformer: TMessageTransformer = (type, array) => array.map((item) => ({
+export const messageTransformer: TMessageTransformer = (type, arg) => ({
+  id: nanoid(),
   type,
-  content: item.message,
-}));
+  content: arg.message,
+});
 
 type TCalc = (tickets: TTicket[]) => TStatistic
 export const calculateStatistic: TCalc = (tickets) => tickets.reduce((acc, ticket, i, array) => ({

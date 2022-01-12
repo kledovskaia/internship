@@ -16,8 +16,9 @@ type TMessage = {
 type TMessageTransformed = {
   type: TType,
   content: TMessage['message'],
+  id: string
 }
-type TType = 'error' | 'message';
+type TType = 'error' | 'success';
 
 type TUser = {
   displayName: string,

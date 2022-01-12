@@ -5,8 +5,11 @@ import {
   Button,
   FormControl, InputLabel, MenuItem, Select, TextField,
 } from '@mui/material';
-import { FormContainer, FormTitle } from './styles';
-import { Title2 } from '../../styles';
+import { useEffect } from 'react';
+import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../../redux/slices/messages';
+import { FormContainer, FormLargeField, FormTitle } from './styles';
 
 const schema = yup
   .object({
@@ -20,7 +23,7 @@ const fields = {
   title: { label: 'Ticket Title *', name: 'title' },
   description: { label: 'Description', name: 'description' },
   priority: {
-    label: 'Select Priority',
+    label: 'Select Priority *',
     name: 'priority',
     options: ['low', 'normal', 'high'],
   },
@@ -32,6 +35,7 @@ type Props = {
 };
 
 export default function Form({ ticket, onSubmit }: Props) {
+  const dispatch = useDispatch();
   const {
     reset,
     register,
@@ -46,6 +50,16 @@ export default function Form({ ticket, onSubmit }: Props) {
       priority: '',
     },
   });
+
+  useEffect(() => {
+    if (Object.keys(errors).length) {
+      dispatch(addMessage({
+        id: nanoid(),
+        type: 'error',
+        content: 'Validation error',
+      }));
+    }
+  }, [errors]);
 
   const submit = (data: TTicket) => {
     onSubmit({
@@ -81,13 +95,14 @@ export default function Form({ ticket, onSubmit }: Props) {
         name={fields.priority.name}
         control={control}
         render={({ field }) => (
-          <FormControl required sx={{ minWidth: 120 }}>
-            <InputLabel id="select-label">{errors.priority ? errors.priority.message : fields.priority.label}</InputLabel>
+          <FormControl>
+            <InputLabel error={Boolean(errors.title)} id="select-label">{errors.priority ? errors.priority.message : fields.priority.label}</InputLabel>
             <Select
               {...register('title')}
               {...field}
               labelId="select-label"
               label={errors.priority ? errors.priority.message : fields.priority.label}
+              error={Boolean(errors.title)}
             >
               { fields.priority.options.map((option) => (
                 <MenuItem key={option} value={option}>{option}</MenuItem>
@@ -96,19 +111,21 @@ export default function Form({ ticket, onSubmit }: Props) {
           </FormControl>
         )}
       />
-      <Controller
-        name={fields.description.name}
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...register('title')}
-            {...field}
-            multiline
-            label={errors.description ? errors.description.message : fields.description.label}
-            error={Boolean(errors.description)}
-          />
-        )}
-      />
+      <FormLargeField>
+        <Controller
+          name={fields.description.name}
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...register('title')}
+              {...field}
+              multiline
+              label={errors.description ? errors.description.message : fields.description.label}
+              error={Boolean(errors.description)}
+            />
+          )}
+        />
+      </FormLargeField>
 
       <Button type="submit">Save</Button>
     </FormContainer>
