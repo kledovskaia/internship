@@ -1,4 +1,4 @@
-type TDebounce = (fn: () => void, ms: number) => (...args: unknown[]) => void
+type TDebounce = (fn: (...args: unknown[]) => void, ms: number) => (...args: unknown[]) => void
 export const debounce: TDebounce = (fn, ms) => {
   let timer: NodeJS.Timeout;
   return (...args) => {

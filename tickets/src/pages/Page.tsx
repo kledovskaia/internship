@@ -21,11 +21,11 @@ import { Drawer } from '../components/Drawer/Drawer';
 import { DrawerHeader } from '../components/DrawerHeader/DrawerHeader';
 
 type Props = {
-  pageTitle: string,
+  header: ReactNode,
   children: ReactNode;
 }
 
-export default function Page({ children, pageTitle }: Props) {
+export default function Page({ children, header }: Props) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -55,7 +55,7 @@ export default function Page({ children, pageTitle }: Props) {
             <MenuIcon />
           </IconButton>
           <Header>
-            <Title1>{pageTitle}</Title1>
+            { header }
           </Header>
         </Toolbar>
       </AppBar>

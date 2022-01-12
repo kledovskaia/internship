@@ -4,9 +4,7 @@ type Props = {
   total: number,
   page: number,
   perPage: number,
-  handleChange: (arg: {
-    [key in string]: number
-  }) => void
+  handleChange: (name: string, value: unknown) => void
 }
 
 export default function Pagination({
@@ -16,15 +14,13 @@ export default function Pagination({
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
-    handleChange({ page: newPage });
+    handleChange('page', newPage);
   };
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    handleChange({
-      perPage: parseInt(event.target.value, 10),
-    });
+    handleChange('perPage', parseInt(event.target.value, 10));
   };
 
   return (

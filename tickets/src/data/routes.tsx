@@ -6,10 +6,10 @@ import New from '../pages/New';
 import Tickets from '../pages/Tickets';
 
 export const routes = ({
-  '/dashboard': { title: 'Dashboard', element: <Dashboard /> },
-  '/tickets': { title: 'Tickets', element: <Tickets /> },
-  '/tickets/new': { title: 'New', element: <New /> },
-  '/tickets/edit/:id': { title: 'Edit', element: <Edit /> },
-  '/tickets/:id': { title: 'Ticket', element: <Ticket /> },
-  '*': { title: '', element: <Navigate to="/dashboard " /> },
+  '/dashboard': <Dashboard />,
+  '/tickets': <Tickets />,
+  '/tickets/new': <New />,
+  '/tickets/edit/:id': <Edit />,
+  '/tickets/:id': <Ticket />,
+  '*': <Navigate to="/dashboard " />,
 });
