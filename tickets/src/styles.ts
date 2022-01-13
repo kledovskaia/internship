@@ -25,22 +25,40 @@ export const NavLink = styled(NLink)`
 `;
 
 export const GridContainer = styled.div`
-  padding: 2em;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(12, minmax(2.2rem, 1fr));
   grid-gap: 2em;
+`;
+export const TicketsGridContainer = styled.div`
+display: grid;
+grid-template-columns: repeat(12, minmax(1.8rem, 1fr));
+grid-gap: 2em;
 `;
 
 export const GridFullWidth = styled(Paper)`
+  /* min-width: 48rem; */
   grid-column: 1 / -1;
 `;
 
 export const GridMiddleWidth = styled(Paper)`
   grid-column: span 4;
+
+  @media screen and (max-width: 100rem) {
+    grid-column: span 6;    
+  }
+  @media screen and (max-width: 75rem) {
+    grid-column: 1 / -1;    
+  }
+  /* @media screen and and (max-width: 75rem) {
+    
+  } */
 `;
 
 export const GridSmallWidth = styled(Paper)`
   grid-column: span 3;
+  @media screen and (max-width: 90rem) {
+    grid-column: span 6;    
+  }
   display: flex;
   padding: 1.5em;
   & > * {
@@ -84,6 +102,7 @@ type TicketProps = {
 }
 
 export const TicketContainer = styled.div<TicketProps>`
+  word-break: break-all;
   padding: 0.75em;
   background-color: ${({ isCompleted }) => (isCompleted ? '#00ff0030' : 'transparent')}
 `;

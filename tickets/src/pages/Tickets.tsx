@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import {
   ButtonLink,
-  FlexContainer, GridContainer, GridFullWidth, GridMiddleWidth, SpaceBetween, Title1, Title2,
+  FlexContainer, GridFullWidth, GridMiddleWidth, SpaceBetween, TicketsGridContainer, Title1, Title2,
 } from '../styles';
 import Pagination from '../components/Pagination/Pagination';
 import { getTicketCollection, getUser } from '../redux/selectors';
@@ -78,18 +78,19 @@ export default function Tickets() {
         }
         {
           view === 'grid' && (
-            <GridContainer>
-              { filteredTickets.map((ticket) => (
-                <GridMiddleWidth elevation={7} key={ticket.id}>
-                  <Ticket
-                    handleDelete={handleDelete}
-                    isAuthor={user.id === ticket.author.id}
-                    ticket={ticket}
-                  />
-                </GridMiddleWidth>
-
-              )) }
-            </GridContainer>
+            <Box pl={3} pr={3}>
+              <TicketsGridContainer>
+                { filteredTickets.map((ticket) => (
+                  <GridMiddleWidth elevation={7} key={ticket.id}>
+                    <Ticket
+                      handleDelete={handleDelete}
+                      isAuthor={user.id === ticket.author.id}
+                      ticket={ticket}
+                    />
+                  </GridMiddleWidth>
+                )) }
+              </TicketsGridContainer>
+            </Box>
           )
         }
         {filteredTickets && (

@@ -10,7 +10,7 @@ import { deleteTicket } from '../../../redux/thunks/tickets';
 import Priority from '../../Priority/Priority';
 import { getUser } from '../../../redux/selectors';
 import {
-  ButtonContainer, Link, TableCell, TableRowContainer,
+  ButtonContainer, Link, TableCell, TableDate, TableRowContainer, TableTitle,
 } from '../styles';
 
 const dateOptions = {
@@ -47,9 +47,9 @@ export default function TableRow({ ticket }: Props) {
         <TableCell>
           <Avatar src={ticket.author.photoURL} alt={ticket.author.displayName} />
           <Box>
-            <Typography>
+            <TableTitle>
               {ticket.title}
-            </Typography>
+            </TableTitle>
             <Typography>
               updated
               {' '}
@@ -59,14 +59,14 @@ export default function TableRow({ ticket }: Props) {
         </TableCell>
         <TableCell>{ticket.author.displayName}</TableCell>
         <TableCell>
-          <Box>
+          <TableDate>
             <Typography>
               {new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)}
             </Typography>
             <Typography>
               {new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)}
             </Typography>
-          </Box>
+          </TableDate>
         </TableCell>
         <TableCell>
           <Priority>

@@ -34,7 +34,7 @@ export default function Chart({ data }: Props) {
       </ChartHeader>
       <BarChartContainer>
         <BarChart
-          width={1200}
+          width={700}
           height={350}
           data={data}
         >

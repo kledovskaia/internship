@@ -91,9 +91,11 @@ export default function Page({ children, header }: Props) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <GridContainer>
-          {children}
-        </GridContainer>
+        <Box pt={3}>
+          <GridContainer>
+            {children}
+          </GridContainer>
+        </Box>
       </Box>
     </Box>
   );

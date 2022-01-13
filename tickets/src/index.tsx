@@ -8,6 +8,7 @@ import { ThemeContextProvider } from './context/Theme';
 import { store } from './redux/store';
 import { Loader } from './components/Loader/Loader';
 import { Toaster } from './components/Toaster/Toaster';
+import './index.css';
 
 ReactDOM.render(
   <StrictMode>
