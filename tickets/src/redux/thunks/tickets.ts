@@ -49,10 +49,11 @@ export const deleteTicket = createAsyncThunk(
     let result;
     try {
       await deleteTicketFirebase(ticket);
+      const title = ticket.title.length > 25 ? `${ticket.title.slice(0, 25)}...` : ticket.title;
       dispatch(addMessage({
         id: nanoid(),
         type: 'success',
-        content: `Ticket "${ticket.title}" has been removed!`,
+        content: `Ticket "${title}" has been removed!`,
       }));
     } catch (error) {
       console.log(error);

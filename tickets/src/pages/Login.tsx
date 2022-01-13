@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { LoginButton, LoginContainer } from '../styles';
 import { login } from '../redux/thunks/auth';
 
 function Login() {
@@ -6,12 +7,11 @@ function Login() {
   const handleClick = () => dispatch(login());
 
   return (
-    <>
-      <h1>Login Page</h1>
-      <button type="button" onClick={handleClick}>
-        login with Google
-      </button>
-    </>
+    <LoginContainer>
+      <LoginButton onClick={handleClick}>
+        Login with Google
+      </LoginButton>
+    </LoginContainer>
   );
 }
 

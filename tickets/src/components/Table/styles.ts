@@ -5,7 +5,7 @@ import SortIcon from '@mui/icons-material/Sort';
 
 export const TableContainer = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr 6rem;
+  grid-template-columns: 3fr 1fr 1fr 1fr 7rem;
   `;
 
 type TableRowProps = {
@@ -13,10 +13,10 @@ type TableRowProps = {
 }
 
 export const TableRowContainer = styled.div<TableRowProps>`
-  border-bottom: 0.1rem solid #eeeeee40;
+  border-bottom: 0.1rem solid #aaaaaa40;
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr 6rem;
+  grid-template-columns: 3fr 1fr 1fr 1fr 7rem;
   background-color: ${({ isCompleted }) => (isCompleted ? '#00ff0030' : 'transparent')}
 `;
 
@@ -26,7 +26,7 @@ export const TableTitle = styled.h4`
 `;
 
 export const TableDate = styled.div`
-  white-space: nowrap;
+  /* white-space: nowrap; */
 `;
 
 export const TableHeader = styled.div`

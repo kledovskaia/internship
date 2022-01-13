@@ -1,13 +1,16 @@
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Form from '../components/Form/Form';
-import { getTicket } from '../redux/selectors';
+import { getTicket, getUser } from '../redux/selectors';
 import Page from './Page';
 import { GridFullWidth, Title1 } from '../styles';
 
 function Edit() {
   const { id } = useParams();
   const ticket = useSelector(getTicket(id));
+  const user = useSelector(getUser);
+
+  if (ticket && ticket.author.id !== user.id) return <Navigate to={`/tickets/${ticket.id}`} />;
 
   return (
     <Page header={(

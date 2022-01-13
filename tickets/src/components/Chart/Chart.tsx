@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -20,6 +21,21 @@ const options = {
 } as const;
 
 export default function Chart({ data }: Props) {
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <ChartContainer>
       <ChartHeader>
@@ -34,7 +50,7 @@ export default function Chart({ data }: Props) {
       </ChartHeader>
       <BarChartContainer>
         <BarChart
-          width={700}
+          width={screenWidth * 0.7}
           height={350}
           data={data}
         >

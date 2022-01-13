@@ -3,6 +3,9 @@ import 'styled-components/macro';
 import { Link, NavLink as NLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
 import { Box } from '@mui/system';
+import {
+  styled as muiStyled,
+} from '@mui/material/styles';
 
 export const Button = styled.button`
   display: inline-block;
@@ -43,6 +46,11 @@ export const GridFullWidth = styled(Paper)`
 export const GridMiddleWidth = styled(Paper)`
   overflow: hidden;
   grid-column: span 4;
+  display: flex;
+
+  & > * {
+    flex: 1;  
+  }
 
   @media screen and (max-width: 100rem) {
     grid-column: span 6;    
@@ -103,5 +111,45 @@ type TicketProps = {
 export const TicketContainer = styled.div<TicketProps>`
   word-break: break-all;
   padding: 0.75em;
-  background-color: ${({ isCompleted }) => (isCompleted ? '#00ff0030' : 'transparent')}
+  background-color: ${({ isCompleted }) => (isCompleted ? '#00ff0030' : 'transparent')};
+
+  display: flex;
+  flex-direction: column;
 `;
+
+export const FlexColumn = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+`;
+export const Flex1 = styled.div`
+  flex: 1;
+`;
+
+export const TicketLink = styled(Link)`
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+
+  & > * {
+    flex: 1;
+  }
+`;
+
+export const LoginContainer = styled.section`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LoginButton = muiStyled(Button)(({ theme }) => ({
+  padding: '2rem 3rem',
+  fontWeight: 'bold',
+  fontSize: '2em',
+  cursor: 'pointer',
+  color: theme.palette.text.primary,
+  background: theme.palette.background.default,
+}));

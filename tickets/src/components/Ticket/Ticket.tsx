@@ -8,7 +8,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box } from '@mui/system';
-import { FlexContainer, TicketContainer } from '../../styles';
+import { MouseEvent, MouseEventHandler } from 'react';
+import {
+  Flex1, FlexColumn, FlexContainer, TicketContainer,
+} from '../../styles';
 import Priority from '../Priority/Priority';
 
 const dateOptions = {
@@ -26,6 +29,10 @@ type Props = {
 }
 
 export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
+  const onDelete = () => {
+    handleDelete(ticket);
+  };
+
   return (
     <TicketContainer isCompleted={ticket.completed}>
       <CardHeader
@@ -41,7 +48,7 @@ export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
                   <EditIcon />
                 </IconButton>
               </Link>
-              <IconButton onClick={() => handleDelete(ticket)}>
+              <IconButton onClick={onDelete}>
                 <DeleteIcon />
               </IconButton>
             </FlexContainer>
@@ -49,28 +56,32 @@ export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
           </FlexContainer>
         )}
         title={(
-              new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)
+          new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)
         )}
         subheader={
-              new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)
+          new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)
         }
       />
-      <CardContent>
-        <Typography variant="h6">
-          {ticket.title}
-        </Typography>
-        <Typography variant="body1">
-          {ticket.description}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Updated
-          {' '}
-          {moment.utc(ticket.updatedAt || ticket.createdAt).fromNow()}
-        </Typography>
-        <FlexContainer mt={3}>
-          <Avatar src={ticket.author.photoURL} alt={ticket.author.displayName} />
-          <Typography variant="body1">{ticket.author.displayName}</Typography>
-        </FlexContainer>
+      <CardContent sx={{ flex: 1, display: 'flex' }}>
+        <FlexColumn>
+          <Flex1>
+            <Typography mb={1} variant="h6">
+              {ticket.title}
+            </Typography>
+            <Typography mb={1} variant="body1">
+              {ticket.description}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Updated
+              {' '}
+              {moment.utc(ticket.updatedAt || ticket.createdAt).fromNow()}
+            </Typography>
+          </Flex1>
+          <FlexContainer mt={3}>
+            <Avatar src={ticket.author.photoURL} alt={ticket.author.displayName} />
+            <Typography variant="body1">{ticket.author.displayName}</Typography>
+          </FlexContainer>
+        </FlexColumn>
       </CardContent>
     </TicketContainer>
   );

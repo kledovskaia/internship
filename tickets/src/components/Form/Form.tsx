@@ -121,14 +121,14 @@ export default function Form({ ticket }: Props) {
         control={control}
         render={({ field }) => (
           <FormControl>
-            <InputLabel error={Boolean(errors.title)} id="select-label">{errors.priority ? errors.priority.message : fields.priority.label}</InputLabel>
+            <InputLabel error={Boolean(errors.priority)} id="select-label">{errors.priority ? errors.priority.message : fields.priority.label}</InputLabel>
             <Select
               {...register('title')}
               {...field}
               disabled={ticket?.completed}
               labelId="select-label"
               label={errors.priority ? errors.priority.message : fields.priority.label}
-              error={Boolean(errors.title)}
+              error={Boolean(errors.priority)}
             >
               { fields.priority.options.map((option) => (
                 <MenuItem key={option} value={option}>{option}</MenuItem>

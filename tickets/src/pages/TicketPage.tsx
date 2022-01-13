@@ -20,7 +20,9 @@ function TicketPage() {
 
   return (
     <Page header={(
-      <Title1>New</Title1>
+        ticket && (
+          <Title1>{ticket.title.length < 30 ? ticket.title : `${ticket.title.slice(0, 30)}...`}</Title1>
+        )
     )}
     >
       {

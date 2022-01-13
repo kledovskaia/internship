@@ -6,7 +6,14 @@ import { useEffect, useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import {
   ButtonLink,
-  FlexContainer, GridFullWidth, GridMiddleWidth, SpaceBetween, TicketsGridContainer, Title1, Title2,
+  FlexContainer,
+  GridFullWidth,
+  GridMiddleWidth,
+  SpaceBetween,
+  TicketLink,
+  TicketsGridContainer,
+  Title1,
+  Title2,
 } from '../styles';
 import Pagination from '../components/Pagination/Pagination';
 import { getTicketCollection, getUser } from '../redux/selectors';
@@ -81,12 +88,29 @@ export default function Tickets() {
             <Box pl={3} pr={3}>
               <TicketsGridContainer>
                 { filteredTickets.map((ticket) => (
-                  <GridMiddleWidth elevation={7} key={ticket.id}>
-                    <Ticket
-                      handleDelete={handleDelete}
-                      isAuthor={user.id === ticket.author.id}
-                      ticket={ticket}
-                    />
+                  <GridMiddleWidth elevation={7}>
+                    { user.id === ticket.author.id && (
+
+                      <Ticket
+                        handleDelete={handleDelete}
+                        isAuthor={user.id === ticket.author.id}
+                        ticket={ticket}
+                      />
+                    ) }
+                    { user.id !== ticket.author.id && (
+                      <TicketLink
+                        to={ticket.author.id === user.id ?
+                          `/tickets/edit/${ticket.id}` :
+                          `/tickets/${ticket.id}`}
+                        key={ticket.id}
+                      >
+                        <Ticket
+                          handleDelete={handleDelete}
+                          isAuthor={user.id === ticket.author.id}
+                          ticket={ticket}
+                        />
+                      </TicketLink>
+                    )}
                   </GridMiddleWidth>
                 )) }
               </TicketsGridContainer>
