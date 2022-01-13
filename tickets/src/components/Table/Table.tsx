@@ -1,6 +1,8 @@
 import { Button } from '@mui/material';
-import { TableHeader, TableContainer } from './styles';
+import { Box } from '@mui/system';
+import { TableHeader, TableContainer, OrderIcon } from './styles';
 import TableRow from './TableRow/TableRow';
+import { FlexContainer } from '../../styles';
 
 type Props = {
   tickets: TTicket[]
@@ -31,18 +33,34 @@ export default function Table({ tickets, updateQuery, query }: Props) {
     updateQuery('order', 'priority-desc');
   };
 
+  const [type, order] = query.order.split('-');
+
   return (
     <TableContainer>
       <TableHeader>Ticket Details</TableHeader>
       <TableHeader>Owner Name</TableHeader>
       <TableHeader>
         <Button onClick={handleDateOrder}>
-          Date
+          <FlexContainer>
+            <Box>
+              Date
+            </Box>
+            { type === 'date' && (
+            <OrderIcon order={order} />
+            ) }
+          </FlexContainer>
         </Button>
       </TableHeader>
       <TableHeader>
         <Button onClick={handlePriorityOrder}>
-          Priority
+          <FlexContainer>
+            <Box>
+              Priority
+            </Box>
+            { type === 'priority' && (
+            <OrderIcon order={order} />
+            ) }
+          </FlexContainer>
         </Button>
       </TableHeader>
       {tickets?.map((ticket) => (

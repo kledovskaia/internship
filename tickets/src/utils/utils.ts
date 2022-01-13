@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { priorityLevels } from '../data/priorityLevels';
 
 type TDebounce = (fn: (...args: unknown[]) => void, ms: number) => (...args: unknown[]) => void
 export const debounce: TDebounce = (fn, ms) => {
@@ -9,6 +10,31 @@ export const debounce: TDebounce = (fn, ms) => {
       fn.apply(this, args);
     }, ms);
   };
+};
+
+const formatted = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').split(' ');
+export const sortByQuery = (query: TQueryParams, array: TTicket[]) => {
+  let result = [...array];
+  if (query.order) {
+    const [type, order] = query.order.split('-');
+    if (type === 'date' && order === 'asc') {
+      result.sort((a, b) => a.createdAt - b.createdAt);
+    } else if (type === 'date' && order === 'desc') {
+      result.sort((a, b) => b.createdAt - a.createdAt);
+    } else if (type === 'priority' && order === 'asc') {
+      result.sort((a, b) => priorityLevels[a.priority] - priorityLevels[b.priority]);
+    } else if (type === 'priority' && order === 'desc') {
+      result.sort((a, b) => priorityLevels[b.priority] - priorityLevels[a.priority]);
+    }
+  }
+  if (query.search) {
+    result = result.filter(
+      (ticket) => formatted(query.search)
+        .every((searchWord) => formatted(ticket.title)
+          .some((word) => word.includes(searchWord))),
+    );
+  }
+  return result;
 };
 
 type TMessageTransformer = (type: TType, arg: TMessage) => TMessageTransformed
