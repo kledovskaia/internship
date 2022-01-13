@@ -9,10 +9,11 @@ export const TableContainer = styled.div`
   `;
 
 type TableRowProps = {
-  isCompleted: boolean
+  isCompleted?: boolean
 }
 
 export const TableRowContainer = styled.div<TableRowProps>`
+  border-bottom: 0.1rem solid #eeeeee40;
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr 6rem;

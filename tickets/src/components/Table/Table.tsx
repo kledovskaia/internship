@@ -1,6 +1,8 @@
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
-import { TableHeader, TableContainer, OrderIcon } from './styles';
+import {
+  TableHeader, TableContainer, OrderIcon, TableRowContainer,
+} from './styles';
 import TableRow from './TableRow/TableRow';
 import { FlexContainer } from '../../styles';
 
@@ -37,33 +39,35 @@ export default function Table({ tickets, updateQuery, query }: Props) {
 
   return (
     <TableContainer>
-      <TableHeader>Ticket Details</TableHeader>
-      <TableHeader>Owner Name</TableHeader>
-      <TableHeader>
-        <Button onClick={handleDateOrder}>
-          <FlexContainer>
-            <Box>
-              Date
-            </Box>
-            { type === 'date' && (
-            <OrderIcon order={order} />
-            ) }
-          </FlexContainer>
-        </Button>
-      </TableHeader>
-      <TableHeader>
-        <Button onClick={handlePriorityOrder}>
-          <FlexContainer>
-            <Box>
-              Priority
-            </Box>
-            { type === 'priority' && (
-            <OrderIcon order={order} />
-            ) }
-          </FlexContainer>
-        </Button>
-      </TableHeader>
-      <TableHeader>{' '}</TableHeader>
+      <TableRowContainer>
+        <TableHeader>Ticket Details</TableHeader>
+        <TableHeader>Owner Name</TableHeader>
+        <TableHeader>
+          <Button onClick={handleDateOrder}>
+            <FlexContainer>
+              <Box>
+                Date
+              </Box>
+              { type === 'date' && (
+              <OrderIcon order={order} />
+              ) }
+            </FlexContainer>
+          </Button>
+        </TableHeader>
+        <TableHeader>
+          <Button onClick={handlePriorityOrder}>
+            <FlexContainer>
+              <Box>
+                Priority
+              </Box>
+              { type === 'priority' && (
+              <OrderIcon order={order} />
+              ) }
+            </FlexContainer>
+          </Button>
+        </TableHeader>
+        <TableHeader>{' '}</TableHeader>
+      </TableRowContainer>
       {tickets?.map((ticket) => (
         <TableRow key={ticket.id} ticket={ticket} />
       ))}

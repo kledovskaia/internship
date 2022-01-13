@@ -36,11 +36,12 @@ grid-gap: 2em;
 `;
 
 export const GridFullWidth = styled(Paper)`
-  /* min-width: 48rem; */
+  overflow: hidden;
   grid-column: 1 / -1;
 `;
 
 export const GridMiddleWidth = styled(Paper)`
+  overflow: hidden;
   grid-column: span 4;
 
   @media screen and (max-width: 100rem) {
@@ -49,12 +50,10 @@ export const GridMiddleWidth = styled(Paper)`
   @media screen and (max-width: 75rem) {
     grid-column: 1 / -1;    
   }
-  /* @media screen and and (max-width: 75rem) {
-    
-  } */
 `;
 
 export const GridSmallWidth = styled(Paper)`
+  overflow: hidden;
   grid-column: span 3;
   @media screen and (max-width: 90rem) {
     grid-column: span 6;    
