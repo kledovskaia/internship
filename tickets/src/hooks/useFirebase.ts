@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { Query } from 'firebase/firestore';
 import { getFromLocalStorage } from '../utils/utils';
 import { auth, TicketCollectionQuery } from '../firebase/firebase';
 
 export default function useFirebase() {
   const [authUser, authLoading, authError] = useAuthState(auth);
+  const [ticketsQuery, setTicketsQuery] = useState<Query>(null);
   const [ticketCollection, ticketCollectionLoading, ticketCollectionError] =
     useCollectionData(
-      TicketCollectionQuery,
+      ticketsQuery,
     );
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const [user, setUser] = useState(getFromLocalStorage('tickets-user'));
+
+  useEffect(() => {
+    if (!authUser) return;
+    setTicketsQuery(TicketCollectionQuery);
+  }, [authUser]);
 
   useEffect(() => {
     if (!authLoading) {
