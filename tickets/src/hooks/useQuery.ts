@@ -11,10 +11,11 @@ const defaultQuery = {
 export const useQuery = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [query, setQuery] = useState<TQueryParams>({
-    ...defaultQuery,
-    ...queryString.parse(location.search),
-  });
+  const [query, setQuery] = useState<TQueryParams>();
+
+  useEffect(() => {
+    setQuery({ ...defaultQuery, ...queryString.parse(location.search) });
+  }, []);
 
   useEffect(() => {
     navigate(`?${queryString.stringify(query)}`);
@@ -26,6 +27,13 @@ export const useQuery = () => {
         (state) => Object.fromEntries(Object.entries(state).filter(([key]) => key !== name)),
       );
       return;
+    }
+    if (name === 'search') {
+      setQuery((state) => ({
+        ...state,
+        [name]: value.toString(),
+        page: '0',
+      }));
     }
     setQuery((state) => ({
       ...state,

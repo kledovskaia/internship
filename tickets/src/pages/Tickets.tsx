@@ -34,6 +34,7 @@ export default function Tickets() {
   const [view, setView] = useState<'grid' | 'list'>('list');
 
   useEffect(() => {
+    if (!query) return;
     if (!ticketCollection) return;
     const result = sortByQuery(query, ticketCollection);
     setFilteredTickets(result);
@@ -51,7 +52,8 @@ export default function Tickets() {
     <Page header={(
       <>
         <Title1>Tickets</Title1>
-        <Search handleChange={updateQueryWithDebounce} />
+        { query &&
+        <Search initialValue={query.search} handleChange={updateQueryWithDebounce} />}
       </>
       )}
     >
@@ -87,29 +89,32 @@ export default function Tickets() {
           view === 'grid' && (
             <Box pl={3} pr={3}>
               <TicketsGridContainer>
-                { filteredTickets.map((ticket) => (
+                { filteredTickets?.slice(
+                  +query.page * +query.perPage,
+                  (+query.page * +query.perPage) + +query.perPage,
+                ).map((ticket) => (
                   <GridMiddleWidth elevation={7}>
                     { user.id === ticket.author.id && (
 
+                    <Ticket
+                      handleDelete={handleDelete}
+                      isAuthor={user.id === ticket.author.id}
+                      ticket={ticket}
+                    />
+                    ) }
+                    { user.id !== ticket.author.id && (
+                    <TicketLink
+                      to={ticket.author.id === user.id ?
+                        `/tickets/edit/${ticket.id}` :
+                        `/tickets/${ticket.id}`}
+                      key={ticket.id}
+                    >
                       <Ticket
                         handleDelete={handleDelete}
                         isAuthor={user.id === ticket.author.id}
                         ticket={ticket}
                       />
-                    ) }
-                    { user.id !== ticket.author.id && (
-                      <TicketLink
-                        to={ticket.author.id === user.id ?
-                          `/tickets/edit/${ticket.id}` :
-                          `/tickets/${ticket.id}`}
-                        key={ticket.id}
-                      >
-                        <Ticket
-                          handleDelete={handleDelete}
-                          isAuthor={user.id === ticket.author.id}
-                          ticket={ticket}
-                        />
-                      </TicketLink>
+                    </TicketLink>
                     )}
                   </GridMiddleWidth>
                 )) }
@@ -122,7 +127,7 @@ export default function Tickets() {
           page={+query.page}
           perPage={+query.perPage}
           handleChange={updateQuery}
-          total={filteredTickets.length ?? ticketCollection.length}
+          total={filteredTickets.length}
         />
         )}
 

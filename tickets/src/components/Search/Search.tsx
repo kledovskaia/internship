@@ -7,11 +7,12 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 
 type Props = {
-  handleChange: (name: string, value: unknown) => void
+  handleChange: (name: string, value: unknown) => void,
+  initialValue?: string
 }
 
-export function Search({ handleChange }: Props) {
-  const [search, setSearch] = useState('');
+export function Search({ handleChange, initialValue }: Props) {
+  const [search, setSearch] = useState(initialValue || '');
 
   useEffect(() => {
     handleChange('search', search);

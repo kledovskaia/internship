@@ -9,7 +9,7 @@ import { FlexContainer } from '../../styles';
 type Props = {
   tickets: TTicket[]
   updateQuery: (name: string, value: string) => void
-  query: TQueryParams
+  query?: TQueryParams
 }
 
 export default function Table({ tickets, updateQuery, query }: Props) {
@@ -35,7 +35,7 @@ export default function Table({ tickets, updateQuery, query }: Props) {
     updateQuery('order', 'priority-desc');
   };
 
-  const [type, order] = (query.order || '').split('-');
+  const [type, order] = (query?.order || '').split('-');
 
   return (
     <TableContainer>
