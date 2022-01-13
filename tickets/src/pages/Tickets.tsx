@@ -93,7 +93,7 @@ export default function Tickets() {
                   +query.page * +query.perPage,
                   (+query.page * +query.perPage) + +query.perPage,
                 ).map((ticket) => (
-                  <GridMiddleWidth elevation={7}>
+                  <GridMiddleWidth key={ticket.id} elevation={7}>
                     { user.id === ticket.author.id && (
 
                     <Ticket
