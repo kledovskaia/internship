@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import 'styled-components/macro';
-import { NavLink as NLink } from 'react-router-dom';
+import { Link, NavLink as NLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
 import { Box } from '@mui/system';
 
@@ -63,4 +63,13 @@ export const FlexContainer = styled(Box)`
 export const SpaceBetween = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+export const ButtonLink = styled(Link)`
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #2F80ED;
+  border-radius: 0.5em;
+  padding:  0.6em 1.2em 0.4em;
 `;

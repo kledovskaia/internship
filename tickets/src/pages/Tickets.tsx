@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import GridViewSharpIcon from '@mui/icons-material/GridViewSharp';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { useEffect, useState } from 'react';
+import { priorityLevels } from '../data/priorityLevels';
 import {
+  ButtonLink,
   FlexContainer, GridFullWidth, Title1, Title2,
 } from '../styles';
 import Pagination from '../components/Pagination/Pagination';
@@ -13,9 +17,37 @@ import { useQuery } from '../hooks/useQuery';
 import Page from './Page';
 import { Search } from '../components/Search/Search';
 
+const formatted = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').split(' ');
+
 export default function Tickets() {
-  const ticketCollection = useSelector(getTicketCollection);
   const { query, updateQuery, updateQueryWithDebounce } = useQuery();
+  const ticketCollection = useSelector(getTicketCollection);
+  const [filteredTickets, setFilteredTickets] = useState<TTicket[]>();
+
+  useEffect(() => {
+    let result = ticketCollection;
+    if (query.order) {
+      const [type, order] = query.order.split('-');
+      if (type === 'date' && order === 'asc') {
+        result.sort((a, b) => a.createdAt - b.createdAt);
+      } else if (type === 'date' && order === 'desc') {
+        result.sort((a, b) => b.createdAt - a.createdAt);
+      } else if (type === 'priority' && order === 'asc') {
+        result.sort((a, b) => priorityLevels[a.priority] - priorityLevels[b.priority]);
+      } else if (type === 'priority' && order === 'desc') {
+        result.sort((a, b) => priorityLevels[b.priority] - priorityLevels[a.priority]);
+      }
+    }
+    if (query.search) {
+      result = result.filter(
+        (ticket) => formatted(query.search)
+          .every((searchWord) => formatted(ticket.title)
+            .some((word) => word.includes(searchWord))),
+      );
+    }
+
+    setFilteredTickets(result);
+  }, [query, ticketCollection]);
 
   return (
     <Page header={(
@@ -26,22 +58,24 @@ export default function Tickets() {
       )}
     >
       <GridFullWidth elevation={3}>
-        <FlexContainer>
-          <Title2>All tickets</Title2>
-          <Link to="/tickets/new">New Ticket</Link>
-        </FlexContainer>
+        <Box p={2}>
+          <FlexContainer>
+            <Title2>All tickets</Title2>
+            <ButtonLink to="/tickets/new">New Ticket</ButtonLink>
+          </FlexContainer>
+        </Box>
         <Table
-          tickets={ticketCollection?.slice(
+          tickets={filteredTickets?.slice(
             +query.page * +query.perPage,
             (+query.page * +query.perPage) + +query.perPage,
           )}
         />
-        {ticketCollection && (
+        {filteredTickets && (
         <Pagination
           page={+query.page}
           perPage={+query.perPage}
           handleChange={updateQuery}
-          total={ticketCollection.length}
+          total={filteredTickets.length}
         />
         )}
 

@@ -47,8 +47,8 @@ type TChartBar = {
 }
 
 type TQueryParams = {
-  filter?: string | string[] | null,
-  page?: string | string[] | null,
-  perPage?: string | string[] | null,
-  order?: string | string[] | null,
+  page?: string | null,
+  perPage?: string | null,
+  order?: string | null,
+  search?: string | null,
 }
