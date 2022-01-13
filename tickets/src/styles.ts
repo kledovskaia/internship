@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import 'styled-components/macro';
 import { NavLink as NLink } from 'react-router-dom';
 import { Paper } from '@mui/material';
+import { Box } from '@mui/system';
 
 export const Button = styled.button`
   display: inline-block;
@@ -49,4 +50,12 @@ export const ContentContainer = styled.div`
 
 export const Card = styled(Paper)`
   padding: 2em;
+`;
+
+export const FlexContainer = styled(Box)`
+  display: flex;
+  align-items: center;
+  & > * + * {
+    margin-left: 1rem;
+  }
 `;

@@ -20,9 +20,9 @@ export function Statistic({ title, value }: Props) {
         <StatisticCount>
           {value.count}
         </StatisticCount>
-        { value?.percentage && (
+        { !!value?.percentage && (
         <StatisticPercent>
-          {value.percentage}
+          {Math.round(value.percentage)}
           %
         </StatisticPercent>
         )}
