@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import {
-  GridContainer, GridFullWidth, GridSmallWidth, Title1,
+  GridFullWidth, GridSmallWidth, Title1,
 } from '../styles';
 import { Statistic } from '../components/Statistic/Statistic';
 import { calculateStatistic, getChartData } from '../utils/utils';

@@ -5,6 +5,7 @@ import {
   YAxis,
   Legend,
 } from 'recharts';
+import { priorityColors } from '../../data/priorityColors';
 import { Title3 } from '../../styles';
 import {
   BarChartContainer, ChartContainer, ChartDate, ChartHeader,
@@ -39,9 +40,11 @@ export default function Chart({ data }: Props) {
         >
           <XAxis dataKey="label" />
           <YAxis />
-          <Bar dataKey="high" stackId="a" fill="#EB5757" />
-          <Bar dataKey="normal" stackId="a" fill="#29CC97" />
-          <Bar dataKey="low" stackId="a" fill="#F2C94C" />
+          {
+            (['high', 'normal', 'low'] as const).map((priority) => (
+              <Bar dataKey="high" stackId="a" fill={priorityColors[priority]} />
+            ))
+          }
           <Legend verticalAlign="top" />
         </BarChart>
       </BarChartContainer>

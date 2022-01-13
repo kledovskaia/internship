@@ -59,3 +59,8 @@ export const FlexContainer = styled(Box)`
     margin-left: 1rem;
   }
 `;
+
+export const SpaceBetween = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
