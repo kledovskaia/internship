@@ -1,11 +1,15 @@
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DoneIcon from '@mui/icons-material/Done';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useState } from 'react';
+import { deleteTicket } from '../../../redux/thunks/tickets';
 import Priority from '../../Priority/Priority';
-// import { Link } from 'react-router-dom';
 import { getUser } from '../../../redux/selectors';
-import { Link, TableCell } from '../styles';
+import { ButtonContainer, Link, TableCell } from '../styles';
 
 const dateOptions = {
   year: 'numeric', month: 'long', day: 'numeric',
@@ -21,6 +25,14 @@ type Props = {
 
 export default function TableRow({ ticket }: Props) {
   const user = useSelector(getUser);
+  const [onDelete, setOnDelete] = useState(false);
+  const dispatch = useDispatch();
+
+  const toggleOnDelete = () => setOnDelete((state) => !state);
+
+  const handleDelete = () => {
+    dispatch(deleteTicket(ticket));
+  };
 
   return (
     <>
@@ -59,7 +71,27 @@ export default function TableRow({ ticket }: Props) {
         <Priority>
           {ticket.priority}
         </Priority>
-
+      </TableCell>
+      <TableCell>
+        { ticket.author.id === user.id && !ticket.completed && (
+        <ButtonContainer>
+          { !onDelete && (
+          <IconButton onClick={toggleOnDelete}>
+            <DeleteIcon />
+          </IconButton>
+          )}
+          {onDelete && (
+          <>
+            <IconButton onClick={handleDelete}>
+              <DoneIcon color="success" />
+            </IconButton>
+            <IconButton onClick={toggleOnDelete}>
+              <ClearIcon color="error" />
+            </IconButton>
+          </>
+          )}
+        </ButtonContainer>
+        )}
       </TableCell>
     </>
   );

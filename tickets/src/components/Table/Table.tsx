@@ -63,6 +63,7 @@ export default function Table({ tickets, updateQuery, query }: Props) {
           </FlexContainer>
         </Button>
       </TableHeader>
+      <TableHeader>{' '}</TableHeader>
       {tickets?.map((ticket) => (
         <TableRow key={ticket.id} ticket={ticket} />
       ))}

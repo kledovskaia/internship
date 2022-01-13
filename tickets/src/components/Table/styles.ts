@@ -5,7 +5,7 @@ import SortIcon from '@mui/icons-material/Sort';
 
 export const TableContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 3fr 1fr 1fr 1fr 0.5fr;
 
   & > * {
     padding: 0 1em 1em;
@@ -26,4 +26,11 @@ export const Link = styled(RLink)`
 
 export const OrderIcon = styled(SortIcon)`
   transform: ${({ order }) => (order === 'asc' ? 'rotateX(180deg)' : 'rotateX(0deg)')};
+`;
+
+export const ButtonContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
