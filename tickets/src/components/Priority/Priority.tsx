@@ -10,7 +10,7 @@ export default function Priority({ children }: Props) {
     <PriorityContainer
       color={priorityColors[children]}
     >
-      {children}
+      {children.toUpperCase()}
     </PriorityContainer>
   );
 }

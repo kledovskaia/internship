@@ -2,6 +2,7 @@ import { Avatar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import Priority from '../../Priority/Priority';
 // import { Link } from 'react-router-dom';
 import { getUser } from '../../../redux/selectors';
 import { Link, TableCell } from '../styles';
@@ -54,7 +55,12 @@ export default function TableRow({ ticket }: Props) {
           </Typography>
         </Box>
       </TableCell>
-      <TableCell>{ticket.priority}</TableCell>
+      <TableCell>
+        <Priority>
+          {ticket.priority}
+        </Priority>
+
+      </TableCell>
     </>
   );
 }
