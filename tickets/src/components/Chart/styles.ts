@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import 'styled-components/macro';
 
 export const ChartContainer = styled.section`
-  padding: 1em; 
+  padding: 2em; 
 `;
 
 export const ChartHeader = styled.div`
