@@ -25,7 +25,8 @@ export default function Tickets() {
   const [filteredTickets, setFilteredTickets] = useState<TTicket[]>();
 
   useEffect(() => {
-    let result = ticketCollection;
+    if (!ticketCollection) return;
+    let result = [...ticketCollection];
     if (query.order) {
       const [type, order] = query.order.split('-');
       if (type === 'date' && order === 'asc') {
@@ -65,6 +66,8 @@ export default function Tickets() {
           </FlexContainer>
         </Box>
         <Table
+          query={query}
+          updateQuery={updateQuery}
           tickets={filteredTickets?.slice(
             +query.page * +query.perPage,
             (+query.page * +query.perPage) + +query.perPage,

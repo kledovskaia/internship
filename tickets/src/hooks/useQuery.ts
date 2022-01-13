@@ -6,6 +6,7 @@ import { debounce } from '../utils/utils';
 const defaultQuery = {
   perPage: '8',
   page: '0',
+  order: 'date-desc',
 };
 
 export const useQuery = () => {
@@ -20,7 +21,7 @@ export const useQuery = () => {
     navigate(`?${queryString.stringify(query)}`);
   }, [query]);
 
-  const updateQuery = useCallback((name, value) => {
+  const updateQuery = useCallback((name: string, value: number | string) => {
     if (!value) {
       setQuery(
         (state) => Object.fromEntries(Object.entries(state).filter(([key]) => key !== name)),
