@@ -122,7 +122,7 @@ export default function Tickets() {
           page={+query.page}
           perPage={+query.perPage}
           handleChange={updateQuery}
-          total={filteredTickets.length}
+          total={filteredTickets.length ?? ticketCollection.length}
         />
         )}
 

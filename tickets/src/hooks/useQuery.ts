@@ -6,7 +6,6 @@ import { debounce } from '../utils/utils';
 const defaultQuery = {
   perPage: '8',
   page: '0',
-  order: 'date-desc',
 };
 
 export const useQuery = () => {
@@ -22,7 +21,7 @@ export const useQuery = () => {
   }, [query]);
 
   const updateQuery = useCallback((name: string, value?: number | string) => {
-    if (!value) {
+    if (value === undefined || value === '') {
       setQuery(
         (state) => Object.fromEntries(Object.entries(state).filter(([key]) => key !== name)),
       );
@@ -30,7 +29,7 @@ export const useQuery = () => {
     }
     setQuery((state) => ({
       ...state,
-      [name]: value,
+      [name]: value.toString(),
     }));
   }, []);
   const updateQueryWithDebounce = useCallback(debounce(updateQuery, 400), []);
