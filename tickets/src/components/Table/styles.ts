@@ -7,21 +7,38 @@ export const TableContainer = styled.div`
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr 0.5fr;
 
-  & > * {
-    padding: 0 1em 1em;
-  }
+  `;
+
+type TableRowProps = {
+  isCompleted: boolean
+}
+
+export const TableRowContainer = styled.div<TableRowProps>`
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr 0.5fr;
+  background-color: ${({ isCompleted }) => (isCompleted ? '#00ff0030' : 'transparent')}
 `;
-export const TableHeader = styled.div``;
+
+export const TableHeader = styled.div`
+padding: 0 1em 1em;
+`;
 export const TableCell = styled.div`
+  padding: 0.5em 1em;
   display: flex;
   align-items: center;
+
+  & > * + * {
+    margin-left: 1em;
+  }
 `;
 
 export const Link = styled(RLink)`
-  flex: 1;
+  grid-column: 1 / -2;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
   text-decoration: none;
   color: inherit;
-  padding: 0 1em;
 `;
 
 export const OrderIcon = styled(SortIcon)`

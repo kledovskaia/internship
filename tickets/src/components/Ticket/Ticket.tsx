@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box } from '@mui/system';
-import { FlexContainer, SpaceBetween } from '../../styles';
+import { FlexContainer, TicketContainer } from '../../styles';
 import Priority from '../Priority/Priority';
 
 const dateOptions = {
@@ -22,12 +22,12 @@ const timeOptions = {
 type Props = {
   ticket: TTicket
   isAuthor: boolean
-  handleDelete: () => void
+  handleDelete: (data: Partial<TTicket>) => void
 }
 
 export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
   return (
-    <>
+    <TicketContainer isCompleted={ticket.completed}>
       <CardHeader
         action={(
           <FlexContainer>
@@ -41,7 +41,7 @@ export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
                   <EditIcon />
                 </IconButton>
               </Link>
-              <IconButton onClick={handleDelete}>
+              <IconButton onClick={() => handleDelete(ticket)}>
                 <DeleteIcon />
               </IconButton>
             </FlexContainer>
@@ -72,6 +72,6 @@ export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
           <Typography variant="body1">{ticket.author.displayName}</Typography>
         </FlexContainer>
       </CardContent>
-    </>
+    </TicketContainer>
   );
 }

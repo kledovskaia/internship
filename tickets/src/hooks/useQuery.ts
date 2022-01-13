@@ -21,7 +21,7 @@ export const useQuery = () => {
     navigate(`?${queryString.stringify(query)}`);
   }, [query]);
 
-  const updateQuery = useCallback((name: string, value: number | string) => {
+  const updateQuery = useCallback((name: string, value?: number | string) => {
     if (!value) {
       setQuery(
         (state) => Object.fromEntries(Object.entries(state).filter(([key]) => key !== name)),

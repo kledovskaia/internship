@@ -33,7 +33,7 @@ export default function Table({ tickets, updateQuery, query }: Props) {
     updateQuery('order', 'priority-desc');
   };
 
-  const [type, order] = query.order.split('-');
+  const [type, order] = (query.order || '').split('-');
 
   return (
     <TableContainer>

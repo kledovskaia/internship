@@ -9,7 +9,9 @@ import { useState } from 'react';
 import { deleteTicket } from '../../../redux/thunks/tickets';
 import Priority from '../../Priority/Priority';
 import { getUser } from '../../../redux/selectors';
-import { ButtonContainer, Link, TableCell } from '../styles';
+import {
+  ButtonContainer, Link, TableCell, TableRowContainer,
+} from '../styles';
 
 const dateOptions = {
   year: 'numeric', month: 'long', day: 'numeric',
@@ -35,15 +37,15 @@ export default function TableRow({ ticket }: Props) {
   };
 
   return (
-    <>
-      <TableCell>
-        <Avatar src={ticket.author.photoURL} alt={ticket.author.displayName} />
-        <Link to={
+    <TableRowContainer isCompleted={ticket.completed}>
+      <Link to={
       ticket.author.id === user.id ?
         `/tickets/edit/${ticket.id}` :
         `/tickets/${ticket.id}`
     }
-        >
+      >
+        <TableCell>
+          <Avatar src={ticket.author.photoURL} alt={ticket.author.displayName} />
           <Box>
             <Typography>
               {ticket.title}
@@ -54,45 +56,45 @@ export default function TableRow({ ticket }: Props) {
               {moment.utc(ticket.updatedAt || ticket.createdAt).fromNow()}
             </Typography>
           </Box>
-        </Link>
-      </TableCell>
-      <TableCell>{ticket.author.displayName}</TableCell>
-      <TableCell>
-        <Box>
-          <Typography>
-            {new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)}
-          </Typography>
-          <Typography>
-            {new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)}
-          </Typography>
-        </Box>
-      </TableCell>
-      <TableCell>
-        <Priority>
-          {ticket.priority}
-        </Priority>
-      </TableCell>
+        </TableCell>
+        <TableCell>{ticket.author.displayName}</TableCell>
+        <TableCell>
+          <Box>
+            <Typography>
+              {new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)}
+            </Typography>
+            <Typography>
+              {new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)}
+            </Typography>
+          </Box>
+        </TableCell>
+        <TableCell>
+          <Priority>
+            {ticket.priority}
+          </Priority>
+        </TableCell>
+      </Link>
       <TableCell>
         { ticket.author.id === user.id && !ticket.completed && (
-        <ButtonContainer>
-          { !onDelete && (
-          <IconButton onClick={toggleOnDelete}>
-            <DeleteIcon />
-          </IconButton>
-          )}
-          {onDelete && (
-          <>
-            <IconButton onClick={handleDelete}>
-              <DoneIcon color="success" />
-            </IconButton>
+          <ButtonContainer>
+            { !onDelete && (
             <IconButton onClick={toggleOnDelete}>
-              <ClearIcon color="error" />
+              <DeleteIcon />
             </IconButton>
-          </>
-          )}
-        </ButtonContainer>
+            )}
+            {onDelete && (
+            <>
+              <IconButton onClick={handleDelete}>
+                <DoneIcon color="success" />
+              </IconButton>
+              <IconButton onClick={toggleOnDelete}>
+                <ClearIcon color="error" />
+              </IconButton>
+            </>
+            )}
+          </ButtonContainer>
         )}
       </TableCell>
-    </>
+    </TableRowContainer>
   );
 }

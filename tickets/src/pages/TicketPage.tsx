@@ -13,8 +13,8 @@ function TicketPage() {
   const ticket = useSelector(getTicket(id));
   const user = useSelector(getUser);
 
-  const handleDelete = async () => {
-    await dispatch(deleteTicket(ticket));
+  const handleDelete = async (data: Partial<TTicket>) => {
+    await dispatch(deleteTicket(data));
     navigate('/tickets');
   };
 

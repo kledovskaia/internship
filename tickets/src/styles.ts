@@ -27,16 +27,20 @@ export const NavLink = styled(NLink)`
 export const GridContainer = styled.div`
   padding: 2em;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   grid-gap: 2em;
 `;
 
 export const GridFullWidth = styled(Paper)`
-  padding: 1em;
   grid-column: 1 / -1;
 `;
 
+export const GridMiddleWidth = styled(Paper)`
+  grid-column: span 4;
+`;
+
 export const GridSmallWidth = styled(Paper)`
+  grid-column: span 3;
   display: flex;
   padding: 1.5em;
   & > * {
@@ -73,4 +77,13 @@ export const ButtonLink = styled(Link)`
   background-color: #2F80ED;
   border-radius: 0.5em;
   padding:  0.6em 1.2em 0.4em;
+`;
+
+type TicketProps = {
+  isCompleted: boolean
+}
+
+export const TicketContainer = styled.div<TicketProps>`
+  padding: 0.75em;
+  background-color: ${({ isCompleted }) => (isCompleted ? '#00ff0030' : 'transparent')}
 `;
