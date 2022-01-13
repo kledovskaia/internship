@@ -42,7 +42,7 @@ export default function Chart({ data }: Props) {
           <YAxis />
           {
             (['high', 'normal', 'low'] as const).map((priority) => (
-              <Bar dataKey="high" stackId="a" fill={priorityColors[priority]} />
+              <Bar dataKey={priority} stackId="a" fill={priorityColors[priority]} />
             ))
           }
           <Legend verticalAlign="top" />

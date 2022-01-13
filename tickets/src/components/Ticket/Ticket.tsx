@@ -56,10 +56,11 @@ export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
         }
       />
       <CardContent>
+        <Typography variant="h6">
+          {ticket.title}
+        </Typography>
         <Typography variant="body1">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {ticket.description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Updated

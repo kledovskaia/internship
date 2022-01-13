@@ -2,7 +2,10 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import GridViewSharpIcon from '@mui/icons-material/GridViewSharp';
 import ViewListIcon from '@mui/icons-material/ViewList';
-import { GridFullWidth, Title1 } from '../styles';
+import { Typography } from '@mui/material';
+import {
+  FlexContainer, GridFullWidth, Title1, Title2,
+} from '../styles';
 import Pagination from '../components/Pagination/Pagination';
 import { getTicketCollection } from '../redux/selectors';
 import Table from '../components/Table/Table';
@@ -23,8 +26,10 @@ export default function Tickets() {
       )}
     >
       <GridFullWidth elevation={3}>
-        <Title1>All tickets</Title1>
-        <Link to="/tickets/new">New Ticket</Link>
+        <FlexContainer>
+          <Title2>All tickets</Title2>
+          <Link to="/tickets/new">New Ticket</Link>
+        </FlexContainer>
         <Table
           tickets={ticketCollection?.slice(
             +query.page * +query.perPage,
