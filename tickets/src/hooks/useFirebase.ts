@@ -17,7 +17,10 @@ export default function useFirebase() {
   const [user, setUser] = useState(getFromLocalStorage('tickets-user'));
 
   useEffect(() => {
-    if (!authUser) return;
+    if (!authUser) {
+      setTicketsQuery(null);
+      return;
+    }
     setTicketsQuery(TicketCollectionQuery);
   }, [authUser]);
 
