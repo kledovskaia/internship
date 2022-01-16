@@ -16,10 +16,6 @@ type Props = {
   data: TChartData,
 }
 
-const options = {
-  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-} as const;
-
 export default function Chart({ data }: Props) {
   const [screenWidth, setScreenWidth] = useState<number>(0);
 
@@ -43,7 +39,7 @@ export default function Chart({ data }: Props) {
         <ChartDate>
           as for
           {' '}
-          {new Date().toLocaleDateString(undefined, options)}
+          {new Date().toDateString()}
           {' '}
           {new Date().toLocaleTimeString()}
         </ChartDate>

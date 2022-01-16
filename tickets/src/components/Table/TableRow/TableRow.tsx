@@ -13,9 +13,6 @@ import {
   ButtonContainer, Link, TableCell, TableDate, TableRowContainer, TableTitle,
 } from '../styles';
 
-const dateOptions = {
-  year: 'numeric', month: 'long', day: 'numeric',
-} as const;
 const timeOptions = {
   hour: 'numeric',
   minute: 'numeric',
@@ -61,7 +58,8 @@ export default function TableRow({ ticket }: Props) {
         <TableCell>
           <TableDate>
             <Typography>
-              {new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)}
+              {new Date(ticket.createdAt).toDateString().split(' ').slice(1)
+                .join(' ')}
             </Typography>
             <Typography>
               {new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)}
