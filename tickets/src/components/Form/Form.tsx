@@ -86,14 +86,14 @@ export default function Form({ ticket }: Props) {
         ...ticket,
         ...data,
       }));
-      // payload doesn't exist on bla bla bla, but actially exists
+      // payload doesn't exist on ..., but actially exists
       // eslint-disable-next-line
       // @ts-ignore
       navigate(`/tickets/${result.payload}`);
       return;
     }
     result = await dispatch(addTicket(configTicketObj(data)));
-    // payload doesn't exist on bla bla bla, but actially exists
+    // payload doesn't exist on ..., but actially exists
     // eslint-disable-next-line
     // @ts-ignore
     navigate(`/tickets/${result.payload}`);
