@@ -12,9 +12,6 @@ export const debounce: TDebounce = (fn, ms) => {
   };
 };
 
-// export const decode = (s: string) => s?.replace(/%20/g, ' ');
-// export const encode = (s: string) => s?.trim().replace(/\s+/g, '%20');
-
 const formatted = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').split(' ');
 export const sortByQuery = (query: TQueryParams, array: TTicket[]) => {
   let result = [...array];
