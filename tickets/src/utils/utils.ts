@@ -12,6 +12,9 @@ export const debounce: TDebounce = (fn, ms) => {
   };
 };
 
+export const decode = (s: string) => s?.replace(/%2520/g, ' ');
+export const encode = (s: string) => s?.trim().replace(/\s+/g, '%2520');
+
 const formatted = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').split(' ');
 export const sortByQuery = (query: TQueryParams, array: TTicket[]) => {
   let result = [...array];
@@ -28,8 +31,9 @@ export const sortByQuery = (query: TQueryParams, array: TTicket[]) => {
     }
   }
   if (query.search) {
+    const searchQuery = decode(query.search);
     result = result.filter(
-      (ticket) => formatted(query.search)
+      (ticket) => formatted(searchQuery)
         .every((searchWord) => formatted(ticket.title)
           .some((word) => word.includes(searchWord))),
     );

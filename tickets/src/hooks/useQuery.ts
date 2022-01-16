@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
-import { debounce } from '../utils/utils';
+import { debounce, encode } from '../utils/utils';
 
 const defaultQuery = {
   perPage: '8',
@@ -14,11 +14,16 @@ export const useQuery = () => {
   const [query, setQuery] = useState<TQueryParams>();
 
   useEffect(() => {
-    setQuery({ ...defaultQuery, ...queryString.parse(location.search) });
+    const queryObj = queryString.parse(location.search, { decode: false });
+    setQuery({
+      ...defaultQuery,
+      ...queryObj,
+    });
   }, []);
 
   useEffect(() => {
-    navigate(`?${queryString.stringify(query)}`);
+    if (!query) return;
+    navigate(`?${queryString.stringify(query, { encode: false })}`);
   }, [query]);
 
   const updateQuery = useCallback((name: string, value?: number | string) => {
@@ -31,9 +36,10 @@ export const useQuery = () => {
     if (name === 'search') {
       setQuery((state) => ({
         ...state,
-        [name]: value.toString(),
+        [name]: encode(value.toString()),
         page: '0',
       }));
+      return;
     }
     setQuery((state) => ({
       ...state,

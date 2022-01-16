@@ -5,6 +5,7 @@ import {
   useEffect, useState,
 } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import { decode } from '../../utils/utils';
 
 type Props = {
   handleChange: (name: string, value: unknown) => void,
@@ -12,7 +13,7 @@ type Props = {
 }
 
 export function Search({ handleChange, initialValue }: Props) {
-  const [search, setSearch] = useState(initialValue || '');
+  const [search, setSearch] = useState(decode(initialValue) || '');
 
   useEffect(() => {
     handleChange('search', search);
