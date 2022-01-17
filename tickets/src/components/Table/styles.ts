@@ -7,7 +7,7 @@ export const TableContainer = styled.div`
   min-height: 40.5em;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr 7rem;
-  grid-template-rows: min-content auto;
+  grid-template-rows: repeat(64, min-content);
   align-items: flex-start;
 `;
 
@@ -29,7 +29,6 @@ export const TableTitle = styled.h4`
 `;
 
 export const TableDate = styled.div`
-  /* white-space: nowrap; */
 `;
 
 export const TableHeader = styled.div`
