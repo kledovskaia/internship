@@ -28,6 +28,7 @@ export const NavLink = styled(NLink)`
 `;
 
 export const GridContainer = styled.div`
+  min-width: 50em;
   display: grid;
   grid-template-columns: repeat(12, minmax(2.2rem, 1fr));
   grid-gap: 2em;
@@ -58,7 +59,7 @@ export const GridMiddleWidth = styled(Paper)`
     flex: 1;  
   }
 
-  @media screen and (max-width: 100rem) {
+  @media screen and (max-width: 110rem) {
     grid-column: span 6;    
   }
   @media screen and (max-width: 75rem) {

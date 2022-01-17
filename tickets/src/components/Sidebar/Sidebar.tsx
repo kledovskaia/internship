@@ -15,7 +15,7 @@ export default function Sidebar() {
       </SidebarHeader>
       {navLinks.map(({ path, title, Icon }) => (
         <Tooltip key={path} title={title} placement="right">
-          <NavLink to={path}>
+          <NavLink end to={path}>
             <IconContainer>
               <Icon />
             </IconContainer>
