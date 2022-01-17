@@ -8,7 +8,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box } from '@mui/system';
-import { MouseEvent, MouseEventHandler } from 'react';
 import {
   Flex1, FlexColumn, FlexContainer, TicketContainer,
 } from '../../styles';
@@ -56,11 +55,15 @@ export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
           </FlexContainer>
         )}
         title={(
-          new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)
+          <Typography sx={{ whiteSpace: 'nowrap' }}>
+            {new Date(ticket.createdAt).toLocaleDateString(undefined, dateOptions)}
+          </Typography>
         )}
-        subheader={
-          new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)
-        }
+        subheader={(
+          <Typography sx={{ whiteSpace: 'nowrap' }}>
+            {new Date(ticket.createdAt).toLocaleTimeString(undefined, timeOptions)}
+          </Typography>
+        )}
       />
       <CardContent sx={{ flex: 1, display: 'flex' }}>
         <FlexColumn>

@@ -11,6 +11,8 @@ import {
   FlexContainer,
   GridFullWidth,
   GridMiddleWidth,
+  HeaderSearch,
+  HeaderWithSearch,
   SpaceBetween,
   TicketLink,
   TicketsGridContainer,
@@ -52,11 +54,14 @@ export default function Tickets() {
 
   return (
     <Page header={(
-      <>
+      <HeaderWithSearch>
         <Title1>Tickets</Title1>
-        { query &&
-        <Search initialValue={query.search} handleChange={updateQueryWithDebounce} />}
-      </>
+        { query && (
+        <HeaderSearch>
+          <Search initialValue={query.search} handleChange={updateQueryWithDebounce} />
+        </HeaderSearch>
+        )}
+      </HeaderWithSearch>
       )}
     >
       <GridFullWidth elevation={3}>

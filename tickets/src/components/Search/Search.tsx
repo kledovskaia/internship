@@ -1,10 +1,12 @@
 import {
-  FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput,
+  FormControl, IconButton, InputAdornment, OutlinedInput,
 } from '@mui/material';
 import {
   useEffect, useState,
 } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import { Box } from '@mui/system';
+import { Label } from './styles';
 
 type Props = {
   handleChange: (name: string, value: unknown) => void,
@@ -19,8 +21,8 @@ export function Search({ handleChange, initialValue }: Props) {
   }, [search]);
 
   return (
-    <FormControl size="small" variant="outlined">
-      <InputLabel htmlFor="search">Search</InputLabel>
+    <FormControl size="medium" variant="outlined">
+      <Label htmlFor="search">Search tickets</Label>
       <OutlinedInput
         id="search"
         type="search"

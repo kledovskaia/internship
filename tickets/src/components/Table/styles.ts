@@ -4,9 +4,12 @@ import { Link as RLink } from 'react-router-dom';
 import SortIcon from '@mui/icons-material/Sort';
 
 export const TableContainer = styled.div`
+  min-height: 40.5em;
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr 7rem;
-  `;
+  grid-template-rows: min-content auto;
+  align-items: flex-start;
+`;
 
 type TableRowProps = {
   isCompleted?: boolean

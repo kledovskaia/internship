@@ -28,15 +28,16 @@ export const NavLink = styled(NLink)`
 `;
 
 export const GridContainer = styled.div`
-  min-height: 50.5rem;
   display: grid;
   grid-template-columns: repeat(12, minmax(2.2rem, 1fr));
   grid-gap: 2em;
 `;
 export const TicketsGridContainer = styled.div`
-display: grid;
-grid-template-columns: repeat(12, minmax(1.8rem, 1fr));
-grid-gap: 2em;
+  min-height: 40.5em;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(1.8rem, 1fr));
+  grid-template-rows: min-content auto;
+  grid-gap: 2em;
 `;
 
 export const GridFullWidth = styled(Paper)`
@@ -89,6 +90,7 @@ export const Card = styled(Paper)`
 export const FlexContainer = styled(Box)`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   & > * + * {
     margin-left: 1rem;
   }
@@ -175,4 +177,20 @@ export const Aside = styled.div`
 export const Main = styled.main`
   grid-column: 2 / -1;
   padding: 1.7em;
+`;
+
+export const HeaderWithSearch = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  `;
+export const HeaderSearch = styled.div`
+  margin: 0 2em;
+  display: flex;
+  flex: 1;
+  & > * {
+    flex: 1;
+    max-width: 50em;
+    margin: 0 auto;
+  }
 `;
