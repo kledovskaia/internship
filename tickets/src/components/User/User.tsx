@@ -4,7 +4,6 @@ import {
 import { Box } from '@mui/system';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Title3 } from '../../styles';
 import { logout } from '../../redux/thunks/auth';
 import { getUser } from '../../redux/selectors';
 import { UserContainer } from './styles';
@@ -22,9 +21,9 @@ export function User() {
           setAnchorElUser(event.currentTarget);
         }}
         >
-          <Title3>
+          <Typography>
             {user.displayName}
-          </Title3>
+          </Typography>
           <IconButton
             sx={{ p: 0 }}
           >

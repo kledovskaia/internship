@@ -22,6 +22,7 @@ export default function Chart({ data }: Props) {
   useEffect(() => {
     setScreenWidth(window.innerWidth);
     const handleResize = () => {
+      if (window.innerWidth < 900) return;
       setScreenWidth(window.innerWidth);
     };
 

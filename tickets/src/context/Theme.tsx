@@ -10,11 +10,19 @@ import { addMessage } from '../redux/slices/messages';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    background: {
+      default: '#24242b',
+      paper: '#363740',
+      // paper: '#474853',
+    },
   },
 });
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
+    background: {
+      default: '#E5E5E5',
+    },
   },
 });
 

@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import {
   ButtonLink,
+  Flex1,
+  FlexColumn,
   FlexContainer,
   GridFullWidth,
   GridMiddleWidth,
@@ -58,34 +60,36 @@ export default function Tickets() {
       )}
     >
       <GridFullWidth elevation={3}>
-        <Box p={2}>
-          <SpaceBetween>
-            <FlexContainer>
-              <Title2>All tickets</Title2>
-              <ButtonLink to="/tickets/new">New Ticket</ButtonLink>
-            </FlexContainer>
-            <FlexContainer>
-              <Typography>View:</Typography>
-              <Box>
-                <IconButton onClick={() => setView('grid')} size="large"><GridViewSharpIcon color={view === 'grid' ? 'success' : 'inherit'} /></IconButton>
-                <IconButton onClick={() => setView('list')} size="large"><ViewListIcon color={view === 'list' ? 'success' : 'inherit'} /></IconButton>
-              </Box>
-            </FlexContainer>
-          </SpaceBetween>
-        </Box>
-        {
-          view === 'list' && (
-          <Table
-            query={query}
-            updateQuery={updateQuery}
-            tickets={filteredTickets?.slice(
-              +query.page * +query.perPage,
-              (+query.page * +query.perPage) + +query.perPage,
-            )}
-          />
-          )
-        }
-        {
+        <FlexColumn>
+          <Box p={2}>
+            <SpaceBetween>
+              <FlexContainer>
+                <Title2>All tickets</Title2>
+                <ButtonLink to="/tickets/new">New Ticket</ButtonLink>
+              </FlexContainer>
+              <FlexContainer>
+                <Typography>View:</Typography>
+                <Box>
+                  <IconButton onClick={() => setView('grid')} size="large"><GridViewSharpIcon color={view === 'grid' ? 'success' : 'inherit'} /></IconButton>
+                  <IconButton onClick={() => setView('list')} size="large"><ViewListIcon color={view === 'list' ? 'success' : 'inherit'} /></IconButton>
+                </Box>
+              </FlexContainer>
+            </SpaceBetween>
+          </Box>
+          <Flex1>
+            {
+              view === 'list' && (
+              <Table
+                query={query}
+                updateQuery={updateQuery}
+                tickets={filteredTickets?.slice(
+                  +query.page * +query.perPage,
+                  (+query.page * +query.perPage) + +query.perPage,
+                )}
+              />
+              )
+            }
+            {
           view === 'grid' && (
             <Box pl={3} pr={3}>
               <TicketsGridContainer>
@@ -122,15 +126,16 @@ export default function Tickets() {
             </Box>
           )
         }
-        {filteredTickets && (
-        <Pagination
-          page={+query.page}
-          perPage={+query.perPage}
-          handleChange={updateQuery}
-          total={filteredTickets.length}
-        />
-        )}
-
+          </Flex1>
+          {filteredTickets && (
+          <Pagination
+            page={+query.page}
+            perPage={+query.perPage}
+            handleChange={updateQuery}
+            total={filteredTickets.length}
+          />
+          )}
+        </FlexColumn>
       </GridFullWidth>
     </Page>
   );

@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 export const HeaderContainer = styled.header`
   display: flex;
   flex: 1;
+  padding: 0 1.7em;
 `;
 
 export const HeaderLeft = styled.div`

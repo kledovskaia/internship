@@ -28,6 +28,7 @@ export const NavLink = styled(NLink)`
 `;
 
 export const GridContainer = styled.div`
+  min-height: 50.5rem;
   display: grid;
   grid-template-columns: repeat(12, minmax(2.2rem, 1fr));
   grid-gap: 2em;
@@ -41,6 +42,10 @@ grid-gap: 2em;
 export const GridFullWidth = styled(Paper)`
   overflow: hidden;
   grid-column: 1 / -1;
+  display: flex;
+  & > * {
+    flex: 1;
+  }
 `;
 
 export const GridMiddleWidth = styled(Paper)`
@@ -121,7 +126,6 @@ export const FlexColumn = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-
 `;
 export const Flex1 = styled.div`
   flex: 1;
@@ -153,3 +157,22 @@ export const LoginButton = muiStyled(Button)(({ theme }) => ({
   color: theme.palette.text.primary,
   background: theme.palette.background.default,
 }));
+
+export const PageContainer = styled.div`
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: max-content 1fr;
+`;
+export const Aside = styled.div`
+  grid-column: 1 / 2;
+  grid-row: 1 / -1;
+  min-width: 16em;
+
+  @media screen and (max-width: 80rem) {
+    min-width: 3.5em;
+  }
+`;
+export const Main = styled.main`
+  grid-column: 2 / -1;
+  padding: 1.7em;
+`;
