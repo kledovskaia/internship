@@ -3,11 +3,11 @@ import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box } from '@mui/system';
+import { formatDistance } from 'date-fns';
 import {
   Flex1, FlexColumn, FlexContainer, TicketContainer,
 } from '../../styles';
@@ -77,7 +77,12 @@ export default function Ticket({ ticket, isAuthor, handleDelete }: Props) {
             <Typography variant="body2" color="text.secondary">
               Updated
               {' '}
-              {moment.utc(ticket.updatedAt || ticket.createdAt).fromNow()}
+              { formatDistance(
+                new Date(),
+                new Date(ticket.updatedAt),
+              ) }
+              {' '}
+              ago
             </Typography>
           </Flex1>
           <FlexContainer mt={3}>

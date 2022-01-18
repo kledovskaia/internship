@@ -1,11 +1,11 @@
 import { Avatar, IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
+import { formatDistance } from 'date-fns';
 import { deleteTicket } from '../../../redux/thunks/tickets';
 import Priority from '../../Priority/Priority';
 import { getUser } from '../../../redux/selectors';
@@ -50,7 +50,12 @@ export default function TableRow({ ticket }: Props) {
             <Typography>
               updated
               {' '}
-              {moment.utc(ticket.updatedAt || ticket.createdAt).fromNow()}
+              { formatDistance(
+                new Date(),
+                new Date(ticket.updatedAt),
+              ) }
+              {' '}
+              ago
             </Typography>
           </Box>
         </TableCell>
