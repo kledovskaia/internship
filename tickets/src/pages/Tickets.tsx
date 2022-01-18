@@ -35,7 +35,8 @@ export default function Tickets() {
   const { query, updateQuery, updateQueryWithDebounce } = useQuery();
   const ticketCollection = useSelector(getTicketCollection);
   const [filteredTickets, setFilteredTickets] = useState<TTicket[]>();
-  const [view, setView] = useState<'grid' | 'list'>('list');
+  const localStorageView = localStorage.getItem('tickets-view') || 'list';
+  const [view, setView] = useState<'grid' | 'list'>(localStorageView as 'grid' | 'list');
 
   useEffect(() => {
     if (!query) return;
@@ -45,6 +46,7 @@ export default function Tickets() {
   }, [query, ticketCollection]);
 
   useEffect(() => {
+    localStorage.setItem('tickets-view', view);
     updateQuery('order');
   }, [view]);
 
