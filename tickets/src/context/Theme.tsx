@@ -2,29 +2,30 @@ import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { nanoid } from 'nanoid';
 import {
-  createContext, ReactNode, useCallback, useState,
+  createContext, ReactNode, useCallback, useEffect, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../redux/slices/messages';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: {
-      default: '#24242b',
-      paper: '#363740',
-      // paper: '#474853',
+const themes = {
+  light: createTheme({
+    palette: {
+      mode: 'light',
+      background: {
+        default: '#E5E5E5',
+      },
     },
-  },
-});
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-    background: {
-      default: '#E5E5E5',
+  }),
+  dark: createTheme({
+    palette: {
+      mode: 'dark',
+      background: {
+        default: '#24242b',
+        paper: '#363740',
+      },
     },
-  },
-});
+  }),
+};
 
 export const ThemeContext = createContext(null);
 
@@ -33,11 +34,19 @@ type Props = {
 }
 
 export function ThemeContextProvider({ children }: Props) {
-  const [theme, setTheme] = useState(darkTheme);
+  const type = localStorage.getItem('tickets-theme') || 'dark';
+  const [theme, setTheme] = useState(themes[type as keyof typeof themes]);
   const dispatch = useDispatch();
 
   const toggleMode = useCallback(() => {
-    setTheme((state) => (state === darkTheme ? lightTheme : darkTheme));
+    setTheme((state) => {
+      if (state === themes.dark) {
+        localStorage.setItem('tickets-theme', 'light');
+        return themes.light;
+      }
+      localStorage.setItem('tickets-theme', 'dark');
+      return themes.dark;
+    });
     dispatch(addMessage({
       id: nanoid(),
       type: 'success',
