@@ -14,7 +14,6 @@ import {
 import { initializeApp } from 'firebase/app';
 import { configTicketObj } from '../utils/configurators';
 import firebaseConfig from './config';
-// import { seed } from './seed'
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
