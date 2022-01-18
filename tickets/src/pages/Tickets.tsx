@@ -41,6 +41,7 @@ export default function Tickets() {
   useEffect(() => {
     if (!query) return;
     if (!ticketCollection) return;
+    if (+query.page * +query.perPage > ticketCollection.length) updateQuery('page', 0);
     const result = sortByQuery(query, ticketCollection);
     setFilteredTickets(result);
   }, [query, ticketCollection]);
