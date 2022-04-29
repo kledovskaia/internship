@@ -1,4 +1,4 @@
-# Проекты в рамках стажировки [`Performance Lab`](./md/docker.md)
+# Проекты в рамках стажировки [`Performance Lab`](https://www.performance-lab.ru/)
 
 <a href="#top"></a>
 
